@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="链接是将数据和代码片段合成单一文件的过程 连接器程序自动执行，使分离编译成为可能 7.1编译器的驱动程序编译器驱动程序，包括预处理器，编译器，汇编器和连接器  7.2 静态链接静态连接器接受可重定向的目标文件，和参数，输出完全链接的，可加载运行的目标文件 连接器的主要任务 1、符号解析 ​	符号对应函数、全局变量、静态变量，将符号定义和符号引用对应 2、重定位 ​	将符号与内存地址关联，修改对符号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2022/10/10/csapp/%E7%AC%AC%E4%B8%83%E7%AB%A0%20%E9%93%BE%E6%8E%A5_/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="链接是将数据和代码片段合成单一文件的过程 连接器程序自动执行，使分离编译成为可能 7.1编译器的驱动程序编译器驱动程序，包括预处理器，编译器，汇编器和连接器  7.2 静态链接静态连接器接受可重定向的目标文件，和参数，输出完全链接的，可加载运行的目标文件 连接器的主要任务 1、符号解析 ​	符号对应函数、全局变量、静态变量，将符号定义和符号引用对应 2、重定位 ​	将符号与内存地址关联，修改对符号">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217739.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217740.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217741.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217742.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217743.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217744.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217745.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217746.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217747.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217748.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217749.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217750.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217751.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217752.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217753.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217754.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217755.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217756.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217757.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217758.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217759.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217760.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217761.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217762.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217763.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217764.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217765.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217766.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217767.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217768.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217769.png">
+<meta property="article:published_time" content="2022-10-10T14:18:16.333Z">
+<meta property="article:modified_time" content="2022-10-10T14:18:16.333Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217739.png">
+  
+  
+  
+  <title>Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-10 22:18" pubdate>
+          2022年10月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>链接是将数据和代码片段合成单一文件的过程</p>
+<p>连接器程序自动执行，使分离编译成为可能</p>
+<h3 id="7-1编译器的驱动程序"><a href="#7-1编译器的驱动程序" class="headerlink" title="7.1编译器的驱动程序"></a>7.1编译器的驱动程序</h3><p>编译器驱动程序，包括预处理器，编译器，汇编器和连接器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217739.png" srcset="/img/loading.gif" lazyload alt="image-20220927230434254"></p>
+<h3 id="7-2-静态链接"><a href="#7-2-静态链接" class="headerlink" title="7.2 静态链接"></a>7.2 静态链接</h3><p>静态连接器接受可重定向的目标文件，和参数，输出完全链接的，可加载运行的目标文件</p>
+<p>连接器的主要任务</p>
+<p>1、符号解析</p>
+<p>​	符号对应函数、全局变量、静态变量，将符号定义和符号引用对应</p>
+<p>2、重定位</p>
+<p>​	将符号与内存地址关联，修改对符号的引用使其指向对应的内存位置</p>
+<h3 id="7-3-目标文件"><a href="#7-3-目标文件" class="headerlink" title="7.3 目标文件"></a>7.3 目标文件</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217740.png" srcset="/img/loading.gif" lazyload alt="image-20220927231425655"></p>
+<h3 id="7-4-可重定位目标文件"><a href="#7-4-可重定位目标文件" class="headerlink" title="7.4 可重定位目标文件"></a>7.4 可重定位目标文件</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217741.png" srcset="/img/loading.gif" lazyload alt="image-20221005212715787"></p>
+<p>ELF头描述生成该文件系统的字的大小和顺序，其余包含帮助连接器语法分析和解释目标文件</p>
+<p>不同节大小和位置由节头部表确定</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217742.png" srcset="/img/loading.gif" lazyload alt="image-20221005213127644"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217743.png" srcset="/img/loading.gif" lazyload alt="image-20221005213141172"></p>
+<p>注意函数的定义储存在text</p>
+<h3 id="7-5-符合和符号表"><a href="#7-5-符合和符号表" class="headerlink" title="7.5 符合和符号表"></a>7.5 符合和符号表</h3><p>符号表中符号种类：局部、全局、外部</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217744.png" srcset="/img/loading.gif" lazyload alt="image-20221005215118067"></p>
+<p>符号表中只储存静态程序变量，非静态程序变量运行时被栈管理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217745.png" srcset="/img/loading.gif" lazyload alt="image-20221006101113397"></p>
+<p>每个符号分配到目标文件的某个节，</p>
+<p>三个特殊的伪节，只会出现在可重定向目标文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217746.png" srcset="/img/loading.gif" lazyload alt="image-20221006100639212"></p>
+<p>GNU READELF可查看目标文件的工具</p>
+<h3 id="7-6-符号解析"><a href="#7-6-符号解析" class="headerlink" title="7.6 符号解析"></a>7.6 符号解析</h3><p>将每个引用与符号表中的符号关联</p>
+<p>编译器确保局部符号只有一个定义，确定拥有唯一的名字</p>
+<p>全局符号：若编译器遇到本模块未定义的符号时假定其在其他模块定义，生成连接器符号条目，交给连接器处理</p>
+<p>如果其他输入模块中未查询到，则报错，若查询到多个定义则报错或通过某种方法选择其中之一</p>
+<p>（c++重载，编译器根据函数和参数列表生成不同的连接器符号，成为重整，相反成为恢复）</p>
+<h4 id="7-61-连接器解析多重定义的全局符号"><a href="#7-61-连接器解析多重定义的全局符号" class="headerlink" title="7.61 连接器解析多重定义的全局符号"></a>7.61 连接器解析多重定义的全局符号</h4><p>编译器向汇编器输出的全局符号分为强符号和弱符号，（函数和已经初始化的符号为强，未初始化为弱）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217747.png" srcset="/img/loading.gif" lazyload alt="image-20221006105212214"></p>
+<p>如果编译器遇到一个弱符号，不确定其他模块是否含有同名符号，将其分配为COMMON，决定权留给编译器</p>
+<h4 id="7-62-与静态库链接"><a href="#7-62-与静态库链接" class="headerlink" title="7.62 与静态库链接"></a>7.62 与静态库链接</h4><p>可将目标模块打包为一个文件成为静态库，可作为连接器的输入</p>
+<p>连接过程中只会赋值静态库中被引用的模块，减少可执行文件在磁盘中的大小，和运行在内存中的大小</p>
+<p>在linux中静态库作为名为存档的特殊格式保存，（可重定位文件的集合.a后缀）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217748.png" srcset="/img/loading.gif" lazyload alt="image-20221006120353113"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217749.png" srcset="/img/loading.gif" lazyload alt="image-20221006120706988"></p>
+<h4 id="7-63-连接器如何使用静态库来解析引用"><a href="#7-63-连接器如何使用静态库来解析引用" class="headerlink" title="7.63 连接器如何使用静态库来解析引用"></a>7.63 连接器如何使用静态库来解析引用</h4><p>连接器从左到右扫描可重定位文件和存档文件，维护三个集合E（可重定位文件）、U（引用但未定义符号）、D（已定义符号）</p>
+<p>若输入文件未可重定位文件，则将其放入E，更新UD</p>
+<p>若输入文件未为存档，则遍历存档中的可重定位文件m，若m中定义了U中的符号，则将m放入E，更新UD，按照此过程遍历存档，直指UD无法更新</p>
+<p>若输入结束U为非空则报错，否则生成可执行文件</p>
+<p>所以输入顺序很重要，一般将库文件最后输入，若库之间相互依赖，则可重复输入库</p>
+<h3 id="7-7重定位"><a href="#7-7重定位" class="headerlink" title="7.7重定位"></a>7.7重定位</h3><p>合并输入模块，为每个符号分配运行时地址</p>
+<p>重定位分为两步：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217750.png" srcset="/img/loading.gif" lazyload alt="image-20221007110644626"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217751.png" srcset="/img/loading.gif" lazyload alt="image-20221007110657611"></p>
+<h4 id="7-71-重定位条目"><a href="#7-71-重定位条目" class="headerlink" title="7.71 重定位条目"></a>7.71 重定位条目</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217752.png" srcset="/img/loading.gif" lazyload alt="image-20221007111919604"></p>
+<p>​	<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217753.png" srcset="/img/loading.gif" lazyload alt="image-20221007112106279"></p>
+<p>重定位类型type</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217754.png" srcset="/img/loading.gif" lazyload alt="image-20221007112901081"></p>
+<h4 id="7-72-重定位符号的引用"><a href="#7-72-重定位符号的引用" class="headerlink" title="7.72 重定位符号的引用"></a>7.72 重定位符号的引用</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217755.png" srcset="/img/loading.gif" lazyload alt="image-20221007132317599"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217756.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217757.png" srcset="/img/loading.gif" lazyload alt="image-20221007210726006"></p>
+<p>type为pc相对寻址，重定位是将指令中引用的地址更改为一个相对偏移量，否则更改为绝对地址</p>
+<h3 id="7-8-可执行目标文件"><a href="#7-8-可执行目标文件" class="headerlink" title="7.8 可执行目标文件"></a>7.8 可执行目标文件</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217758.png" srcset="/img/loading.gif" lazyload alt="image-20221007203454633"></p>
+<p>含有加载到内存并运行的所有信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217759.png" srcset="/img/loading.gif" lazyload alt="image-20221007203756385"></p>
+<h3 id="7-9加载可执行目标文件"><a href="#7-9加载可执行目标文件" class="headerlink" title="7.9加载可执行目标文件"></a>7.9加载可执行目标文件</h3><p>加载器（操作系统代码）将文件从磁盘赋值到内存，跳转到程序的第一条指令运行该程序，称为加载</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217760.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217761.png" srcset="/img/loading.gif" lazyload alt="image-20221007220540456"></p>
+<h3 id="7-10-动态链接共享库"><a href="#7-10-动态链接共享库" class="headerlink" title="7.10 动态链接共享库"></a>7.10 动态链接共享库</h3><p>静态库解决了多个程序使用相同函数困难的问题，但更新后需要重新重新连接，且多个程序调用同一函数浪费内存</p>
+<p>共享库应运而生</p>
+<p>共享库是目标模块，在运行加载时可加载到任意内存地址，并和任意内存中的程序相连接，通过动态连接器执行<br>不必复制到可执行文件中</p>
+<p>微软中的DLL即为动态链接库</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217762.png" srcset="/img/loading.gif" lazyload alt="image-20221007221716010"></p>
+<p>链接器复制了一些共享库的重定位和符号表的相关信息，在加载时才完成链接过程，</p>
+<p>加载过程：</p>
+<p>首先加载部分链接的pro21（含有.interp包含动态连接器路径名），然后动态连接器加载运行，执行重定位链接过程</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217763.png" srcset="/img/loading.gif" lazyload alt="image-20221007223811873"></p>
+<h3 id="7-11-从应用程序中加载和链接共享库"><a href="#7-11-从应用程序中加载和链接共享库" class="headerlink" title="7.11 从应用程序中加载和链接共享库"></a>7.11 从应用程序中加载和链接共享库</h3><p>7.10讲的是运行前链接</p>
+<p>无需编译时链接，程序运行时加载链接运行共享库</p>
+<p>linux系统&lt;dlfcn.c&gt;中含有调用动态链接库的接口</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217764.png" srcset="/img/loading.gif" lazyload alt="image-20221007225353324"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217765.png" srcset="/img/loading.gif" lazyload alt="image-20221007225410656"></p>
+<h3 id="7-12-位置无关代码"><a href="#7-12-位置无关代码" class="headerlink" title="7.12 位置无关代码"></a>7.12 位置无关代码</h3><p>共享库的主要目的之一是允许运行中的多个进程公用同一个内存中的相同库代码，节省内存资源</p>
+<p>通过-fpic选项编译生成位置无关代码（PIC），可加载而无需重定位（无需连接器修改）</p>
+<p>1.PIC的数据引用</p>
+<p>​	前提：任何目标模块加载入内存，代码段的变量和数据段的指令相对位置不变，和内存位置无关</p>
+<p>​	编译器在PIC的数据段处建立全局偏移量表（GOT），表明该PIC中的全局符号数据段中的位置据代码段中引用都相对位置，编译器还会给GOT中的全局变量生成重定位记录</p>
+<p>2.PIC函数调用</p>
+<p>​	若调用共享库的函数，可通过生成重定位信息动态链接器解析，但这不是PIC因为要改变调用模块的代码</p>
+<p>延迟绑定：</p>
+<p>​	讲过程地址绑定推迟到第一次调用该进程</p>
+<p>​	减少重定位开销，第一次调用开销大，之后小</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217766.png" srcset="/img/loading.gif" lazyload alt="image-20221008152259153"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217767.png" srcset="/img/loading.gif" lazyload alt="image-20221008153055008"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217768.png" srcset="/img/loading.gif" lazyload alt="image-20221008153105707"></p>
+<h3 id="7-13-库打桩机"><a href="#7-13-库打桩机" class="headerlink" title="7.13 库打桩机"></a>7.13 库打桩机</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102217769.png" srcset="/img/loading.gif" lazyload alt="image-20221008154115586"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>http://example.com/2022/10/10/csapp/第七章 链接_/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/10/csapp/%E7%AC%AC%E5%85%AD%E7%AB%A0%20%E5%AD%98%E5%82%A8%E5%99%A8%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84_/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
