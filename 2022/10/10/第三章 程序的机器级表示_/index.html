@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="3.1历史观点inter处理器系列俗称x86 3.2程序编码 gcc指启动GCC C编译器也可简称 cc-Og指优化等级，较高优化等级会使代码变形-Og，来学习-o指最后产生的可执行文件的名字  3.21机器级代码机器级编程两种重要抽象1.指令集体系结构或指令集框架（ISA）定义及机器级程序的格式和行为，将指令描述为顺序执行的2.机器级程序使用的内存是虚拟的，内存模型是一个大数组 机器代码可访问对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="csapp 第三章 程序的机器级表示">
+<meta property="og:url" content="http://example.com/2022/10/10/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA_/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="3.1历史观点inter处理器系列俗称x86 3.2程序编码 gcc指启动GCC C编译器也可简称 cc-Og指优化等级，较高优化等级会使代码变形-Og，来学习-o指最后产生的可执行文件的名字  3.21机器级代码机器级编程两种重要抽象1.指令集体系结构或指令集框架（ISA）定义及机器级程序的格式和行为，将指令描述为顺序执行的2.机器级程序使用的内存是虚拟的，内存模型是一个大数组 机器代码可访问对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211916.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211917.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211918.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211919.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211921.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211922.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211923.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211924.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211925.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211960.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211926.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211927.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211928.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211929.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211930.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211931.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211932.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211933.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211934.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211935.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211936.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211937.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211961.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211938.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211939.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211940.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211941.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211962.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211963.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211964.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211965.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211942.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211966.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211943.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211944.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211945.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211967.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211946.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211947.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211948.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211949.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211950.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211951.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211952.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211953.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211954.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211955.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211956.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211957.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211958.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211959.png">
+<meta property="article:published_time" content="2022-10-10T14:13:10.788Z">
+<meta property="article:modified_time" content="2022-10-11T04:07:32.003Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211916.png">
+  
+  
+  
+  <title>csapp 第三章 程序的机器级表示 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="csapp 第三章 程序的机器级表示"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-10 22:13" pubdate>
+          2022年10月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">csapp 第三章 程序的机器级表示</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="3-1历史观点"><a href="#3-1历史观点" class="headerlink" title="3.1历史观点"></a>3.1历史观点</h2><p>inter处理器系列俗称x86</p>
+<h2 id="3-2程序编码"><a href="#3-2程序编码" class="headerlink" title="3.2程序编码"></a>3.2程序编码</h2><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211916.png" srcset="/img/loading.gif" lazyload alt="image-20220806163522310"></p>
+<p>gcc指启动GCC C编译器也可简称 cc<br>-Og指优化等级，较高优化等级会使代码变形-Og，来学习<br>-o指最后产生的可执行文件的名字</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211917.png" srcset="/img/loading.gif" lazyload alt="编译过程"></p>
+<h3 id="3-21机器级代码"><a href="#3-21机器级代码" class="headerlink" title="3.21机器级代码"></a>3.21机器级代码</h3><p>机器级编程两种重要抽象<br>1.指令集体系结构或指令集框架（ISA）定义及机器级程序的格式和行为，将指令描述为顺序执行的<br>2.机器级程序使用的内存是虚拟的，内存模型是一个大数组</p>
+<p>机器代码可访问对c程序不可见的信息：<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211918.png" srcset="/img/loading.gif" lazyload alt="image-20220806214121378"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211919.png" srcset="/img/loading.gif" lazyload alt="image-20220806214138412"></p>
+<p>机器代码在内存中不区分数据类型</p>
+<p>程序内存中包括，机器代码、操作系统所需要的一些信息、用户分配的内存块</p>
+<h3 id="3-22代码实例"><a href="#3-22代码实例" class="headerlink" title="3.22代码实例"></a>3.22代码实例</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211921.png" srcset="/img/loading.gif" lazyload alt="image-20220806215014552"></p>
+<p>该命令产生汇编代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211922.png" srcset="/img/loading.gif" lazyload alt="image-20220806215318108"></p>
+<p>该命令产生机器代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211923.png" srcset="/img/loading.gif" lazyload alt="image-20220806215407659"></p>
+<p>反汇编器可通过机器代码产生对应的汇编代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211924.png" srcset="/img/loading.gif" lazyload alt="image-20220806215727470"></p>
+<p>该命令通过连接器链接过程代码和程序代码产生可执行程序</p>
+<h3 id="3-23-关于格式的注解"><a href="#3-23-关于格式的注解" class="headerlink" title="3.23 关于格式的注解"></a>3.23 关于格式的注解</h3><h2 id="3-3数据格式"><a href="#3-3数据格式" class="headerlink" title="3.3数据格式"></a>3.3数据格式</h2><p>c语言数据类型对应的x86-64表示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211925.png" srcset="/img/loading.gif" lazyload alt="image-20220807213234023"><br>longdouble是x86特有的浮点格式10字节，无法迁移，且效率较低</p>
+<p>1字2字节16位</p>
+<h2 id="3-4访问信息"><a href="#3-4访问信息" class="headerlink" title="3.4访问信息"></a>3.4访问信息</h2><p>cpu中通用寄存器名字演变历史<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211960.png" srcset="/img/loading.gif" lazyload alt="image-20220807213852597"  /></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211926.png" srcset="/img/loading.gif" lazyload alt="image-20220807214017306"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211927.png" srcset="/img/loading.gif" lazyload alt="image-20220807214038403"></p>
+<p>指令的字节级操作可以访问寄存器的低位字节，比如8位操作可以访问寄存器的最低位的一个字节</p>
+<p>两条规则：<br>1.生成1或2字节的指令保持寄存器其他位置不变<br>2.生成4字节的指令让高位为0</p>
+<h3 id="3-41操作数指示符"><a href="#3-41操作数指示符" class="headerlink" title="3.41操作数指示符"></a>3.41操作数指示符</h3><p>指令的操作数指出指令的操作对象</p>
+<p>三种操作数：<br>1.立即数表示常数值，书写格式为＄+c表示法整数<br>2.寄存器，ra表示寄存器，R[ra]表示期中的值<br>3.内存引用，Mb[Adrr]意味Adrr地址开始的b个字节的引用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211928.png" srcset="/img/loading.gif" lazyload alt="寻址方式"></p>
+<h3 id="3-42-数据传送指令"><a href="#3-42-数据传送指令" class="headerlink" title="3.42 数据传送指令"></a>3.42 数据传送指令</h3><p>指令类包含的指令执行的操作相同，操作数不同</p>
+<p>数据传输指令MOV类<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211929.png" srcset="/img/loading.gif" lazyload alt="image-20220807224309581"></p>
+<p>源操作数是立即数或位置，目的操作数是一个位置，x86-64禁止两个操作数都为地址</p>
+<p>指令传输数据大小大小必须与寄存器大小相匹配</p>
+<p>常规movq传输32位补码符号拓展到64位，movabsq指令传送64位立即数，且目的操作数只能是寄存器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211930.png" srcset="/img/loading.gif" lazyload alt="image-20220807225411150"></p>
+<p>较小的源移动到较大的目的时使用</p>
+<p>每条指令的最后两个字母指明数据源和目的的大小</p>
+<p>MOVZ为零扩展MOVS为符号扩展</p>
+<p>注意到4字节扩展8字节只有符号拓展，因为普通传输会将高位字节赋值0</p>
+<h3 id="3-44-压入和弹出栈数据"><a href="#3-44-压入和弹出栈数据" class="headerlink" title="3.44 压入和弹出栈数据"></a>3.44 压入和弹出栈数据</h3><p>程序栈向下增长，栈顶地址最低</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211931.png" srcset="/img/loading.gif" lazyload alt="image-20220807235907657"></p>
+<p>指令的操作数为入栈的源，和出栈的目的</p>
+<p>入栈时要将栈指针-8后数据入栈，栈指针永远指向栈顶</p>
+<p>可以通过标准的寻址方式，访问栈指针更改栈</p>
+<h2 id="3-5-算数和逻辑操作"><a href="#3-5-算数和逻辑操作" class="headerlink" title="3.5 算数和逻辑操作"></a>3.5 算数和逻辑操作</h2><p>每个指令类都包含对字节、字、双字、四字的操作</p>
+<p>操作分为：加载有效地址、一元操作、二元操作、位移</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211932.png" srcset="/img/loading.gif" lazyload alt="image-20220808000840037"></p>
+<h3 id="3-51-加载有效地址"><a href="#3-51-加载有效地址" class="headerlink" title="3.51 加载有效地址"></a>3.51 加载有效地址</h3><p>目的操作数为寄存器</p>
+<p>可通过比例变址寻址执行加法和有限的乘法</p>
+<h3 id="3-52-一元和二元操作"><a href="#3-52-一元和二元操作" class="headerlink" title="3.52 一元和二元操作"></a>3.52 一元和二元操作</h3><p>一元操作的唯一一个操作数既是源又是目的，不可以是立即数</p>
+<p>二元操作数第一个操作数是源，可以是立即数，第二个操作数既是源又是目的</p>
+<h3 id="3-53-位移操作"><a href="#3-53-位移操作" class="headerlink" title="3.53 位移操作"></a>3.53 位移操作</h3><p>第一个操作数是立即数或者单字节寄存器%lc</p>
+<p>被位移数的长度决定位移数的有效位数               <img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211933.png" srcset="/img/loading.gif" lazyload alt="image-20220808103030613"></p>
+<p>算数右移和逻辑右移表示<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211934.png" srcset="/img/loading.gif" lazyload alt="image-20220808103214206"></p>
+<h3 id="3-54-讨论"><a href="#3-54-讨论" class="headerlink" title="3.54 讨论"></a>3.54 讨论</h3><h3 id="3-55特殊的算数操作"><a href="#3-55特殊的算数操作" class="headerlink" title="3.55特殊的算数操作"></a>3.55特殊的算数操作</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211935.png" srcset="/img/loading.gif" lazyload alt="image-20220808110508693"></p>
+<p>编译器可以检测imuq的操作数的数目分辨是哪一个指令，3-12中一个操作数产生128位结果高位放于rax低位放于rax，<br>需要先将操作数放入固定寄存器中再调用指令</p>
+<h2 id="3-6控制"><a href="#3-6控制" class="headerlink" title="3.6控制"></a>3.6控制</h2><h3 id="3-61-条件码"><a href="#3-61-条件码" class="headerlink" title="3.61 条件码"></a>3.61 条件码</h3><p>cpu中有4个条件码寄存器，描述最近的算数和逻辑操作的属性<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211936.png" srcset="/img/loading.gif" lazyload alt="image-20220808163030515"></p>
+<p>改变条件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211937.png" srcset="/img/loading.gif" lazyload alt="image-20220808163520757"></p>
+<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211961.png" srcset="/img/loading.gif" lazyload alt="image-20220808163951287" style="zoom:50%;" />
+
+<p>CMP类用于比较操作数，若两数相等则零标志设1，若不相等则通过其他三个标志判断大小，其结果等同于SUB类</p>
+<h3 id="3-62-访问条件码"><a href="#3-62-访问条件码" class="headerlink" title="3.62 访问条件码"></a>3.62 访问条件码</h3><p>条件码通常不会直接读取，一般使用的三种方法:<br>1.通过条件码组合将一个字节设置为0或1<br>2.条件跳转到程序的某个部位<br>3.条件传输数据</p>
+<p>对于第一种情况，我们有SET类，指令名字的不同在于条件码的组合<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211938.png" srcset="/img/loading.gif" lazyload alt="image-20220808170412273"></p>
+<p>操作数为低位单字节寄存器时，指令会将其高位数据清零</p>
+<p>set根据条件码判断规则</p>
+<p>有符号根据溢出<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211939.png" srcset="/img/loading.gif" lazyload alt="image-20220808175243769"></p>
+<p>无符号根据进位标志</p>
+<h3 id="3-63-跳转指令"><a href="#3-63-跳转指令" class="headerlink" title="3.63 跳转指令"></a>3.63 跳转指令</h3><p>跳转指令的目的地通常用标号指明label</p>
+<p>jmp，直接跳转操作数为label，间接跳转操作数为星号*+一个地址或寄存器<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211940.png" srcset="/img/loading.gif" lazyload alt="image-20220808195212441"></p>
+<p>条件跳转根据条件码的组合判断条件是否符合</p>
+<h3 id="3-64跳转指令的编码"><a href="#3-64跳转指令的编码" class="headerlink" title="3.64跳转指令的编码"></a>3.64跳转指令的编码</h3><p>跳转指令的编码标签会转化成地址<br>PC相对寻址，会根据当前的PC程序计数器，一般是跳转指令下一条指令的地址<br>绝对地址寻址</p>
+<h3 id="3-65-用条件控制实现条件分支"><a href="#3-65-用条件控制实现条件分支" class="headerlink" title="3.65 用条件控制实现条件分支"></a>3.65 用条件控制实现条件分支</h3><h3 id="3-66用条件传送实现条件分支"><a href="#3-66用条件传送实现条件分支" class="headerlink" title="3.66用条件传送实现条件分支"></a>3.66用条件传送实现条件分支</h3><p>数据的条件转移：</p>
+<p>计算一个条件操作的两种结果，根据条件是否满足选取一个，可以只用一个简单的条件传输命令实现</p>
+<p>条件数据传送效率高于条件控制转移，原因流水线要提前处理之后的指令，条件转移指令后的指令不确定，一旦预测失败需要重新处理</p>
+<p>条件传送指令同SET和跳转指令，操作取决于条件码，满足条件传输数据<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211941.png" srcset="/img/loading.gif" lazyload alt="image-20220808215701504"></p>
+<p>注意：条件数据传输两个分支都执行，当任意一个分支会出现错误时会产生错误，此时只能用条件控制转移<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211962.png" srcset="/img/loading.gif" lazyload alt="image-20220808220612532" style="zoom: 50%;" /></p>
+<p>且当分支计算量过大时条件数据转移也不能优化</p>
+<h3 id="3-67循环"><a href="#3-67循环" class="headerlink" title="3.67循环"></a>3.67循环</h3><p>条件测试和跳转结合实现循环</p>
+<p>do-while循环</p>
+<p>while和for循环，两种翻译方式取决于编译等级<br>较低级的编译会编译成，跳转到中间的形式<br>较高级的编译会翻译成，guarded-do，首先执行一次条件跳转，不满足则跳过循环，否则执行do-while循环</p>
+<h3 id="3-68-switch"><a href="#3-68-switch" class="headerlink" title="3.68 switch"></a>3.68 switch</h3><p>开关语句可以通过使用跳转表实现，该数据结构是个数组，通过开关索引选择操作<br>和ifelse语句相比，跳转表的优势是执行判断条件语句时间和分支数量无关<br>gcc翻译开关语句，根据索引值的多少和稀疏程度判断是否使用跳转表<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211963.png" srcset="/img/loading.gif" lazyload alt="image-20220809114241423" style="zoom: 50%;" /></p>
+<p>注意，若小于100发生溢出也算&gt;100</p>
+<h2 id="3-7-过程"><a href="#3-7-过程" class="headerlink" title="3.7 过程"></a>3.7 过程</h2><p>封装代码的方式，用一组指定的参数和一个可选的返回值，实现某种功能（函数）</p>
+<p>过程调用的机制：<br>传递控制，主要是pc值的改动<br>传递数据，包括参数和返回值<br>分配和释放内存</p>
+<h3 id="3-71-运行时栈"><a href="#3-71-运行时栈" class="headerlink" title="3.71 运行时栈"></a>3.71 运行时栈</h3><p>c语言过程用栈做内存管x</p>
+<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211964.png" srcset="/img/loading.gif" lazyload alt="image-20220809205838470" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211965.png" srcset="/img/loading.gif" lazyload alt="image-20220809172759952" style="zoom:50%;" />
+
+<p>x86-64会在超出寄存器存放大小的时候在栈上分配空间</p>
+<p>过程帧,比较重要，建议看原文</p>
+<h3 id="3-72-控制转移"><a href="#3-72-控制转移" class="headerlink" title="3.72 控制转移"></a>3.72 控制转移</h3><p>过程P中调用过程Q，只需要改PC值为Q的起始地址，但返回的时候需要返回P继续执行的位置</p>
+<p>指令call Q将当前地址压入栈，PC改为Q起始地址<br>ret将栈中地址出栈放入PC</p>
+<h3 id="3-73数据传送"><a href="#3-73数据传送" class="headerlink" title="3.73数据传送"></a>3.73数据传送</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211942.png" srcset="/img/loading.gif" lazyload alt="image-20220809205456970"></p>
+<p>过程调用参数的传递通过寄存器实现</p>
+<p>当函数含有大于6个参数的时候，大于的参数通过栈传递<br>函数调用过程中栈指针指向上一个函数的返回地址，且每个参数分配8个字节，所以栈指针+8*n即可访问<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211966.png" srcset="/img/loading.gif" lazyload alt="image-20220809210342221" style="zoom:50%;" /></p>
+<h3 id="3-74栈上的局部储存"><a href="#3-74栈上的局部储存" class="headerlink" title="3.74栈上的局部储存"></a>3.74栈上的局部储存</h3><p>局部数据被储存在内存中的情况<br>1.寄存器不够用<br>2.对一个局部变量使用地址运算符，因此必须产生一个地址<br>3.局部变量是数组或结构</p>
+<h3 id="3-75-寄存器中的局部存储空间"><a href="#3-75-寄存器中的局部存储空间" class="headerlink" title="3.75 寄存器中的局部存储空间"></a>3.75 寄存器中的局部存储空间</h3><p>寄存器是被所有过程共享的空间</p>
+<p>寄存器使用惯例：<br>%rbx、%rbp、%r12~r15为被调用者保存寄存器，被调用进程使用这些寄存器时许将期中数据压入栈（图中栈帧的第一部分），返回时顺序弹出，或者不使用这些寄存器<br>其他除了栈指针%rsp为调用者保存寄存器，因为所有进程都可以使用，所以保护这些寄存器是调用者的责任</p>
+<h3 id="3-76-递归过程"><a href="#3-76-递归过程" class="headerlink" title="3.76 递归过程"></a>3.76 递归过程</h3><h2 id="3-数组的分配和访问"><a href="#3-数组的分配和访问" class="headerlink" title="3.数组的分配和访问"></a>3.数组的分配和访问</h2><h3 id="3-81基本原则"><a href="#3-81基本原则" class="headerlink" title="3.81基本原则"></a>3.81基本原则</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211943.png" srcset="/img/loading.gif" lazyload alt="image-20220810145808846"></p>
+<p>注意c语言中的指针数组和数组指针A *ar【】是指针数组</p>
+<p>x86-64的内存引用指令可以简化数组访问</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211944.png" srcset="/img/loading.gif" lazyload alt="image-20220810150443575"></p>
+<h3 id="3-82-指针运算"><a href="#3-82-指针运算" class="headerlink" title="3.82 指针运算"></a>3.82 指针运算</h3><p>指针的算数运算会根据指针引用的数据类型进行缩进</p>
+<p>&amp;*运算符</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211945.png" srcset="/img/loading.gif" lazyload alt="image-20220810151912812"></p>
+<h3 id="3-83-嵌套的数组"><a href="#3-83-嵌套的数组" class="headerlink" title="3.83 嵌套的数组"></a>3.83 嵌套的数组</h3><h3 id="3-84定长数组"><a href="#3-84定长数组" class="headerlink" title="3.84定长数组"></a>3.84定长数组</h3><p>c编译器优化定长多维数组的操作代码<br>具体而言就是去掉数组索引i，将数组索引更换为指针的间接引用<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211967.png" srcset="/img/loading.gif" lazyload alt="image-20220810160850723" style="zoom:80%;" /></p>
+<h3 id="3-85-变长数组"><a href="#3-85-变长数组" class="headerlink" title="3.85  变长数组"></a>3.85  变长数组</h3><p>c99支持数组长度为表达式</p>
+<p>因为参变长数组的长度程序未知，储存在寄存器中，所以不能用leap而用乘法指令，开销较大</p>
+<p>编译器优化保留循环变量，但是将数组索引更换为指针的间接引用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211946.png" srcset="/img/loading.gif" lazyload alt="image-20220810163309952"><br>没看懂</p>
+<h2 id="3-9异质的数据结构"><a href="#3-9异质的数据结构" class="headerlink" title="3.9异质的数据结构"></a>3.9异质的数据结构</h2><p>c允许将多个对象集合到一个单位中称为struct ，多种数据类型引用一个对象</p>
+<h3 id="3-91-结构"><a href="#3-91-结构" class="headerlink" title="3.91 结构"></a>3.91 结构</h3><p>结构的所有组成部分放进内存的一段连续区域，指向结构的指针是结构的第一个字节的地址</p>
+<p>编译器维护每个结构类型的信息，指示每个字段的字节偏移，结构内部对象的指针可通过结构体的指针加上偏移量</p>
+<h3 id="3-92-联合"><a href="#3-92-联合" class="headerlink" title="3.92 联合"></a>3.92 联合</h3><p>联合规避c语言的类型系统，允许以多种类型引用同一个对象，用不同的字段引用相同的内存块。</p>
+<p>联合的大小等于最大字段的大小</p>
+<p>以一种联合中的字段储存数据，以另一种字段访问得到的位模式不变</p>
+<h3 id="3-93-数据对齐"><a href="#3-93-数据对齐" class="headerlink" title="3.93 数据对齐"></a>3.93 数据对齐</h3><p>许多计算机系统对<strong>基本</strong>数据类型地址作出限制，只能是K值的倍数（可能是2、4、8的倍数），方便内存与处理器之间的硬件接口设计</p>
+<p>对齐原则，任何k字节的数据类型的地址必须是k的倍数</p>
+<p>每个特定平台上的编译器都有自己默认的“对齐系数”，可以通过预编译命令#pragma pack(n),n&#x3D;1,2,4,6,8,16来改变这一系数</p>
+<p>结构体中的字段中可以插入空隙以满足对齐要求</p>
+<h2 id="3-10-在机器级程序中将控制与数据相结合"><a href="#3-10-在机器级程序中将控制与数据相结合" class="headerlink" title="3.10 在机器级程序中将控制与数据相结合"></a>3.10 在机器级程序中将控制与数据相结合</h2><h3 id="3-101-理解指针"><a href="#3-101-理解指针" class="headerlink" title="3.101 理解指针"></a>3.101 理解指针</h3><p>指针用&amp;运算符创建，可以用到任意lvalue类型c表达式，即左值</p>
+<p>数组引用和间接引用*都需要用对象大小对偏移量进行伸缩</p>
+<p>强制类型转换只改变类型不改变值，改变偏移量伸缩</p>
+<p>指针可以指向一个函数，函数指针指向函数机器代码的第一条指令</p>
+<h3 id="3-102-应用：使用GDB调试器"><a href="#3-102-应用：使用GDB调试器" class="headerlink" title="3.102 应用：使用GDB调试器"></a>3.102 应用：使用GDB调试器</h3><p>支持机器级程序的运行和分析</p>
+<p>可以在程序中设置断点，断点处可以查看内存和寄存器的数据，类似ide中的调试</p>
+<h3 id="3-103-内存越界引用和缓冲区溢出"><a href="#3-103-内存越界引用和缓冲区溢出" class="headerlink" title="3.103 内存越界引用和缓冲区溢出"></a>3.103 内存越界引用和缓冲区溢出</h3><p>c语言的数组引用没有边界检测，可能破坏栈中的状态信息（返回地址寄存器内容等）</p>
+<p>利用缓冲区溢出的漏洞是一种常见的网络攻击手段，输入字符串攻击代码，再将某个返回地址指向这个攻击代码</p>
+<h3 id="3-104-对抗缓冲区溢出攻f"><a href="#3-104-对抗缓冲区溢出攻f" class="headerlink" title="3.104 对抗缓冲区溢出攻f"></a>3.104 对抗缓冲区溢出攻f</h3><p>栈随机化，插入的指针不知道攻击代码的地址</p>
+<p>栈破坏检测，在破坏掉重要状态信息之前检测是否栈发生损坏，方式是设置检测金丝雀值</p>
+<p>限制可执行代码的区域，消除攻击者向程序中插入可执行代码的能力</p>
+<h3 id="3-105-支持可变长栈帧"><a href="#3-105-支持可变长栈帧" class="headerlink" title="3.105 支持可变长栈帧"></a>3.105 支持可变长栈帧</h3><p>为了支持变长栈引入帧指针（frame pointer）%rbp</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013616945/article/details/77170959?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166039454116781790748038%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166039454116781790748038&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-3-77170959-null-null.142%5Ev40%5Enew_blog_pos_by_title,185%5Ev2%5Econtrol&utm_term=%E6%95%B0%E6%8D%AE%E5%AF%B9%E9%BD%90&spm=1018.2226.3001.4187">博客</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211947.png" srcset="/img/loading.gif" lazyload alt="image-20220813211622243"></p>
+<p>​			<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211948.png" srcset="/img/loading.gif" lazyload alt="image-20220813211652134"></p>
+<p>​												<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211949.png" srcset="/img/loading.gif" lazyload alt="image-20220813212625919"></p>
+<p>较早版本x86全部栈帧都使用栈指针，当先版本只有栈帧可变的情况使用</p>
+<h2 id="3-11-浮点代码"><a href="#3-11-浮点代码" class="headerlink" title="3.11 浮点代码"></a>3.11 浮点代码</h2><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211950.png" srcset="/img/loading.gif" lazyload alt="image-20220814160012701"></p>
+<p>本章基于AVX（高级向量拓展）</p>
+<p>AVX浮点体系结构允许数据储存在16个256位YMM寄存器中<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211951.png" srcset="/img/loading.gif" lazyload alt="image-20220814161239801"></p>
+<h3 id="3-111-浮点传送和转换操作"><a href="#3-111-浮点传送和转换操作" class="headerlink" title="3.111 浮点传送和转换操作"></a>3.111 浮点传送和转换操作</h3><p>标量指令是指对单个数据而非封装好的一组数据操作</p>
+<p>GCC只用标量传送在内存和寄存器之间传送数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211952.png" srcset="/img/loading.gif" lazyload alt="image-20220814161624293"></p>
+<p>数据没有对齐会产生错误</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211953.png" srcset="/img/loading.gif" lazyload alt="image-20220814162301670"></p>
+<p>第二个操作数只会影响高位字节，对转换没有影响</p>
+<p>单精度浮点和双精度浮点之间的相互转化|</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211954.png" srcset="/img/loading.gif" lazyload alt="image-20220816212110203"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211955.png" srcset="/img/loading.gif" lazyload alt="image-20220816212146637"></p>
+<h3 id="3-112过程中的浮点代码"><a href="#3-112过程中的浮点代码" class="headerlink" title="3.112过程中的浮点代码"></a>3.112过程中的浮点代码</h3><p>%emm0~7可作为函数参数传递浮点数，%xmm0做返回值，所有XMM寄存器都是调用者保存，被调用者不用保存</p>
+<h3 id="3-113-浮点运算操作"><a href="#3-113-浮点运算操作" class="headerlink" title="3.113 浮点运算操作"></a>3.113 浮点运算操作</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211956.png" srcset="/img/loading.gif" lazyload alt="image-20220816212917387"></p>
+<p>S1可以为内存和寄存器，S2为XMM寄存器</p>
+<h3 id="3-114-定义和使用浮点常数"><a href="#3-114-定义和使用浮点常数" class="headerlink" title="3.114 定义和使用浮点常数"></a>3.114 定义和使用浮点常数</h3><p>ＡＶＸ浮点操作不能使用立即数，要将为常数分配内存然后读取</p>
+<h3 id="3-115-在浮点代码中使用位级操作"><a href="#3-115-在浮点代码中使用位级操作" class="headerlink" title="3.115 在浮点代码中使用位级操作"></a>3.115 在浮点代码中使用位级操作</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211957.png" srcset="/img/loading.gif" lazyload alt="image-20220816214110126"></p>
+<h3 id="3-116-浮点比较操作"><a href="#3-116-浮点比较操作" class="headerlink" title="3.116 浮点比较操作"></a>3.116 浮点比较操作</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211958.png" srcset="/img/loading.gif" lazyload alt="image-20220816214345733"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211959.png" srcset="/img/loading.gif" lazyload alt="image-20220816214401775"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/csapp/" class="category-chain-item">csapp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>csapp 第三章 程序的机器级表示</div>
+      <div>http://example.com/2022/10/10/第三章 程序的机器级表示_/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/10/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_/" title="csapp 第四章 处理器体系结构">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">csapp 第四章 处理器体系结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/10/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86_/" title="csapp 第二章 信息的表示和处理">
+                        <span class="hidden-mobile">csapp 第二章 信息的表示和处理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

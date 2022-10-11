@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="处理器支持的指令和指令的字节级编码称为指令集体系结构ISA 4.1指令集体系结构定义指令集体系结构包括定义各种单元状态、指令集和他们的编码、一组编程规范、和异常事件处理。 4.11程序员可见的状态是指指令运行中会改变的处理器某些状态 Y86-64的可见状态start指示程序运行的总体状态 4.12Y86-64指令只包括8字节整数操作，寻址方式较少，8字节为1字  ​	movq指令类含有四个指令，显">
+<meta property="og:type" content="article">
+<meta property="og:title" content="csapp 第四章 处理器体系结构">
+<meta property="og:url" content="http://example.com/2022/10/10/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84_/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="处理器支持的指令和指令的字节级编码称为指令集体系结构ISA 4.1指令集体系结构定义指令集体系结构包括定义各种单元状态、指令集和他们的编码、一组编程规范、和异常事件处理。 4.11程序员可见的状态是指指令运行中会改变的处理器某些状态 Y86-64的可见状态start指示程序运行的总体状态 4.12Y86-64指令只包括8字节整数操作，寻址方式较少，8字节为1字  ​	movq指令类含有四个指令，显">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213782.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213783.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213784.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213785.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213786.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213787.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213788.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213789.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213790.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213791.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213792.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213793.png">
+<meta property="og:image" content="http://example.com/pic/image-20220904144733406.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213794.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213796.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213797.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213798.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213799.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213800.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213801.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213802.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213803.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213804.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213805.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213806.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213807.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213808.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213809.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213810.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213811.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213812.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213813.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213814.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213815.png">
+<meta property="og:image" content="http://example.com/pic/image-20220905140739791.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213816.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213817.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213818.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213819.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213820.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213821.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213822.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213823.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213824.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213825.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213826.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213827.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213828.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213829.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213830.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213831.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213832.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213833.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213834.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213835.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213836.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213837.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213838.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213839.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213840.png">
+<meta property="og:image" content="http://example.com/pic/image-20220906184947526.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213841.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213842.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213843.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213844.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213845.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213846.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213847.png">
+<meta property="article:published_time" content="2022-10-10T14:15:24.615Z">
+<meta property="article:modified_time" content="2022-10-11T04:07:36.572Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213782.png">
+  
+  
+  
+  <title>csapp 第四章 处理器体系结构 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="csapp 第四章 处理器体系结构"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-10 22:15" pubdate>
+          2022年10月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">csapp 第四章 处理器体系结构</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>处理器支持的指令和指令的字节级编码称为指令集体系结构ISA</p>
+<h3 id="4-1指令集体系结构"><a href="#4-1指令集体系结构" class="headerlink" title="4.1指令集体系结构"></a>4.1指令集体系结构</h3><p>定义指令集体系结构包括定义各种单元状态、指令集和他们的编码、一组编程规范、和异常事件处理。</p>
+<h4 id="4-11程序员可见的状态"><a href="#4-11程序员可见的状态" class="headerlink" title="4.11程序员可见的状态"></a>4.11程序员可见的状态</h4><p>是指指令运行中会改变的处理器某些状态</p>
+<p>Y86-64的可见状态<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213782.png" srcset="/img/loading.gif" lazyload alt="image-20220902091626698"><br>start指示程序运行的总体状态</p>
+<h4 id="4-12Y86-64指令"><a href="#4-12Y86-64指令" class="headerlink" title="4.12Y86-64指令"></a>4.12Y86-64指令</h4><p>只包括8字节整数操作，寻址方式较少，8字节为1字</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213783.png" srcset="/img/loading.gif" lazyload alt="image-20220902102500253"></p>
+<p>​	movq指令类含有四个指令，显示指明源操作数和目的操作数的类型，i、r、m分别为立即数、寄存器、内存。指令的首字母表示源类型<br>​	内存传输指令的寻址方式是，基址和偏移量，<br>​	不允许地址间数据传输，且不允许立即数传输至内存</p>
+<p>​	四个整数操作指令，OPq，即addq、subq、andq、xorq，只对寄存器值操作，且改变条件码</p>
+<p>​	七个跳转指令，根据条件码和指令类型处理，同x86</p>
+<p>​	六个条件传输指令，条件码满足约束条件，在寄存器间传输数据</p>
+<h4 id="4-13指令编码"><a href="#4-13指令编码" class="headerlink" title="4.13指令编码"></a>4.13指令编码</h4><p>​	每条指令需要1~10个字节不等<br>​	每条指令首字节表明指令的类型，高四位称为代码部分，第四位称为功能部分，功能值在相关指令公用相同代码值时使用，rrmovq和条件数据传输指令公用<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213784.png" srcset="/img/loading.gif" lazyload alt="image-20220902111046199"></p>
+<p>寄存器文件就是cpu中以寄存器ID为地址的随机访问存储器<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213785.png" srcset="/img/loading.gif" lazyload alt="image-20220902111431914"></p>
+<p>若指令只需一个寄存器，则将寄存器指示符字节第四位设为0XF</p>
+<p>整数采用小端法编码，字节以相反的顺序出现</p>
+<p>指令的首个字节有唯一代码和功能重合，根据首字节可以推断出其后所附加字节长度和含义</p>
+<h4 id="4-14-Y86-64异常"><a href="#4-14-Y86-64异常" class="headerlink" title="4.14 Y86-64异常"></a>4.14 Y86-64异常</h4><p>start状态码<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213786.png" srcset="/img/loading.gif" lazyload alt="image-20220902133657250"></p>
+<p>ADR为试图访问超出限制范围的地址</p>
+<h4 id="4-16一些Y86-64指令的详情"><a href="#4-16一些Y86-64指令的详情" class="headerlink" title="4.16一些Y86-64指令的详情"></a>4.16一些Y86-64指令的详情</h4><p>pushq %rsp 两种约定，Y86采用压入%rsq-8</p>
+<h3 id="4-2逻辑设置和硬件控制语言HCL"><a href="#4-2逻辑设置和硬件控制语言HCL" class="headerlink" title="4.2逻辑设置和硬件控制语言HCL"></a>4.2逻辑设置和硬件控制语言HCL</h3><p>数字系统有三个组成部分，计算对位进行操作的函数的组合逻辑、储存位的储存器单元，以及控制储存器单元的刷新的时钟信号</p>
+<p>逻辑合成程序可使用HDL语言生成有效电路设计</p>
+<h3 id="4-21逻辑门"><a href="#4-21逻辑门" class="headerlink" title="4.21逻辑门"></a>4.21逻辑门</h3><h4 id="4-22组合电路和HCL布尔表达式"><a href="#4-22组合电路和HCL布尔表达式" class="headerlink" title="4.22组合电路和HCL布尔表达式"></a>4.22组合电路和HCL布尔表达式</h4><p>逻辑门组成的网能构成计算块，称为组合电路<br>几个限制：<br>1、逻辑门的输入必须是系统输入、储存单元输入、某个逻辑门的输出之一<br>2、多个逻辑门的输出不能链接否则会造成信号矛盾，产生不合法电压或电路故障<br>3、网必须是无环的，即路径不能形成回路，否则会造成网络计算函数歧义</p>
+<p>c逻辑运算可以部分求职，组合电路不可以</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213787.png" srcset="/img/loading.gif" lazyload alt="image-20220902201900180"></p>
+<h4 id="4-23子级的组合电路和HCL整数表达式"><a href="#4-23子级的组合电路和HCL整数表达式" class="headerlink" title="4.23子级的组合电路和HCL整数表达式"></a>4.23子级的组合电路和HCL整数表达式</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213788.png" srcset="/img/loading.gif" lazyload alt="image-20220902202054893"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213789.png" srcset="/img/loading.gif" lazyload alt="image-20220902202850139"></p>
+<p>多级复用函数用情况表达式描述，通用格式如下<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213790.png" srcset="/img/loading.gif" lazyload alt="image-20220902202954924"></p>
+<h4 id="4-24集合关系"><a href="#4-24集合关系" class="headerlink" title="4.24集合关系"></a>4.24集合关系</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213791.png" srcset="/img/loading.gif" lazyload alt="image-20220904090847604"></p>
+<h4 id="4-25-储存器和时钟"><a href="#4-25-储存器和时钟" class="headerlink" title="4.25 储存器和时钟"></a>4.25 储存器和时钟</h4><p>时序电路：有状态并按这个状态计算的系统<br>必须引入按位储存信息的系统</p>
+<p>存储设备由同一个时钟控制的，决定什么时候把新值加载进设备中</p>
+<p>两种存储器设备：<br>    时钟存储器<br>    随机访问存储器（内存）包括处理器的虚拟内存系统、寄存器文件</p>
+<p>Y86用时钟寄存器处理PC、条件码、STAT</p>
+<p>机器级编程和硬件编程中存储器的差别<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213792.png" srcset="/img/loading.gif" lazyload alt="image-20220904093616836"></p>
+<p>当时钟信号处于高电平时，时钟寄存器更新，否则保持输出<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213793.png" srcset="/img/loading.gif" lazyload alt="image-20220904093904255"></p>
+<p>寄存器文件有两个读端口和一个写端口，每个端口都有地址输入</p>
+<p>向寄存器文件写数据受时钟信号控制，其类似于硬件寄存器，而读数据不受控制<br><img src="/pic/image-20220904144733406.png" srcset="/img/loading.gif" lazyload alt="image-20220904144733406"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213794.png" srcset="/img/loading.gif" lazyload alt="image-20220904095538932"></p>
+<p>地址超出合法范围输出error信号，其他类似数据寄存器</p>
+<h3 id="4-3Y86的实现顺序"><a href="#4-3Y86的实现顺序" class="headerlink" title="4.3Y86的实现顺序"></a>4.3Y86的实现顺序</h3><p>SEQ处理器一个时钟周期完成一条指令，时钟频率过低</p>
+<h4 id="4-31将处理组织成阶段"><a href="#4-31将处理组织成阶段" class="headerlink" title="4.31将处理组织成阶段"></a>4.31将处理组织成阶段</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213796.png" srcset="/img/loading.gif" lazyload alt="image-20220904101416428"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213797.png" srcset="/img/loading.gif" lazyload alt="image-20220904101434311"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213798.png" srcset="/img/loading.gif" lazyload alt="image-20220904104721695"></p>
+<p>mov操作使用ALU，只不过第二个操作数为0</p>
+<p>OPq改变条件码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213799.png" srcset="/img/loading.gif" lazyload alt="image-20220904105600203"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213800.png" srcset="/img/loading.gif" lazyload alt="image-20220904105808067"></p>
+<p>注意减小栈指针</p>
+<p>popq译码阶段要读取两次栈指针</p>
+<p>控制转移指令<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213801.png" srcset="/img/loading.gif" lazyload alt="image-20220904110356583"></p>
+<h4 id="4-32SEQ硬件结构"><a href="#4-32SEQ硬件结构" class="headerlink" title="4.32SEQ硬件结构"></a>4.32SEQ硬件结构</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213802.png" srcset="/img/loading.gif" lazyload alt="image-20220904111335519"></p>
+<p>执行阶段，ALU用于不同的目的，进行指定的计算、对栈指针加减，计算有效地址，数据传输加0，条件码更新</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213803.png" srcset="/img/loading.gif" lazyload alt="image-20220904145004672"></p>
+<h4 id="4-33-SEQ时序"><a href="#4-33-SEQ时序" class="headerlink" title="4.33 SEQ时序"></a>4.33 SEQ时序</h4><p>SEQ的实现包括组合逻辑和两种储存器设备：时钟寄存器，随机访问存储器（数据内存，指令内存，寄存器文件</p>
+<p><strong>读</strong>随机访问存储器看作逻辑电路，指令内存也看成逻辑电路</p>
+<p>程序计数器、条件码寄存器、数据内存、寄存器文件通过时钟信号来控制，时钟信号发出这些单元才装填</p>
+<p>寄存器和内存中的时钟控制，所有工作同时发生，硬件也等价于顺序进行，因为我们遵循<strong>从不回读的原则</strong>即：处理器从来不需要为了完成一条指令的执行去读取由该指令更新的状态</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213804.png" srcset="/img/loading.gif" lazyload alt="image-20220904192126301"></p>
+<p>程序计数器、条件码寄存器、数据内存、寄存器文件周期结束后更新，组合逻辑读入PC后更新</p>
+<h4 id="4-34SEQ阶段的实现"><a href="#4-34SEQ阶段的实现" class="headerlink" title="4.34SEQ阶段的实现"></a>4.34SEQ阶段的实现</h4><p>即HCL描述<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213805.png" srcset="/img/loading.gif" lazyload alt="image-20220905131309680"></p>
+<p>一、取址</p>
+<p>​	<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213806.png" srcset="/img/loading.gif" lazyload alt="image-20220905124245038"><br>根据icode的值可以计算三个信号<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213807.png" srcset="/img/loading.gif" lazyload alt="image-20220905124345701"></p>
+<p>need_regids信号的HCL描述<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213808.png" srcset="/img/loading.gif" lazyload alt="image-20220905124841497"></p>
+<p>当need_regids值为1时Align中的第一个字节被装入rA和rB，否则赋值0F，同时控制valC是1-8字节，否则是2-9</p>
+<p>新PC产生依据两个信号的值</p>
+<p>二、译码和写回阶段</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213809.png" srcset="/img/loading.gif" lazyload alt="image-20220905125313697"></p>
+<p>寄存器文件有两个读和两个写端口</p>
+<p>三、执行阶段</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213810.png" srcset="/img/loading.gif" lazyload alt="image-20220905134231241"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213811.png" srcset="/img/loading.gif" lazyload alt="image-20220905134454637"></p>
+<p>icode为OP时ALU根据ifun变化，否则为ALUADD<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213812.png" srcset="/img/loading.gif" lazyload alt="image-20220905135042893"></p>
+<p>setcc在icode为OP时设置为1</p>
+<p>cond根据条件码和功能码确定是否进行条件跳转和条件数据传输</p>
+<p>四、访存阶段</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213813.png" srcset="/img/loading.gif" lazyload alt="image-20220905135537328"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213814.png" srcset="/img/loading.gif" lazyload alt="image-20220905140542143"></p>
+<p>五、更新PC</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213815.png" srcset="/img/loading.gif" lazyload alt="image-20220905140727680"></p>
+<p><img src="/pic/image-20220905140739791.png" srcset="/img/loading.gif" lazyload alt="image-20220905140739791"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213816.png" srcset="/img/loading.gif" lazyload alt="image-20220905140802551"></p>
+<h3 id="4-4-流水线的通用原理"><a href="#4-4-流水线的通用原理" class="headerlink" title="4.4 流水线的通用原理"></a>4.4 流水线的通用原理</h3><h4 id="4-41-计算流水线"><a href="#4-41-计算流水线" class="headerlink" title="4.41 计算流水线"></a>4.41 计算流水线</h4><p>流水线的重要特性——吞吐量，单位时间内读取指令的条数，GIPS</p>
+<p>流水线，增加了一些硬件进而增加了一些延迟，响应的提高了系统的吞吐量</p>
+<h4 id="4-42-流水线操作的详细说明"><a href="#4-42-流水线操作的详细说明" class="headerlink" title="4.42 流水线操作的详细说明"></a>4.42 流水线操作的详细说明</h4><p>流水线计算的时序和操作<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213817.png" srcset="/img/loading.gif" lazyload alt="image-20220905161757411"></p>
+<p>时钟信号控制指令在流水线之间的阶段转移</p>
+<p>每个阶段时钟信号上升前，值到达寄存器，上升后读入</p>
+<h4 id="4-43-流水线的局限性"><a href="#4-43-流水线的局限性" class="headerlink" title="4.43 流水线的局限性"></a>4.43 流水线的局限性</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213818.png" srcset="/img/loading.gif" lazyload alt="image-20220905164014253"></p>
+<p>1、不一致的划分</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213819.png" srcset="/img/loading.gif" lazyload alt="image-20220905164026928"></p>
+<p>2、流水线过深，收益反而下降</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213820.png" srcset="/img/loading.gif" lazyload alt="image-20220905165233034"></p>
+<p>流水线寄存器的延迟占比较大</p>
+<h4 id="4-44-带反馈的流水线系统"><a href="#4-44-带反馈的流水线系统" class="headerlink" title="4.44 带反馈的流水线系统"></a>4.44 带反馈的流水线系统</h4><p>指令间的数据相关和控制相关由反馈路径解决</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213821.png" srcset="/img/loading.gif" lazyload alt="image-20220905170820993"></p>
+<h3 id="4-5-Y86-64的流水线实现"><a href="#4-5-Y86-64的流水线实现" class="headerlink" title="4.5 Y86-64的流水线实现"></a>4.5 Y86-64的流水线实现</h3><h4 id="4-51SEQ-重新安排计算阶段"><a href="#4-51SEQ-重新安排计算阶段" class="headerlink" title="4.51SEQ+重新安排计算阶段"></a>4.51SEQ+重新安排计算阶段</h4><p>将PC更新阶段设置在一个时钟周期的的开始，创建状态寄存器保存上一个指令执行官过程中发出的信号，周期开始时，运算更新PC</p>
+<p>SEQ+中没有PC储存的寄存器，每个周期通过动态运算得到当前PC</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213822.png" srcset="/img/loading.gif" lazyload alt="image-20220905213326157"></p>
+<h4 id="4-52-插入流水线寄存器"><a href="#4-52-插入流水线寄存器" class="headerlink" title="4.52 插入流水线寄存器"></a>4.52 插入流水线寄存器</h4><p> 插入流水线寄存器并对信号重新排序，得到PIPE-处理器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213823.png" srcset="/img/loading.gif" lazyload alt="image-20220905213750696"></p>
+<h4 id="4-53-对信号进行重新排列和标号"><a href="#4-53-对信号进行重新排列和标号" class="headerlink" title="4.53 对信号进行重新排列和标号"></a>4.53 对信号进行重新排列和标号</h4><p>SEQ+译码阶段产生的dstE和dstM信号（写回阶段目的地）直接输入寄存器文件，PIPE-的信号 穿过执行和访存阶段，直到写回阶段才送到寄存器文件，确保写入端口的数据和地址来自同一条指令。</p>
+<p>selectA可以减少流水线寄存器的大小</p>
+<h4 id="4-54预测下一个PC"><a href="#4-54预测下一个PC" class="headerlink" title="4.54预测下一个PC"></a>4.54预测下一个PC</h4><p>流水线模式，在取址后马上要确定下一条指令的位置，控制转移指令</p>
+<p>除条件分支指令和ret外其他指令可精确预测通过valCvalP</p>
+<p>条件分支采用分支预测，ret直接暂停直到ret指令通过写回阶段，高性能处理器中含有一个硬件栈存放调用函数的返回地址</p>
+<p>selectPC选择C、P或ret访存值</p>
+<h4 id="4-55流水线冒险"><a href="#4-55流水线冒险" class="headerlink" title="4.55流水线冒险"></a>4.55流水线冒险</h4><p>指令间存在相关时可能会导致问题，包括数据相关和控制相关产生数据冒险和控制冒险</p>
+<p>一条指令的操作数被他前三条指令改变的话，就会出现数据冲突，译码和写回差三个周期</p>
+<p>1、用暂停避免冒险</p>
+<p>暂停技术就是将一组指令阻塞在他们所处的阶段，其他指令正常运转，常用方法是之间插入bubble</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213824.png" srcset="/img/loading.gif" lazyload alt="image-20220906092444823"></p>
+<p>2、用转发避免数据冒险</p>
+<p>数据转发是指：将结果直接从流水线阶段传送到较早阶段</p>
+<p>将数据写入寄存器文件的同时写入流水线寄存器可减少一个暂停周期</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213825.png" srcset="/img/loading.gif" lazyload alt="image-20220906105452689"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213826.png" srcset="/img/loading.gif" lazyload alt="image-20220906110728733"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213827.png" srcset="/img/loading.gif" lazyload alt="image-20220906110742265"></p>
+<p>译码时逻辑发现读取的寄存器正在进行其他指令的写回会执行转发操作而不是暂停</p>
+<p>访存同理</p>
+<p>同时译码时发现读取的寄存器有未完成的写操作，然后其他指令执行阶段的结构会写入该寄存器也会执行转发操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213828.png" srcset="/img/loading.gif" lazyload alt="image-20220906111116699"></p>
+<p>上描述的三个转发源实质都是来自于ALU，访存阶段产生的valM也可以实现转发，所以一共有五个转发源</p>
+<p>3、加载&#x2F;使用数据冒险</p>
+<p>从内存中读取数据的指令之后紧接着使用的数据冒险无法进行转发操作（加载使用）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213829.png" srcset="/img/loading.gif" lazyload alt="image-20220906112300994"></p>
+<p>这种用暂停处理加载使用冒险的方式叫做加载互锁，和转发连用可以解决所有数据冒险</p>
+<p>4、避免控制冒险</p>
+<p>控制冒险只发生在跳转指令和ret</p>
+<p>ret指令访存阶段之前无法得到下条指令的地址，只能bubble三个周期</p>
+<p>跳转指令预测错误之后</p>
+<p>因为指令的执行阶段才会改变程序员可见状态，所以发现指令预测错误后将错误指令插入bubble然后取出正确指令即可完成指令排除</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213830.png" srcset="/img/loading.gif" lazyload alt="image-20220906140042072"></p>
+<h4 id="4-56-异常处理"><a href="#4-56-异常处理" class="headerlink" title="4.56 异常处理"></a>4.56 异常处理</h4><p>异常指令之后的所有指令不能影响系统状态</p>
+<p>异常类型：<br>1、halt指令<br>2、非法指令和功能码组合<br>3、访问非法地址</p>
+<p>1、同时出现多个异常时，流水线深处的异常优先级高</p>
+<p>2、分支预测中出现异常，预测错误后取消了异常</p>
+<p>3、一条指令导致异常后，气候指令的某个阶段导致改变系统状态</p>
+<p>流水线中加入异常处理逻辑，流水线寄存器中包括状态码跟随其他信息在流水线中传递，直到写回状态，在此流水线逻辑发现异常，分支判断错误中的指令无法到达写回阶段。</p>
+<p>处于访存和写回的指令出现异常后，流水线控制逻辑进制更新程序员可见状态禁止更新</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213831.png" srcset="/img/loading.gif" lazyload alt="image-20220906145157083"></p>
+<h4 id="4-57-PIPE各阶段的实现"><a href="#4-57-PIPE各阶段的实现" class="headerlink" title="4.57 PIPE各阶段的实现"></a>4.57 PIPE各阶段的实现</h4><h5 id="1、PC选择和取指阶段"><a href="#1、PC选择和取指阶段" class="headerlink" title="1、PC选择和取指阶段"></a>1、PC选择和取指阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213832.png" srcset="/img/loading.gif" lazyload alt="image-20220906150347434"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213833.png" srcset="/img/loading.gif" lazyload alt="image-20220906150808700"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213834.png" srcset="/img/loading.gif" lazyload alt="image-20220906150821228"></p>
+<h5 id="2、译码和写回阶段"><a href="#2、译码和写回阶段" class="headerlink" title="2、译码和写回阶段"></a>2、译码和写回阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213835.png" srcset="/img/loading.gif" lazyload alt="image-20220906151030521"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213836.png" srcset="/img/loading.gif" lazyload alt="image-20220906151234277"></p>
+<p>valP和valA合并可减少寄存器</p>
+<p>HCL语句中对五个转发源的扫描有讲究，流水线较浅的指令优先级高（二三的情况不会同时出现，无所谓</p>
+<h5 id="3、执行阶段"><a href="#3、执行阶段" class="headerlink" title="3、执行阶段"></a>3、执行阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213837.png" srcset="/img/loading.gif" lazyload alt="image-20220906152715136"></p>
+<h5 id="4、访存阶段"><a href="#4、访存阶段" class="headerlink" title="4、访存阶段"></a>4、访存阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213838.png" srcset="/img/loading.gif" lazyload alt="image-20220906163607842"></p>
+<h4 id="4-58流水线的控制逻辑"><a href="#4-58流水线的控制逻辑" class="headerlink" title="4.58流水线的控制逻辑"></a>4.58流水线的控制逻辑</h4><p>满足需求</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213839.png" srcset="/img/loading.gif" lazyload alt="image-20220906164420643"></p>
+<h5 id="1、特殊控制情况所期望的处理"><a href="#1、特殊控制情况所期望的处理" class="headerlink" title="1、特殊控制情况所期望的处理"></a>1、特殊控制情况所期望的处理</h5><p>加载使用冒险的期望，将第二条指令阻塞并在下一周期往执行阶段插入气泡，然后利用转发逻辑</p>
+<p>ret指令期望，流水线停顿三个周期，直到ret指令经过取值阶段，在我们设计的预测PC逻辑中，ret后的PC值被预测成下一条指令，但我们的逻辑会在译码阶段将其替换为bubble</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213840.png" srcset="/img/loading.gif" lazyload alt="image-20220906165417383"></p>
+<p>分支预测错误时，在分支指令的执行阶段后插入bubble然后读取正确指令</p>
+<p>流水线中出现异常时stat跟随流水线传递，到达写回阶段程序停止，但期间无法更改程序员可见状态</p>
+<p><img src="/pic/image-20220906184947526.png" srcset="/img/loading.gif" lazyload alt="image-20220906184947526"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213841.png" srcset="/img/loading.gif" lazyload alt="image-20220906185000123"></p>
+<h5 id="2、发现特殊控制条件"><a href="#2、发现特殊控制条件" class="headerlink" title="2、发现特殊控制条件"></a>2、发现特殊控制条件</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213842.png" srcset="/img/loading.gif" lazyload alt="image-20220906185937089"></p>
+<h5 id="3、流水线控制机制"><a href="#3、流水线控制机制" class="headerlink" title="3、流水线控制机制"></a>3、流水线控制机制</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213843.png" srcset="/img/loading.gif" lazyload alt="image-20220906191026009"></p>
+<p>每个流水线寄存器都有两个控制输入——暂停和气泡，<br>两个信号都为0时寄存器正常更新；<br>暂停为1，气泡为0时寄存器保持原有状态，指令阻塞；<br>暂停为0、气泡为1时寄存器设置成固定的复位配置，等同于nop指令<br>都为1视为错误</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213844.png" srcset="/img/loading.gif" lazyload alt="image-20220906191758655"></p>
+<h5 id="4、条件控制的组合"><a href="#4、条件控制的组合" class="headerlink" title="4、条件控制的组合"></a>4、条件控制的组合</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213845.png" srcset="/img/loading.gif" lazyload alt="image-20220906192633846"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213846.png" srcset="/img/loading.gif" lazyload alt="image-20220906192747837"></p>
+<h5 id="5、控制逻辑实现"><a href="#5、控制逻辑实现" class="headerlink" title="5、控制逻辑实现"></a>5、控制逻辑实现</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213847.png" srcset="/img/loading.gif" lazyload alt="image-20220906192923627"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/csapp/" class="category-chain-item">csapp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>csapp 第四章 处理器体系结构</div>
+      <div>http://example.com/2022/10/10/第四章 处理器体系结构_/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/10/%E7%AC%AC%E4%BA%94%E7%AB%A0%20%E4%BC%98%E5%8C%96%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD_/" title="csapp 第五章 优化程序性能">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">csapp 第五章 优化程序性能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/10/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA_/" title="csapp 第三章 程序的机器级表示">
+                        <span class="hidden-mobile">csapp 第三章 程序的机器级表示</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

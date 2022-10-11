@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2.1信息储存三种编码无符号编码二进制补码编码浮点数 最小寻址单位为字节，一般为8位存储器中的每个字节都有唯一的数字标识叫做地址，所有可能是地址的集合称为虚拟地址空间 编译器和运行时程序将储存器空间分为可管理的单元，来存放程序对象——程序数据，指令，状态信息。 2.11十六进制表示法c表示法中以0x开头的数字被认为是十六进制数字 进制转化 2.12字每台计算机都有固定字长，指明整数和指针数据的标称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="csapp 第二章 信息的表示和处理">
+<meta property="og:url" content="http://example.com/2022/10/10/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86_/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2.1信息储存三种编码无符号编码二进制补码编码浮点数 最小寻址单位为字节，一般为8位存储器中的每个字节都有唯一的数字标识叫做地址，所有可能是地址的集合称为虚拟地址空间 编译器和运行时程序将储存器空间分为可管理的单元，来存放程序对象——程序数据，指令，状态信息。 2.11十六进制表示法c表示法中以0x开头的数字被认为是十六进制数字 进制转化 2.12字每台计算机都有固定字长，指明整数和指针数据的标称">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211190.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211191.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211192.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211193.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211194.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211195.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211196.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211197.png">
+<meta property="article:published_time" content="2022-10-10T14:11:22.694Z">
+<meta property="article:modified_time" content="2022-10-11T04:07:21.921Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211190.png">
+  
+  
+  
+  <title>csapp 第二章 信息的表示和处理 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="csapp 第二章 信息的表示和处理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-10 22:11" pubdate>
+          2022年10月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">csapp 第二章 信息的表示和处理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="2-1信息储存"><a href="#2-1信息储存" class="headerlink" title="2.1信息储存"></a>2.1信息储存</h2><p>三种编码<br>无符号编码<br>二进制补码编码<br>浮点数</p>
+<p>最小寻址单位为字节，一般为8位<br>存储器中的每个字节都有唯一的数字标识叫做地址，所有可能是地址的集合称为虚拟地址空间</p>
+<p>编译器和运行时程序将储存器空间分为可管理的单元，来存放程序对象——程序数据，指令，状态信息。</p>
+<h3 id="2-11十六进制表示法"><a href="#2-11十六进制表示法" class="headerlink" title="2.11十六进制表示法"></a>2.11十六进制表示法</h3><p>c表示法中以0x开头的数字被认为是十六进制数字</p>
+<p>进制转化</p>
+<h3 id="2-12字"><a href="#2-12字" class="headerlink" title="2.12字"></a>2.12字</h3><p>每台计算机都有固定字长，指明整数和指针数据的标称大小。<br>虚拟地址以字编码，32位字计算机虚拟空间有4G空间</p>
+<h3 id="2-13数据大小"><a href="#2-13数据大小" class="headerlink" title="2.13数据大小"></a>2.13数据大小</h3><p>计算机和编译器有不同的方式编译数字<br>比如c语言中的int short等不同数据类型，其准确的字节数依赖于机器和编译器<br>特别指出指针使用机器的全字长</p>
+<p>c标准对不同的数据类型大小设置了下限但没有上限，为了可移植性，可拓展</p>
+<h3 id="2-14寻址和字节顺序"><a href="#2-14寻址和字节顺序" class="headerlink" title="2.14寻址和字节顺序"></a>2.14寻址和字节顺序</h3><p>跨越多字节的程序对象（数据、指令、状态信息）<br>1.他的地址是所使用字节序列的最小地址<br>2.字节序列排序分为 大端法（最高有效位字节在前）和小端法</p>
+<p>字节顺序对应用程序没有影响</p>
+<p>在网络传输二进制数据时则会产生影响，解决方案是建立网络传输标准</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211190.png" srcset="/img/loading.gif" lazyload alt="对象的字节表示程序"></p>
+<pre><code class="hljs"> ### 2.15表示字符串
+</code></pre>
+<p>每个字符都由某个标准编码表示，常见为as码（只有英语），Unicode字符集（十六位）java使用，支持多种语言</p>
+<h3 id="2-16表示代码"><a href="#2-16表示代码" class="headerlink" title="2.16表示代码"></a>2.16表示代码</h3><p>不同机器类型使用不同指令集和编码方式</p>
+<h3 id="2-17布尔代数和环"><a href="#2-17布尔代数和环" class="headerlink" title="2.17布尔代数和环"></a>2.17布尔代数和环</h3><p>布尔代数的运算及其在c语言中对应的位运算<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211191.png" srcset="/img/loading.gif" lazyload alt="布尔运算"></p>
+<h3 id="2-18C中的位级运算"><a href="#2-18C中的位级运算" class="headerlink" title="2.18C中的位级运算"></a>2.18C中的位级运算</h3><p>位运算可直接用在整形数据类型</p>
+<h3 id="2-19C中的逻辑运算"><a href="#2-19C中的逻辑运算" class="headerlink" title="2.19C中的逻辑运算"></a>2.19C中的逻辑运算</h3><p>逻辑运算符||   !   &amp;&amp;与位级运算相区分，认为非零即为ture</p>
+<p>两种区别<br>位运算将作用对象转化为二进制操作，逻辑运算将对象转化为逻辑值操作<br>逻辑运算有短路效应，符号之前的对象能确定表达式的值则不运算符号之后的逻辑值</p>
+<h3 id="2-110C中的位移运算"><a href="#2-110C中的位移运算" class="headerlink" title="2.110C中的位移运算"></a>2.110C中的位移运算</h3><p>x&lt;&lt;k表示x二进制表示左移k位，左侧舍去右侧补零，位移运算从左向右结合，优先级较低</p>
+<p>右移分为算数右移和逻辑右移，算数右移左端补最高有效位的拷贝<br>c标准没明确规定用哪个，无符号右移必须是逻辑的，有符号都行</p>
+<h2 id="2-2整数表示"><a href="#2-2整数表示" class="headerlink" title="2.2整数表示"></a>2.2整数表示</h2><h3 id="2-21整形数据类型"><a href="#2-21整形数据类型" class="headerlink" title="2.21整形数据类型"></a>2.21整形数据类型</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211192.png" srcset="/img/loading.gif" lazyload alt="c整形数据类型"></p>
+<h3 id="2-22无符号和二进制补码编码"><a href="#2-22无符号和二进制补码编码" class="headerlink" title="2.22无符号和二进制补码编码"></a>2.22无符号和二进制补码编码</h3><p>二进制补码负数对应的正数，末位加一取反<br>补码所表示的范围不对称，可能会导致程序错误<br>最大的无符号值是最大有符号值的二倍加一</p>
+<p>c标准没有规定有符号整数用补码表示，虽然大部分机器是这样，我们不应假定这样<br>limits.h中给出了数据类型大小范围</p>
+<p>B2U（二进制无符号数位模式）二进制无符号机器数转化<br>B2T（二进制补码数位模式）二进制补码转化函数</p>
+<h3 id="2-23有符号数与无符号数之间的转换"><a href="#2-23有符号数与无符号数之间的转换" class="headerlink" title="2.23有符号数与无符号数之间的转换"></a>2.23有符号数与无符号数之间的转换</h3><p>​	c语言中强制在无符号和有符号类型间转化，不会改变参数位的表示，改变如何解读</p>
+<p>相互转化若超出范围则加减2^w</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211193.png" srcset="/img/loading.gif" lazyload alt="转化"></p>
+<h3 id="2-24c中的有符号数和无符号数"><a href="#2-24c中的有符号数和无符号数" class="headerlink" title="2.24c中的有符号数和无符号数"></a>2.24c中的有符号数和无符号数</h3><p>默认常量为有符号数，无符号数末尾＋U</p>
+<p>有符号数和无符号数运算时转化为无符号数</p>
+<h3 id="2-25扩展一个数字的位表示"><a href="#2-25扩展一个数字的位表示" class="headerlink" title="2.25扩展一个数字的位表示"></a>2.25扩展一个数字的位表示</h3><p>无符号类型扩展为较大的数据类型，执行零扩展<br>二进制补码类型扩展执行符号扩展，左侧添加最高有效位</p>
+<p>类型转化的顺序能影响最终的结果</p>
+<h3 id="2-26截断数字"><a href="#2-26截断数字" class="headerlink" title="2.26截断数字"></a>2.26截断数字</h3><p>数据类型强制转化为较小的数据类型时发生数字阶段，丢弃高位<br>具体表现为<br>无符号数取2^k的模<br>有符号数转化为无符号数2^k的模再转化为有符号数</p>
+<h3 id="2-27有符号数和无符号数的建议"><a href="#2-27有符号数和无符号数的建议" class="headerlink" title="2.27有符号数和无符号数的建议"></a>2.27有符号数和无符号数的建议</h3><p>算数运算全部使用有符号类型，把字看成没有数字意义的位的集合时用无符号类型</p>
+<h2 id="2-3整数运算"><a href="#2-3整数运算" class="headerlink" title="2.3整数运算"></a>2.3整数运算</h2><h3 id="2-31无符号类型加法"><a href="#2-31无符号类型加法" class="headerlink" title="2.31无符号类型加法"></a>2.31无符号类型加法</h3><p>若大于范围则发生溢出，舍去高位<br>数学上即为范围最大值的模，相加求模，即模数加法<br>c程序中不会发出异常，x+y&#x3D;s超出范围时，s小于x或y</p>
+<h3 id="2-32二进制补码加法"><a href="#2-32二进制补码加法" class="headerlink" title="2.32二进制补码加法"></a>2.32二进制补码加法</h3><p>同无符号类型加法，也发生截断</p>
+<p>大多数计算机执行相同的指令，故可将其先转化为无符号类型，再进行有符号类型加法，再转化回来<br>结论如下<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211194.png" srcset="/img/loading.gif" lazyload alt="补码"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211195.png" srcset="/img/loading.gif" lazyload alt="加法"></p>
+<h3 id="2-33二进制补码的非"><a href="#2-33二进制补码的非" class="headerlink" title="2.33二进制补码的非"></a>2.33二进制补码的非</h3><p>补码范围不对称，最小值的非（加法逆元）为其本身，其余为其相反值<br>每位取反位加一</p>
+<p>不等于每位的逆</p>
+<h3 id="2-34无符号乘法"><a href="#2-34无符号乘法" class="headerlink" title="2.34无符号乘法"></a>2.34无符号乘法</h3><p>结果对2^w取模</p>
+<h3 id="2-35二进制补码乘法"><a href="#2-35二进制补码乘法" class="headerlink" title="2.35二进制补码乘法"></a>2.35二进制补码乘法</h3><p>二进制无符号数和补码表示乘法的位级表示相同，也就是说公用一套指令。<br>相同位级表示的二进制无符号数和补码乘法得到的位级表示相同</p>
+<h3 id="2-36乘以2的幂"><a href="#2-36乘以2的幂" class="headerlink" title="2.36乘以2的幂"></a>2.36乘以2的幂</h3><p>乘法运算较慢，可通过加法和位移运算优化</p>
+<p>位移运算</p>
+<h3 id="2-37除以2的幂"><a href="#2-37除以2的幂" class="headerlink" title="2.37除以2的幂"></a>2.37除以2的幂</h3><p>除以2的幂可以通过右移运算，无符号用逻辑右移，补码用算数右移</p>
+<h2 id="2-4浮点"><a href="#2-4浮点" class="headerlink" title="2.4浮点"></a>2.4浮点</h2><p>IEEE标准</p>
+<h3 id="2-41二进制小数"><a href="#2-41二进制小数" class="headerlink" title="2.41二进制小数"></a>2.41二进制小数</h3><p>有限编码长度无法准确表示某些数，只能表示x*2^y</p>
+<h3 id="2-42IEEE浮点表示"><a href="#2-42IEEE浮点表示" class="headerlink" title="2.42IEEE浮点表示"></a>2.42IEEE浮点表示</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211196.png" srcset="/img/loading.gif" lazyload alt="image-20220728121856635"></p>
+<h4 id="规格化数值"><a href="#规格化数值" class="headerlink" title="规格化数值"></a>规格化数值</h4><p>条件：exp位模式不全为0或1</p>
+<p>exp指数域被解释为有符号整数，并非补码表示法，而是无符号数表示法<br>E&#x3D;e-Bias（e为位模式的无符号表示法，Bias偏置值为2^k-1,单精度为127，双精度为1023）<br>指数取值范围单精度为-126-127，双精度为-1022-1023</p>
+<p>frac小数域 解释为小小数f，f&lt;1，小数点在最高有效位的左边<br>有效值定义M&#x3D;1+f(隐含以一开头)</p>
+<h4 id="非规格化数值"><a href="#非规格化数值" class="headerlink" title="非规格化数值"></a>非规格化数值</h4><p>条件：指数域全为0</p>
+<p>E&#x3D;1-Bias      （不用-Bias为了提供非规格化转化为规格化的方式）<br>M&#x3D;f</p>
+<p>非规格化的目的<br>1.提供表示0的方式，规格化M&gt;&#x3D;1<br>2.用来表示非常接近0的数，提供逐渐溢出的属性，数值均匀的接近0</p>
+<h4 id="特殊数值"><a href="#特殊数值" class="headerlink" title="特殊数值"></a>特殊数值</h4><p>条件：指数域全为1</p>
+<p>小数域全为0，表示正负无穷，表示溢出的结果<br>小数域非0时，结果称为NaN</p>
+<h3 id="2-43数值展示"><a href="#2-43数值展示" class="headerlink" title="2.43数值展示"></a>2.43数值展示</h3><p>六位格式，一位符号，三位指数，两位小数<br>可以看到最大非规格数为7&#x2F;512，最小规格数为8&#x2F;512，平滑衔接，归功于我们将非规格数的E定义为1-Bias而非-Bias补偿非规格数没有隐含1</p>
+<p>有趣的性质，将浮点数的位表示读成无符号整数类型，是按升序排列的</p>
+<h3 id="2-44舍入"><a href="#2-44舍入" class="headerlink" title="2.44舍入"></a>2.44舍入</h3><p>浮点运算只能近似表示实数运算，舍入即为寻找最接近目标实数的浮点形式</p>
+<p>四种舍入方式，默认为向偶数舍入方式<br>1.向偶数舍入，优先舍入到最接近的数，若距离相同则优先偶数（最低有效位）<br>2.向零舍入<br>3.向上舍入<br>4.向下舍入</p>
+<h3 id="2-45浮点运算"><a href="#2-45浮点运算" class="headerlink" title="2.45浮点运算"></a>2.45浮点运算</h3><p>浮点加法不具有结合性</p>
+<p>浮点乘法不具备结合性和分配性</p>
+<h3 id="2-46c语言中的浮点"><a href="#2-46c语言中的浮点" class="headerlink" title="2.46c语言中的浮点"></a>2.46c语言中的浮点</h3><p>float、double、int间的强制转换<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102211197.png" srcset="/img/loading.gif" lazyload alt="image-20220728180718488"></p>
+<h2 id="2-5小结"><a href="#2-5小结" class="headerlink" title="2.5小结"></a>2.5小结</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/csapp/" class="category-chain-item">csapp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>csapp 第二章 信息的表示和处理</div>
+      <div>http://example.com/2022/10/10/第二章 信息的表示和处理_/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/10/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA_/" title="csapp 第三章 程序的机器级表示">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">csapp 第三章 程序的机器级表示</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/10/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8_/" title="csapp 第一章 计算机系统漫游">
+                        <span class="hidden-mobile">csapp 第一章 计算机系统漫游</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
