@@ -19,20 +19,19 @@
     <meta name="description" content="总括计算机系统的主要概念和主题，通过跟踪hello程序的声明周期来学习 1.1 信息就是位+上下文程序的生命周期从源文件开始，源文件以字节序列的方式储存，每个字节的大小代表一个字符，是文本文件，由hello.c可知系统中的信息都是由位构成通过上下文解读 1.2程序被其他程序翻译成其他格式源文件中每条c语句被编译器驱动程序转化为机器语言指令然后打包成可执行目标文件 翻译分为四个阶段	 预编译 编译">
 <meta property="og:type" content="article">
 <meta property="og:title" content="csapp 第一章 计算机系统漫游">
-<meta property="og:url" content="http://example.com/2022/10/10/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8_/index.html">
+<meta property="og:url" content="http://example.com/2022/10/10/csapp/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%BC%AB%E6%B8%B8_/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="总括计算机系统的主要概念和主题，通过跟踪hello程序的声明周期来学习 1.1 信息就是位+上下文程序的生命周期从源文件开始，源文件以字节序列的方式储存，每个字节的大小代表一个字符，是文本文件，由hello.c可知系统中的信息都是由位构成通过上下文解读 1.2程序被其他程序翻译成其他格式源文件中每条c语句被编译器驱动程序转化为机器语言指令然后打包成可执行目标文件 翻译分为四个阶段	 预编译 编译">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/pic%5C%E5%85%B8%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.png">
-<meta property="og:image" content="http://example.com/pic%5C%E7%AE%80%E5%8D%95%E6%8C%87%E4%BB%A4.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111228001.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102210066.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102210067.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102210068.png">
 <meta property="article:published_time" content="2022-10-10T14:10:20.361Z">
-<meta property="article:modified_time" content="2022-10-11T04:07:43.837Z">
+<meta property="article:modified_time" content="2022-10-11T04:29:05.768Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/pic%5C%E5%85%B8%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111228001.png">
   
   
   
@@ -284,12 +283,11 @@
 <p>翻译分为四个阶段	</p>
 <p>预编译 编译 汇编 链接</p>
 <h2 id="1-3了解编译系统如何工作是大有益处的"><a href="#1-3了解编译系统如何工作是大有益处的" class="headerlink" title="1.3了解编译系统如何工作是大有益处的"></a>1.3了解编译系统如何工作是大有益处的</h2><h2 id="1-4处理器读并解释储存在储存器的指令"><a href="#1-4处理器读并解释储存在储存器的指令" class="headerlink" title="1.4处理器读并解释储存在储存器的指令"></a>1.4处理器读并解释储存在储存器的指令</h2><p>shell是一个命令行解释器，输入的如果不是一个shell命令，则假设输入为可执行文件并执行</p>
-<h3 id="1-4-1系统的硬件组成】"><a href="#1-4-1系统的硬件组成】" class="headerlink" title="1.4.1系统的硬件组成】"></a>1.4.1系统的硬件组成】</h3><p><img src="/pic%5C%E5%85%B8%E5%9E%8B%E7%B3%BB%E7%BB%9F%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.png" srcset="/img/loading.gif" lazyload alt="典型系统硬件组成"></p>
+<h3 id="1-4-1系统的硬件组成】"><a href="#1-4-1系统的硬件组成】" class="headerlink" title="1.4.1系统的硬件组成】"></a>1.4.1系统的硬件组成】</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111228001.png" srcset="/img/loading.gif" lazyload alt="image-20221011122844557"></p>
 <p>总线<br>负责在系统各个部件间传递信息，通常传送字word，字长是系统的基本参数，本书定位4字节</p>
 <p>io设备<br>是系统与外界的联系通道，途中包括鼠标、键盘、显示器和磁盘<br>控制器或适配器将io设备和io总线相连接传递信息</p>
 <p>主存<br>临时存储程序和数据的设备，物理上由动态随机存取存储器DRAM组成</p>
 <p>处理器<br>即中央处理单元CPU，执行储存在主存中程序的指令，核心是程序计数器PC是包含即将执行的指令的地址的寄存器</p>
-<p>简单指令<img src="/pic%5C%E7%AE%80%E5%8D%95%E6%8C%87%E4%BB%A4.png" srcset="/img/loading.gif" lazyload alt="简单指令"></p>
 <h3 id="1-4-2执行hello程序"><a href="#1-4-2执行hello程序" class="headerlink" title="1.4.2执行hello程序"></a>1.4.2执行hello程序</h3><p>输入命令时，shell程序将字符逐一读取进寄存器，再将其放入主存，回车键入后，将程序指令代码和数据从磁盘拷贝到主存，处理器开始处理程序的指令</p>
 <h2 id="1-5高速缓存"><a href="#1-5高速缓存" class="headerlink" title="1.5高速缓存"></a>1.5高速缓存</h2><p>由机器原理，较大的储存设备运行较慢而造价要低<br>cache（高速缓存存储器）作为暂时的存储设备存放处理器可能用到的信息，通常采用SRAM静态随机访问存储器（DRAM动态用作主存</p>
 <h2 id="1-6形成层次结构的存储设备"><a href="#1-6形成层次结构的存储设备" class="headerlink" title="1.6形成层次结构的存储设备"></a>1.6形成层次结构的存储设备</h2><p>计算机系统中的存储设备都被组织成一个存储器层次模型，从上到下存储器变得越大越慢，下层的存贮器作为上层的告诉缓存<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102210066.png" srcset="/img/loading.gif" lazyload alt="存储器层次模型"></p>
@@ -343,7 +341,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>csapp 第一章 计算机系统漫游</div>
-      <div>http://example.com/2022/10/10/第一章 计算机系统漫游_/</div>
+      <div>http://example.com/2022/10/10/csapp/第一章 计算机系统漫游_/</div>
     </div>
     <div class="license-meta">
       
@@ -387,7 +385,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/10/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86_/" title="csapp 第二章 信息的表示和处理">
+                      <a href="/2022/10/10/csapp/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E4%BF%A1%E6%81%AF%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%92%8C%E5%A4%84%E7%90%86_/" title="csapp 第二章 信息的表示和处理">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">csapp 第二章 信息的表示和处理</span>
                         <span class="visible-mobile">上一篇</span>
