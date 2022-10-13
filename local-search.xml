@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>11.称最多水的容器</title>
+    <link href="/2022/10/14/leetcode/11-%E7%A7%B0%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"/>
+    <url>/2022/10/14/leetcode/11-%E7%A7%B0%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/</url>
+    
+    <content type="html"><![CDATA[<p><img src="https://s2.loli.net/2022/10/14/sfpDThr59yCNXQl.png" alt="image-20221014001242752"></p><p>那暴力做法就是两个循环遍历各个边界了，优化了一下，先将其排序然后，判断（S&gt;len*当前的边）就break，但复杂度还是o(n2)，空间复杂度还很高</p><p>正确做法就是双指针了，两个指针从两边逼近，每次迭代较小的那个向中间移动，直至相遇</p><p>正确性：两个指针所指位置作为容器边界，移动之后容器长度-1，所以对于较小的数，作为容器边界最大的容量就是当前这次了，以后再用到这个数不可能大于此次容量，故可将其丢弃，指针內移</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxArea</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> l=<span class="hljs-number">0</span>,r=height.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>;<br>        <span class="hljs-type">int</span> s=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(l&lt;r)<br>        &#123;<br>            <span class="hljs-keyword">if</span>((r-l)*<span class="hljs-built_in">min</span>(height[r],height[l])&gt;s)<br>                s=(r-l)*<span class="hljs-built_in">min</span>(height[r],height[l]);<br>            <span class="hljs-keyword">if</span>(height[r]&gt;height[l])<br>                l++;<br>            <span class="hljs-keyword">else</span><br>                r--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> s ;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>lc</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>5.最长回文子串</title>
     <link href="/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/"/>
     <url>/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</url>

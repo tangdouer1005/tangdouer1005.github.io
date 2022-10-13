@@ -223,6 +223,60 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/10/14/leetcode/11-%E7%A7%B0%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" target="_self">
+          11.称最多水的容器
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/14/leetcode/11-%E7%A7%B0%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" target="_self">
+        <div>
+          那暴力做法就是两个循环遍历各个边界了，优化了一下，先将其排序然后，判断（S&gt;len*当前的边）就break，但复杂度还是o(n2)，空间复杂度还很高 正确做法就是双指针了，两个指针从两边逼近，每次迭代较小的那个向中间移动，直至相遇 正确性：两个指针所指位置作为容器边界，移动之后容器长度-1，所以对于较小的数，作为容器边界最大的容量就是当前这次了，以后再用到这个数不可能大于此次容量，故可将其
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-14 00:11" pubdate>
+              2022-10-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/lc/" class="category-chain-item">lc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" target="_self">
           5.最长回文子串
         </a>
@@ -685,67 +739,6 @@
       <a class="index-excerpt index-excerpt__noimg" href="/2022/10/11/%E7%AE%97%E6%B3%95/%E4%BA%8C%E5%88%86%E5%9B%BE/" target="_self">
         <div>
           二分图 ​	二分图指将图的点划分两部分，所有边在这两个部分之间 ​	一个图是二分图当且仅当这个图不含奇数环 染色法 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;iostream&gt;using na
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-11 13:14" pubdate>
-              2022-10-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%AE%97%E6%B3%95/%E6%A0%91%E4%B8%8E%E5%9B%BE/" class="category-chain-item">树与图</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/11/%E7%AE%97%E6%B3%95/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" target="_self">
-          最小生成树
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/11/%E7%AE%97%E6%B3%95/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91/" target="_self">
-        <div>
-          最小生成树 大部分是无向图 prim算法,有点像迪杰斯特拉算法  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374#include&lt;iostream&gt;usin
         </div>
       </a>
 
