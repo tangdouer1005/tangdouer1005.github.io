@@ -16,21 +16,21 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="a 本题官解为滑动窗口，用set储存窗口内元素判断是否重复，但判断重复字符位置需再次遍历，不如unorderer_map储存元素及其位置 自己的做法需要将重复元素及其之前的元素从map中删去，再插入之后多了很多不必要函数调用消耗 1234567891011121314151617181920212223242526class Solution &amp;#123;public:    int length">
+    <meta name="description" content="a 本题使用动态规划，我自己的想法是f【i】【j】的含义是从i开始的到j的子串是否为回文串，但是写起来发现i从0开始迭代时，需要用到i+1开始的子串，如果i从字符串尾部开始迭代同样会 用到之后才能确定的状态，故无从下手 看了题解，题解给出的解决方式将将要确定的子串的长度作为循环参数，因为长度为N的子串只会用到长度为N-2的子串的状态，这样就能保证动态规划的正确执行 1234567891011121">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3.最长无重复子串">
-<meta property="og:url" content="http://example.com/2022/10/13/leetcode/3.%E6%9C%80%E9%95%BF%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%90%E4%B8%B2/index.html">
+<meta property="og:title" content="5.最长回文子串">
+<meta property="og:url" content="http://example.com/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="a 本题官解为滑动窗口，用set储存窗口内元素判断是否重复，但判断重复字符位置需再次遍历，不如unorderer_map储存元素及其位置 自己的做法需要将重复元素及其之前的元素从map中删去，再插入之后多了很多不必要函数调用消耗 1234567891011121314151617181920212223242526class Solution &amp;#123;public:    int length">
+<meta property="og:description" content="a 本题使用动态规划，我自己的想法是f【i】【j】的含义是从i开始的到j的子串是否为回文串，但是写起来发现i从0开始迭代时，需要用到i+1开始的子串，如果i从字符串尾部开始迭代同样会 用到之后才能确定的状态，故无从下手 看了题解，题解给出的解决方式将将要确定的子串的长度作为循环参数，因为长度为N的子串只会用到长度为N-2的子串的状态，这样就能保证动态规划的正确执行 1234567891011121">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-13T04:30:35.904Z">
-<meta property="article:modified_time" content="2022-10-13T04:39:49.490Z">
+<meta property="article:published_time" content="2022-10-13T13:27:13.442Z">
+<meta property="article:modified_time" content="2022-10-13T14:22:10.629Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>3.最长无重复子串 - Hexo</title>
+  <title>5.最长回文子串 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="3.最长无重复子串"></span>
+            <span id="subtitle" data-typed-text="5.最长回文子串"></span>
           
         </div>
 
@@ -206,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-13 12:30" pubdate>
-          2022年10月13日 下午
+        <time datetime="2022-10-13 21:27" pubdate>
+          2022年10月13日 晚上
         </time>
       </span>
     
@@ -218,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          938 字
+          1.2k 字
         
       </span>
     
@@ -229,7 +229,7 @@
         
         
         
-          8 分钟
+          11 分钟
         
       </span>
     
@@ -267,17 +267,18 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">3.最长无重复子串</h1>
+            <h1 style="display: none">5.最长回文子串</h1>
             
             
               <div class="markdown-body">
                 
-                <p>a 本题官解为滑动窗口，用set储存窗口内元素判断是否重复，但判断重复字符位置需再次遍历，不如unorderer_map储存元素及其位置</p>
-<p>自己的做法需要将重复元素及其之前的元素从map中删去，再插入之后多了很多不必要函数调用消耗</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(s.<span class="hljs-built_in">empty</span>())<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> ans_max=<span class="hljs-number">0</span>,ans=<span class="hljs-number">0</span>,l=<span class="hljs-number">0</span>,r=<span class="hljs-number">1</span>,st=<span class="hljs-number">0</span>;<br>        unordered_map&lt;<span class="hljs-type">char</span>,<span class="hljs-type">int</span>&gt; se;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;s.<span class="hljs-built_in">size</span>();i++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(se.<span class="hljs-built_in">count</span>(s[i]))<br>            &#123;<br>                ans=i-se[s[i]];<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=st;j&lt;se[s[i]];j++)<br>                    se.<span class="hljs-built_in">erase</span>(s[j]);<br>                st=se[s[i]]+<span class="hljs-number">1</span>;<br>                se[s[i]]=i;<br>            &#125;<span class="hljs-keyword">else</span><br>            &#123;<br>                se.<span class="hljs-built_in">insert</span>(&#123;s[i],i&#125;);<br>                ans++;<br>                ans_max=<span class="hljs-built_in">max</span>(ans_max,ans);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans_max;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+                <p>a</p>
+<p>本题使用动态规划，我自己的想法是f【i】【j】的含义是从i开始的到j的子串是否为回文串，但是写起来发现i从0开始迭代时，需要用到i+1开始的子串，如果i从字符串尾部开始迭代同样会 用到之后才能确定的状态，故无从下手</p>
+<p>看了题解，题解给出的解决方式将将要确定的子串的长度作为循环参数，因为长度为N的子串只会用到长度为N-2的子串的状态，这样就能保证动态规划的正确执行</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> N=s.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">bool</span> f[N][N];<br>        <span class="hljs-type">int</span> le=<span class="hljs-number">1</span>,l=<span class="hljs-number">0</span>;<br>        <span class="hljs-built_in">memset</span>(f,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span> f);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;N;i++)<br>            f[i][i]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> L=<span class="hljs-number">2</span>;L&lt;=N;L++)<br>        &#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;N-L+<span class="hljs-number">1</span>;i++)<br>            &#123;<br>                <span class="hljs-type">int</span> j=i+L<span class="hljs-number">-1</span>;<br>                <span class="hljs-keyword">if</span>(j==i+<span class="hljs-number">1</span>&amp;&amp;s[i]==s[j])<br>                &#123;<br>                    f[i][j]=<span class="hljs-number">1</span>;<br>                    le=L,l=i;<br>                &#125;<br>                <span class="hljs-keyword">if</span>(f[i+<span class="hljs-number">1</span>][j<span class="hljs-number">-1</span>]&amp;&amp;s[i]==s[j])<br>                &#123;   <br>                    f[i][j]=<span class="hljs-number">1</span>;<br>                    le=L,l=i;<br>                &#125;<br>            &#125;<br>        &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>(s.<span class="hljs-built_in">begin</span>()+l,s.<span class="hljs-built_in">begin</span>()+l+le);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<p>题解好大哥使用了懒删除，将重复元素key对应的value值更新，并在每次迭代增加判断下表是否小于l，来确定是否在滑动窗口内，减少了函数调用消耗</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLongestSubstring</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        unordered_map&lt;<span class="hljs-type">char</span>,<span class="hljs-type">int</span>&gt; ma;<br>        <span class="hljs-type">int</span> ans=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> l=<span class="hljs-number">0</span>,r=<span class="hljs-number">0</span>;r&lt;s.<span class="hljs-built_in">size</span>();r++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(ma.<span class="hljs-built_in">count</span>(s[r])&amp;&amp;ma[s[r]]&gt;=l)<br>            &#123;<br>                l=ma[s[r]]+<span class="hljs-number">1</span>;<br>            &#125;<br>            ans=<span class="hljs-built_in">max</span>(ans,r-l+<span class="hljs-number">1</span>);<br>            ma[s[r]]=r;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>通过观察发现，所有回文子串中心部分可能有两种情况，一种为两个相同的字符，另一种为单个字符，换而言之所有的字符串皆为这两种字符扩散得到</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">string <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> N=s.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">if</span>(N==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> s;<br>        <span class="hljs-type">int</span> len=<span class="hljs-number">1</span>,l=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;N<span class="hljs-number">-1</span>;i++)<br>        &#123;<br>            <span class="hljs-type">int</span> t=<span class="hljs-number">1</span>,ll=<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">while</span>(i-t&gt;=<span class="hljs-number">0</span>&amp;&amp;i+t&lt;=N&amp;&amp;s[i-t]==s[i+t])<br>                ll+=<span class="hljs-number">2</span>,t++;<br>            <span class="hljs-keyword">if</span>(len&lt;ll)<br>                len=ll,l=i-t+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span>(s[i]==s[i+<span class="hljs-number">1</span>])<br>            &#123;<br>                t=<span class="hljs-number">1</span>,ll=<span class="hljs-number">2</span>;<br>                <span class="hljs-keyword">while</span>(i-t&gt;=<span class="hljs-number">0</span>&amp;&amp;i+t+<span class="hljs-number">1</span>&lt;=N&amp;&amp;s[i-t]==s[i+t+<span class="hljs-number">1</span>])<br>                    ll+=<span class="hljs-number">2</span>,t++;<br>                <span class="hljs-keyword">if</span>(len&lt;ll)<br>                    len=ll,l=i-t+<span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">string</span>(s.<span class="hljs-built_in">begin</span>()+l,s.<span class="hljs-built_in">begin</span>()+l+len);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -317,8 +318,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>3.最长无重复子串</div>
-      <div>http://example.com/2022/10/13/leetcode/3.最长无重复子串/</div>
+      <div>5.最长回文子串</div>
+      <div>http://example.com/2022/10/13/leetcode/5-最长回文子串/</div>
     </div>
     <div class="license-meta">
       
@@ -362,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" title="5.最长回文子串">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">5.最长回文子串</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/12/leetcode/94-%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" title="94.树的中序遍历">
-                        <span class="hidden-mobile">94.树的中序遍历</span>
+                      <a href="/2022/10/13/leetcode/3.%E6%9C%80%E9%95%BF%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%90%E4%B8%B2/" title="3.最长无重复子串">
+                        <span class="hidden-mobile">3.最长无重复子串</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
