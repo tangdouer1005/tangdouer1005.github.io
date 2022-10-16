@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>关于sizeof</title>
+    <link href="/2022/10/16/c++/%E5%85%B3%E4%BA%8Esizeof/"/>
+    <url>/2022/10/16/c++/%E5%85%B3%E4%BA%8Esizeof/</url>
+    
+    <content type="html"><![CDATA[<p>a对于栈中变量和静态区的数组，sizeof返回真整个数组的大小</p><p>但是堆区的数组只返回指针的长度（对于堆的话好像很合理，毕竟堆中元素不是顺序的）</p><p>对于指向数组的指针返回指针的大小，（参数传递会自动将数组转化为指向数组的指针）</p><p>初始化数组的时候经常用memset，所以说动态数据就不要用sizeof了</p><p>并且sizeof返回unsigned无符号类型整数，注意将其转化为int类型，否则可能会出现奇怪的错误</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>cpp</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>15.三数之和</title>
     <link href="/2022/10/14/leetcode/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
     <url>/2022/10/14/leetcode/15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
