@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>补码整数除2^k</title>
+    <link href="/2022/10/21/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/"/>
+    <url>/2022/10/21/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>a若不做改变直接对补码进行算数右移（x&gt;&gt;k），则会造成正数负数都向下舍入，但我们想要的是向零舍入，解决方案是设置偏置值</p><p>(x+(1&lt;&lt;k)-1)&gt;&gt;k</p><p>(1&lt;&lt;k)-1即为所加偏移量，对于需要偏移的数据来说，偏移量会对结果加一，不需要偏移的数据偏移量只会影响被移掉的部位</p><p>所以说计算机在进行整数除2^k，需要先判断该整数为正数还是负数，若为负数则偏移后进行算数右移</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>tangdouer平时积累的小知识</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>关于sizeof</title>
     <link href="/2022/10/16/c++/%E5%85%B3%E4%BA%8Esizeof/"/>
     <url>/2022/10/16/c++/%E5%85%B3%E4%BA%8Esizeof/</url>
