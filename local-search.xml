@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>“linux系统下的基本操作”</title>
+    <link href="/2022/10/21/%E2%80%9Clinux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E2%80%9D/"/>
+    <url>/2022/10/21/%E2%80%9Clinux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E2%80%9D/</url>
+    
+    <content type="html"><![CDATA[<h3 id="linux-基本命令"><a href="#linux-基本命令" class="headerlink" title="linux 基本命令"></a>linux 基本命令</h3><p><img src="https://s2.loli.net/2022/10/21/2cadV7i4yYKFuUJ.png" alt="image-20221021220939335"></p><h3 id="vi编辑器"><a href="#vi编辑器" class="headerlink" title="vi编辑器"></a>vi编辑器</h3><p>Visual interface的简称</p><p>可通过vi打开或者新建并打开文件</p><p>进入一个已经存在的文件可能会发出以下警告</p><p><img src="https://s2.loli.net/2022/10/21/FmLaBf9gcouyGDt.png" alt="image-20221021224056329"></p><p>非正常关闭vi编辑器时会生成一个.swp文件。当你打开一个文件，vi就会生成这么一个.(filename)swp文件以备不测（多个程序同时编辑文件，非常规退出），如果你正常退出，那么这个这个swp文件将会自动删除。</p><p><img src="https://s2.loli.net/2022/10/21/Ba6G93v1ewrc2JE.png" alt="image-20221021224452097"></p><p>vi有三种操作模式：命令行模式，插入模式，底行模式（通常算入命令行模式）</p><p>通过一下方式进入插入模式<img src="https://s2.loli.net/2022/10/21/nHZyoAwY8uePNr7.png" alt="image-20221021221547762"></p><p>esc进入命令行模式</p><p>命令行模式下退出vi<img src="https://s2.loli.net/2022/10/21/nBuiDAGwrsxXN2p.png" alt="image-20221021221442704"></p><p>vi的功能键（命令行模式）</p><p><img src="https://s2.loli.net/2022/10/21/yXAsBNj4MDcOUx6.png" alt="image-20221021221749580"><br><img src="https://s2.loli.net/2022/10/21/nVb1Cg6qpY7hRXo.png" alt="image-20221021221806162"><br><img src="https://s2.loli.net/2022/10/21/DELIVNebMpJvwKX.png" alt="image-20221021221824790"></p><p>底行模式的命令</p><p><img src="https://s2.loli.net/2022/10/21/NiDTVFPRfeEOqn5.png" alt="image-20221021221914987"><br><img src="https://s2.loli.net/2022/10/21/Tj8Gag29Qr1y6Rw.png" alt="image-20221021221931019"></p><h3 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h3><p><img src="https://s2.loli.net/2022/10/21/JPsXNiYgMponOVT.png" alt="image-20221021222210064"></p><h3 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h3><p><img src="https://s2.loli.net/2022/10/21/XgOLatyGoPx719D.png" alt="image-20221021230231442"></p><h3 id="objdump反汇编器"><a href="#objdump反汇编器" class="headerlink" title="objdump反汇编器"></a>objdump反汇编器</h3><p><img src="https://s2.loli.net/2022/10/21/mosTBUfSJpGW1g2.png" alt="image-20221021230519267"><img src="https://s2.loli.net/2022/10/21/VF5YG9iumBplKE4.png" alt="image-20221021230538240"><img src="https://s2.loli.net/2022/10/21/TxZjiFANzLIgOb9.png" alt="image-20221021230559158"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>补码整数除2^k</title>
     <link href="/2022/10/21/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/"/>
     <url>/2022/10/21/%E6%96%B0%E5%BB%BA%E6%96%87%E4%BB%B6%E5%A4%B9/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/</url>
