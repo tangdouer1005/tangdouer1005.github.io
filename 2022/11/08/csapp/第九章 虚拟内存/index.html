@@ -1,0 +1,916 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="理解虚拟内存的好处  本章前半部分讲解虚拟内存的的机制描述应用程序如何使用和管理虚拟内存 9.1 物理和虚拟内存物理寻址    主存相当于一个大数组每个字节都有唯一的物理地址（PA），通过物理地址访问主存即为物理寻址 虚拟寻址    CPU生成虚拟地址（VA），通过内存管理单元（MMU）利用给存放在主存中的查询表（由操作系统管理）完成地址翻译转化为物理地址 9.2 地址空间是一个非负整数地址的有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第九章 虚拟内存">
+<meta property="og:url" content="http://example.com/2022/11/08/csapp/%E7%AC%AC%E4%B9%9D%E7%AB%A0%20%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="理解虚拟内存的好处  本章前半部分讲解虚拟内存的的机制描述应用程序如何使用和管理虚拟内存 9.1 物理和虚拟内存物理寻址    主存相当于一个大数组每个字节都有唯一的物理地址（PA），通过物理地址访问主存即为物理寻址 虚拟寻址    CPU生成虚拟地址（VA），通过内存管理单元（MMU）利用给存放在主存中的查询表（由操作系统管理）完成地址翻译转化为物理地址 9.2 地址空间是一个非负整数地址的有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081425345.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081432690.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081436045.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081528589.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081603977.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081636678.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081636189.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081726305.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082118101.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082120474.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082144029.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082145983.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082146291.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082146821.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082150508.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082223092.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082226175.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082237835.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082244454.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082353635.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082354579.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091537167.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712076.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712077.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712078.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712079.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712080.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712081.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712083.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145373.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145374.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145375.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145376.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145377.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145378.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145379.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145380.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145381.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145383.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145384.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145385.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145386.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145387.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145388.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145389.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145390.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145391.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145392.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145393.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145394.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145395.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145396.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145397.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145398.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145399.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145400.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145401.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145402.png">
+<meta property="article:published_time" content="2022-11-08T06:15:58.615Z">
+<meta property="article:modified_time" content="2022-11-11T13:46:42.601Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081425345.png">
+  
+  
+  
+  <title>第九章 虚拟内存 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第九章 虚拟内存"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-08 14:15" pubdate>
+          2022年11月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第九章 虚拟内存</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081425345.png" srcset="/img/loading.gif" lazyload alt="image-20221108142507781"></p>
+<p>理解虚拟内存的好处</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081432690.png" srcset="/img/loading.gif" lazyload alt="image-20221108143228907"></p>
+<p>本章前半部分讲解虚拟内存的的机制描述应用程序如何使用和管理虚拟内存</p>
+<h3 id="9-1-物理和虚拟内存"><a href="#9-1-物理和虚拟内存" class="headerlink" title="9.1 物理和虚拟内存"></a>9.1 物理和虚拟内存</h3><p>物理寻址<br>    主存相当于一个大数组每个字节都有唯一的物理地址（PA），通过物理地址访问主存即为物理寻址<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081436045.png" srcset="/img/loading.gif" lazyload alt="image-20221108143630742"></p>
+<p>虚拟寻址<br>    CPU生成虚拟地址（VA），通过<strong>内存管理单元</strong>（MMU）利用给存放在主存中的<strong>查询表</strong>（由操作系统管理）完成地址翻译转化为物理地址</p>
+<h3 id="9-2-地址空间"><a href="#9-2-地址空间" class="headerlink" title="9.2 地址空间"></a>9.2 地址空间</h3><p>是一个非负整数地址的有序集合</p>
+<p>元素整数是连续的则称为线性地址空间，我们研究连续的</p>
+<p>地址空间的大小用最大地址的位数描述，我们现代系统的虚拟地址空间一般书32位或64位</p>
+<p>每个字节都可以拥有多个地址，每个地址来源于不同的地址空间，这是虚拟内存的基本思想</p>
+<h3 id="9-3-虚拟内存作为为缓存的工具"><a href="#9-3-虚拟内存作为为缓存的工具" class="headerlink" title="9.3 虚拟内存作为为缓存的工具"></a>9.3 虚拟内存作为为缓存的工具</h3><p>虚拟内存被组织为存放在<strong>磁盘</strong>上的连续的数组，数组中的内容被缓存在主存中</p>
+<p>VM系统将虚拟内存分割为<strong>虚拟页</strong>（VP）作为传输单元，物理内存也被分为<strong>物理页</strong>（PP也叫页帧）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081528589.png" srcset="/img/loading.gif" lazyload alt="image-20221108152849220"></p>
+<h4 id="9-31-DRAM缓存的组织结构"><a href="#9-31-DRAM缓存的组织结构" class="headerlink" title="9.31 DRAM缓存的组织结构"></a>9.31 DRAM缓存的组织结构</h4><p>此后将<strong>SRAM缓存</strong>表示CPU和主存之间的缓存，<strong>DRAM缓存</strong>表示虚拟内存系统的缓存，在主存中缓存虚拟页</p>
+<p>由于访问磁盘比访问主存慢很多很多，所以DRAM缓存的不命中开销非常大，<br>为此，我们的虚拟页一般非常大，且DRAM缓存是全相连的（任何虚拟页可以缓存在任何物理页中），且应用了非常复杂的替换算法，并总是写回而不是直写</p>
+<h4 id="9-32-页表"><a href="#9-32-页表" class="headerlink" title="9.32 页表"></a>9.32 页表</h4><p>为了判断虚拟页是否被缓存，被缓存在物理页中的哪个位置，我们设计了<strong>页表</strong>的数据结构，由操作系统维护</p>
+<p>页表储存在主存中，每个虚拟页在页表中的固定位置都有一个<strong>页表条目</strong>（PTE）,包含有效位表明是否缓存在主存中，和地址字段表示分配的物理页的地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081603977.png" srcset="/img/loading.gif" lazyload alt="image-20221108160355538"></p>
+<h4 id="9-33-页命中"><a href="#9-33-页命中" class="headerlink" title="9.33 页命中"></a>9.33 页命中</h4><p>访问虚拟页中的某个字节，现根据虚拟地址和页表查询到对应PTE，有效位为1则更具磁盘地址确定主存中的地址</p>
+<h4 id="9-34-缺页"><a href="#9-34-缺页" class="headerlink" title="9.34 缺页"></a>9.34 缺页</h4><p>即DRAM缓存不命中</p>
+<p>当处理器发现缺页时，触发缺页异常，调用内核中的缺页处理程序，程序会选择一个牺牲页，如果该页已经被修改则写回到磁盘中，但无论怎样都要修改相应的PTE，然后将目的虚拟页缓存入该牺牲页，并更新PTE，然后返回到引起异常的那条指令</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081636678.png" srcset="/img/loading.gif" lazyload alt="image-20221108163600137"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081636189.png" srcset="/img/loading.gif" lazyload alt="image-20221108163631703"></p>
+<h4 id="9-35-分配页面"><a href="#9-35-分配页面" class="headerlink" title="9.35 分配页面"></a>9.35 分配页面</h4><p>就是在页表中创建一个新的PTE，指向新创建的页面</p>
+<h4 id="9-36-又是局部性救了我们"><a href="#9-36-又是局部性救了我们" class="headerlink" title="9.36 又是局部性救了我们"></a>9.36 又是局部性救了我们</h4><p>虽然DRAM缓存的不命中开销非常大，但程序的局部性让程序趋向于在较小的页面上工作（工作集），但当工作集的大小大于内存的大小就会发生<strong>抖动</strong>程序变得很慢</p>
+<h3 id="9-4-虚拟内存作为内存管理的工具"><a href="#9-4-虚拟内存作为内存管理的工具" class="headerlink" title="9.4 虚拟内存作为内存管理的工具"></a>9.4 虚拟内存作为内存管理的工具</h3><p>虚拟内存可以简化内存管理</p>
+<p>操作系统为每个进程提供了独立的页面，而且多个虚拟页面可以映射到同一个物理页面中去</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211081726305.png" srcset="/img/loading.gif" lazyload alt="image-20221108172632446"></p>
+<p>按需页面调度和独立的虚拟地址空间结合</p>
+<ol>
+<li>简化链接<br>独立的地址空间让每个进程可以有相同的基本格式，64位地址空间，代码段总是从0x400000开始，数据段跟在代码段之后，中间有对齐空白，用户栈从最高地址位向下生长，这样的格式极大的简化了连接器的的设计</li>
+<li>简化加载<br>容易向内存加载可执行文件和共享对象文件，加载器为代码和数据段分配虚拟页，而不会复制到内存中，cpu取指令或者访问数据时会自动引发缺页的故障异常<br>将连续的虚拟页映射到任意文件的任意位置称为内存映射，linux有自己的内存映射系统调用</li>
+<li>简化共享<br>通常每个进程拥有独立的地址空间，但是对于操作系统内核代码，库等多个进程需要，那我我们只需要将多个进程的虚拟页映射到相同的物理页即可完成共享</li>
+<li>简化内存分配<br>当用户进程向操作系统要求额外的对空间时，分配适当的虚拟内存页面即可</li>
+</ol>
+<h3 id="9-5-虚拟内存作为内存保护的工具"><a href="#9-5-虚拟内存作为内存保护的工具" class="headerlink" title="9.5 虚拟内存作为内存保护的工具"></a>9.5 虚拟内存作为内存保护的工具</h3><p>通过页表中增添许可位确定这部分内存的保密程度，如内核中的代码数据结构只能内核模式下读取</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082118101.png" srcset="/img/loading.gif" lazyload alt="image-20221108211829020"></p>
+<p>如果某条指令违反了许可就会引发段错误sf</p>
+<h3 id="9-6-地址翻译"><a href="#9-6-地址翻译" class="headerlink" title="9.6 地址翻译"></a>9.6 地址翻译</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082120474.png" srcset="/img/loading.gif" lazyload alt="image-20221108212004631"></p>
+<p>cpu中有一个页表基质寄存器，MMU通过基址和虚拟页号确定PTE进而确定物理页号，再通过虚拟页偏移量和物理页号确定物理地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082144029.png" srcset="/img/loading.gif" lazyload alt="image-20221108214441315"></p>
+<p>页面命中cpu的执行步骤（纯硬件）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082145983.png" srcset="/img/loading.gif" lazyload alt="image-20221108214526053"></p>
+<p>缺页（硬件和系统调用）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082146291.png" srcset="/img/loading.gif" lazyload alt="image-20221108214602725"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082146821.png" srcset="/img/loading.gif" lazyload alt="image-20221108214617366"></p>
+<h4 id="9-61-结合高速缓存和虚拟内存"><a href="#9-61-结合高速缓存和虚拟内存" class="headerlink" title="9.61 结合高速缓存和虚拟内存"></a>9.61 结合高速缓存和虚拟内存</h4><p>可以通过虚拟内存访问SRAM缓存，但是通常都是通过物理寻址，因为高速缓存不用处理访问权限问题，也可以同时处理共享地址问题，在寻址之前将虚拟地址映射成物理地址就好了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082150508.png" srcset="/img/loading.gif" lazyload alt="image-20221108215037066"></p>
+<h4 id="9-62-利用TLB加速地址翻译"><a href="#9-62-利用TLB加速地址翻译" class="headerlink" title="9.62 利用TLB加速地址翻译"></a>9.62 利用TLB加速地址翻译</h4><p>TLB翻译后备缓冲器，在MMU中的关于PTE的一个缓存</p>
+<p>每一行都保存单个PTE组成的块，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082223092.png" srcset="/img/loading.gif" lazyload alt="image-20221108222339172"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082226175.png" srcset="/img/loading.gif" lazyload alt="image-20221108222605667"></p>
+<h4 id="9-63-多级页表"><a href="#9-63-多级页表" class="headerlink" title="9.63 多级页表"></a>9.63 多级页表</h4><p>一般而言页表也不小，直接放入内存会有很大开销，使用层次结构压缩页表</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082237835.png" srcset="/img/loading.gif" lazyload alt="image-20221108223722310"></p>
+<p>通常第一个页表中的一个PTE会映射4mb虚拟内存中的片，每一个片都是由1024个虚拟页组成，所以一级页表中的一个PTE会对应二级页表中1024个PTE</p>
+<p>且如果一级PTE对应的片中的每个页都未分配，则指向空，否则指向二级页表中的基质</p>
+<p>虚拟内存大部分都不会被使用，所以未被使用部分对应一级PTE不会分配二级页表，且只有一级页表储存在主存中，常被使用的二级页表才会被缓存</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082244454.png" srcset="/img/loading.gif" lazyload alt="image-20221108224431229"></p>
+<h4 id="9-64-综合：端到端的地址翻译"><a href="#9-64-综合：端到端的地址翻译" class="headerlink" title="9.64 综合：端到端的地址翻译"></a>9.64 综合：端到端的地址翻译</h4><p>又是我最喜欢的小栗子捏😋</p>
+<p>964页自己去看</p>
+<h3 id="9-7-样例研究：inter-core-i7-x2F-linux内存系统"><a href="#9-7-样例研究：inter-core-i7-x2F-linux内存系统" class="headerlink" title="9.7 样例研究：inter core i7&#x2F;linux内存系统"></a>9.7 样例研究：inter core i7&#x2F;linux内存系统</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082353635.png" srcset="/img/loading.gif" lazyload alt="image-20221108235332102"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211082354579.png" srcset="/img/loading.gif" lazyload alt="image-20221108235444498"></p>
+<h4 id="9-71-core-i7-的地址翻译"><a href="#9-71-core-i7-的地址翻译" class="headerlink" title="9.71 core i7 的地址翻译"></a>9.71 core i7 的地址翻译</h4><p>从头cpu给出虚拟内存地址到，内存或cache返回指定数据的过程</p>
+<p>注意图中未反应出缺页异常处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091537167.png" srcset="/img/loading.gif" lazyload></p>
+<p>一二三级页表PTE格式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712076.png" srcset="/img/loading.gif" lazyload alt="image-20221109155506409"></p>
+<p>第四级页表PTE格式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712077.png" srcset="/img/loading.gif" lazyload alt="image-20221109155537167"></p>
+<p>PTE三个权限位</p>
+<ol>
+<li>R&#x2F;W只读或是读写</li>
+<li>U&#x2F;S是否能在用户模式访问</li>
+<li>XD能否读取指令，降低被缓冲区溢出攻击的风险</li>
+</ol>
+<p>每次访问一个页后MMU会设置A位引用位，作为缺页处理程序替换算法的依据，每次写某个页后设置D位（脏位或者修改位），缺页处理程序之后选定这个位作为牺牲页后，根据D位确定是否写回</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712078.png" srcset="/img/loading.gif" lazyload alt="image-20221109160247608"></p>
+<p>将虚拟页号分块作为每级页表的偏移量寻找PTE</p>
+<p>优化地址翻译</p>
+<p>​	在图中好像是需要等到MMU将物理地址完全翻译后再传给L1缓存寻找是否命中，但起始虚拟地址的VPO会在虚拟地址翻译刚进行就传给L1作为组索引和块偏移确定组</p>
+<h4 id="9-72-Linux虚拟内存系统"><a href="#9-72-Linux虚拟内存系统" class="headerlink" title="9.72 Linux虚拟内存系统"></a>9.72 Linux虚拟内存系统</h4><p>简单描述软件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712079.png" srcset="/img/loading.gif" lazyload alt="image-20221109161334575"></p>
+<p>内核中的某些代码和数据被映射到所有进程共享的物理页面</p>
+<p>linux页将一组连续的虚拟页面（大小为系统中DRAM的总量），方便内核访问内存中的任意特定位置<br>（但是上文中说虚拟内存空间48位，物理内存空间52位，这是怎么存下去的呢）</p>
+<p>其他内核数据每个进程都不一样不共享</p>
+<h5 id="Linux虚拟内存区域"><a href="#Linux虚拟内存区域" class="headerlink" title="Linux虚拟内存区域"></a>Linux虚拟内存区域</h5><p>area也叫段，存放着已分配的虚拟内存的片，这些页以某种方式相关联，虚拟内存中已经分配的页存在于有且只有一个区域中</p>
+<p>区域的概念允许虚拟内存间存在间隙，未被分配的页无需占用内存，磁盘，内核本身等任何资源</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712080.png" srcset="/img/loading.gif" lazyload alt="image-20221109170002741"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712081.png" srcset="/img/loading.gif" lazyload alt="image-20221109170834443"></p>
+<p>看他的意思好像就是进程的上下文</p>
+<p>图中的pgd指向一级页表的基址，mmap指向区域结构的链表，包含该进程所有区域的首尾</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211091712083.png" srcset="/img/loading.gif" lazyload alt="image-20221109171113685"></p>
+<h5 id="linux缺页异常处理"><a href="#linux缺页异常处理" class="headerlink" title="linux缺页异常处理"></a>linux缺页异常处理</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145373.png" srcset="/img/loading.gif" lazyload alt="image-20221109175209992"></p>
+<ol>
+<li>第一步搜索mmap中的所有区域（顺序搜索消耗很大linux会构建一个树），确定该页面是否在某个区域内，否则抛出段错误终止进程</li>
+<li>第二步根据引起缺页异常的指令确定该操作是否被允许，否则引发异常保护</li>
+<li>执行缺页补回</li>
+</ol>
+<h3 id="9-8-内存映射"><a href="#9-8-内存映射" class="headerlink" title="9.8 内存映射"></a>9.8 内存映射</h3><p>将虚拟内存中的区域与磁盘上的对象关联起来，称为内存映射</p>
+<ol>
+<li>映射到文件系统的普通文件，例如映射到可执行文件的连续部分，如果区域比文件大则区域余下部分补0</li>
+<li>匿名文件，由内核创建，包含的全是0，当第一次引用时在物理内存中替换一个牺牲页，并全置零，修改PTE，注意在此过程中并未进行实际的数据传输，也叫请求二进制0的页</li>
+</ol>
+<h4 id="9-81-再看共享文件"><a href="#9-81-再看共享文件" class="headerlink" title="9.81 再看共享文件"></a>9.81 再看共享文件</h4><p>磁盘中的对象被映射到虚拟内存中的一个区域，要么作为共享对象（虚拟内存中的映射对其他进程是可见的，且对其写会反映到磁盘中的原始对象中），要么作为私有对象</p>
+<p>内核可判断之前是否有进程映射了这个共享对象，将其指向物理内存中已经存在的物理页面</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145374.png" srcset="/img/loading.gif" lazyload alt="image-20221109203940860"></p>
+<p>私有对象使用了<strong>写时复制</strong>的技术，同共享对象一样，物理内存中只保留私有对象的一份副本，多个进程共享，每个对象的相应的PTE标记位只读，区域结构标记为私有的写时复制</p>
+<p>若某进程对该私有对象进行写操作，则触发保护异常，将该页面进行复制，更新PTE指向新副本，恢复可写权限，再重新执行写操作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145375.png" srcset="/img/loading.gif" lazyload alt="image-20221109204711510"></p>
+<h4 id="9-82-再看fork函数"><a href="#9-82-再看fork函数" class="headerlink" title="9.82 再看fork函数"></a>9.82 再看fork函数</h4><p>fork调用时，内核为新的进程创建各种新的数据结构，分配新的PID，创建新的虚拟内存（创建mm_struct,区域结构，页表），两个进程的页表PTE都改为只读，区域结构改为私有的写时复制，</p>
+<h4 id="9-83-再看execve函数"><a href="#9-83-再看execve函数" class="headerlink" title="9.83 再看execve函数"></a>9.83 再看execve函数</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145376.png" srcset="/img/loading.gif" lazyload alt="image-20221110135113014"></p>
+<h4 id="9-84-使用mmap函数的用户级内存映射"><a href="#9-84-使用mmap函数的用户级内存映射" class="headerlink" title="9.84 使用mmap函数的用户级内存映射"></a>9.84 使用mmap函数的用户级内存映射</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145377.png" srcset="/img/loading.gif" lazyload alt="image-20221110135928556"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145378.png" srcset="/img/loading.gif" lazyload alt="image-20221110140524396"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145379.png" srcset="/img/loading.gif" lazyload alt="image-20221110140557255"></p>
+<h3 id="9-9-动态内存分配"><a href="#9-9-动态内存分配" class="headerlink" title="9.9 动态内存分配"></a>9.9 动态内存分配</h3><p>动态内存分配器比mmap函数更方便，更容易移植</p>
+<p>虚拟内存区域叫堆，对于每个进程内核维护一个指向堆顶的变量break</p>
+<p>分配器将堆看作大小不同的块组成，块是已分配的供应用程序使用，直到被释放（可能是应用程序显式执行，或者是分配器隐式执行，根据这点可将分配器分为隐式分配器或显式分配器）</p>
+<h4 id="9-91-malloc和free函数"><a href="#9-91-malloc和free函数" class="headerlink" title="9.91 malloc和free函数"></a>9.91 malloc和free函数</h4><p>malloc程序包属于显式分配器</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145380.png" srcset="/img/loading.gif" lazyload alt="image-20221110144343705"></p>
+<p>malloc会根据可能放在这个块内的任何数据类型进行数据对齐，但并不会初始化，想初始化使用calloc，想改变一个已分配的块用realloc</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145381.png" srcset="/img/loading.gif" lazyload alt="image-20221110144132249"></p>
+<p>sbrk函数用来扩展堆incr字节，incr为0则返回当前堆的break值，incr为负则收缩堆</p>
+<p>返回值为-1时会将errno置为ENOMEM</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145383.png" srcset="/img/loading.gif" lazyload alt="image-20221110144354031"></p>
+<p>free函数的参数必须是已分配块的起始位置，否则结果是未定义的</p>
+<h4 id="9-92-为什么要使用动态内存分配"><a href="#9-92-为什么要使用动态内存分配" class="headerlink" title="9.92 为什么要使用动态内存分配"></a>9.92 为什么要使用动态内存分配</h4><p>主要原因是直到程序运行时才知道某些数据结构的大小</p>
+<h4 id="9-93-分配器的要求和目标"><a href="#9-93-分配器的要求和目标" class="headerlink" title="9.93 分配器的要求和目标"></a>9.93 分配器的要求和目标</h4><p>要求</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145384.png" srcset="/img/loading.gif" lazyload alt="image-20221110151024323"></p>
+<p>（好奇怪….之前不是说realloc能改变块的大小吗，难道是删除重新分配）</p>
+<p>两个性能目标是，吞吐率最大化和内存使用率最大化，通常是冲突的</p>
+<p>注意虚拟内存并不是无限大的，受磁盘上该进程的交换空间限制</p>
+<p>分配器内存使用效率效率评价标准</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145385.png" srcset="/img/loading.gif" lazyload alt="image-20221110151642405"></p>
+<p>分配器的吞吐量和峰值利用率相互制约，要找到适当的平衡</p>
+<h4 id="9-94-碎片"><a href="#9-94-碎片" class="headerlink" title="9.94 碎片"></a>9.94 碎片</h4><p>碎片现象即为，内存未被使用但无法满足分配需求，分为内部碎片和外部碎片</p>
+<p>内部碎片：已分配块比有效载荷大，比如可能需要强加一个块为了对齐约束，数量只取决于之气那的请求模式和分配器</p>
+<p>外部碎片：空闲内存合计满足分配需求，但没有单独的块处理，数量不仅取决于之前的处理还与以后的请求大小有关</p>
+<h4 id="9-95-实现问题"><a href="#9-95-实现问题" class="headerlink" title="9.95 实现问题"></a>9.95 实现问题</h4><p>注意的点</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145386.png" srcset="/img/loading.gif" lazyload alt="image-20221110153027280"></p>
+<h4 id="9-96-隐式空闲链表"><a href="#9-96-隐式空闲链表" class="headerlink" title="9.96 隐式空闲链表"></a>9.96 隐式空闲链表</h4><p>需要数据结构储存堆的信息，比如块边界，区分块大小，空闲块分配块的区别等，大多数分配器将这些数据嵌入块中，隐式空闲链表为其中一种</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145387.png" srcset="/img/loading.gif" lazyload alt="image-20221110172349471"></p>
+<p>假如采用双字对齐要求，那块的大小一定是8的倍数，所以大小的低三位一定是0，那么我们可以储存这个块其他的信息，比如这个块是不是空闲块等</p>
+<p>填充块可能是用以满足对齐要求，也有可能是分配器对抗外部碎片的策略填充等</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145388.png" srcset="/img/loading.gif" lazyload alt="image-20221110172744443"></p>
+<p>通过块的大小确定下一个块的位置，所以是隐式空闲链表（看到后面的显式空闲链表可以发现，这里的隐式是对于空闲块的链接来说的，空闲块之间并没有链接，中间隔了很多分配块，无法直接找到下一个）</p>
+<p>注意要设置一个空的块作为尾部</p>
+<p>这种储存策略简单，但是每种操作都要进行遍历链表，时间跟堆的大小正相关</p>
+<p>注意对其要求和块的格式会让块有一个最小值，比如双字对齐要求会要求块的最小值为双字</p>
+<h4 id="9-97-放置已分配的块"><a href="#9-97-放置已分配的块" class="headerlink" title="9.97 放置已分配的块"></a>9.97 放置已分配的块</h4><p>搜索空闲链表确定位置，由分配器的放置策略确定，通常有首次适配（从头搜索直到搜索到足够大的空闲块）、下一次适配（从上次查询结束位置开始）、最佳适配（遍历链表寻找最小且足够大的空闲块）</p>
+<h4 id="9-98-分割空闲块"><a href="#9-98-分割空闲块" class="headerlink" title="9.98 分割空闲块"></a>9.98 分割空闲块</h4><p>如果在放置策略中搜索到的是比较适配的块我们倾向于直接占用这个空闲块，但如果匹配不太好我们则将这个空闲块分割，余下空间创造一个新的空闲块，减少内部碎片</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145389.png" srcset="/img/loading.gif" lazyload alt="image-20221110175324535"></p>
+<h4 id="9-99-获取额外的内存"><a href="#9-99-获取额外的内存" class="headerlink" title="9.99 获取额外的内存"></a>9.99 获取额外的内存</h4><p>如果分配器不能搜索到足够大的空闲块，首先会合并相邻的空闲块，如果还是没有足够大的空闲块就调用sbrk函数，向内核请求扩大堆的空间，即在空闲链表的后面增加一个又新又大的空闲块</p>
+<h4 id="9-910-合并空闲块"><a href="#9-910-合并空闲块" class="headerlink" title="9.910 合并空闲块"></a>9.910 合并空闲块</h4><p>空闲块相邻可能出现假碎片现象，即明明可以存下，但是搜索策略就是搜索不到</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145390.png" srcset="/img/loading.gif" lazyload alt="image-20221110175516769"></p>
+<p>何时合并是个问题</p>
+<p>我们可以选择立即合并，即有块被释放就进行与周围的块进行合并，但这种策略可能会产生抖动现象，即反复合并分割</p>
+<p>也可以延迟合并，即稍晚合并，比如搜索失败时进行合并</p>
+<p>我们之后假定为立即合并，但实际的分配器通常为某种延迟合并</p>
+<h4 id="9-911-带边界标记的合并"><a href="#9-911-带边界标记的合并" class="headerlink" title="9.911 带边界标记的合并"></a>9.911 带边界标记的合并</h4><p>如何实现合并</p>
+<p>（假定立即合并）当我们释放一个块时可能需要合并之前的块和之后的块，隐式空闲链表的结构容易得到之后的块是否为空闲块及其位置和，但之前的块需要我们将链表从头遍历至尾，耗费很大</p>
+<p>我们给出边界标记的方法，将消耗缩减为常数大小，即在每个块的尾部添加脚部</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145391.png" srcset="/img/loading.gif" lazyload alt="image-20221110203333721"></p>
+<p>但当每个块的有效荷载较小时，会浪费很多空间，我们观察到，只有当前块为空闲块时才需要读取脚步，所以我们可以将前块是否为空闲块储存在当前块的无效位，只有在块为空闲块时才设有尾部</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145392.png" srcset="/img/loading.gif" lazyload alt="image-20221110203515521"></p>
+<h4 id="9-912-实现一个简单的分配器"><a href="#9-912-实现一个简单的分配器" class="headerlink" title="9.912 实现一个简单的分配器"></a>9.912 实现一个简单的分配器</h4><p>通用分配器设计</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145393.png" srcset="/img/loading.gif" lazyload alt="image-20221110204619751"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145394.png" srcset="/img/loading.gif" lazyload alt="image-20221110204544027"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145395.png" srcset="/img/loading.gif" lazyload alt="image-20221110204555931"></p>
+<p>不想看了</p>
+<h4 id="9-913-显式空闲链表"><a href="#9-913-显式空闲链表" class="headerlink" title="9.913 显式空闲链表"></a>9.913 显式空闲链表</h4><p>隐式分配链表分配（这里应该是指放置）与块的总数成线性，我们可以使用显式空闲链表将其降为与空闲块的数量成线性</p>
+<p>我们可以将空闲块的空间利用起来</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145396.png" srcset="/img/loading.gif" lazyload alt="image-20221111104837457"></p>
+<p>但是对释放操作有影响，因为在形成空闲块的时候需要直到前后空闲块的位置</p>
+<p>可以选择后进先出的策略这样每次形成空闲块都将其放置到空闲链表的首位，消耗为常数大小，且使用边界标记也不会对合并造成影响</p>
+<p>也可以按照地址顺序维护链表，这样需要花费线性时间（相对于之前空闲块）寻找前驱（后驱位置可由前驱给出），优势在于按地址排序的空闲链表的首次适配要有更高的内存利用率，接近最佳适配</p>
+<p>显式链表会增大最小块的大小</p>
+<h4 id="9-914-分离的空闲链表"><a href="#9-914-分离的空闲链表" class="headerlink" title="9.914 分离的空闲链表"></a>9.914 分离的空闲链表</h4><p>分离储存，将差不多大小的空闲块储存在一个链表，分成等价类，有多种划分方式，分配器维护一个空闲链表数组</p>
+<p>分离储存方法的区别主要有，大小类的定义，何时合并，合适请求堆新内存，是否允许分割</p>
+<h5 id="简单分离存储"><a href="#简单分离存储" class="headerlink" title="简单分离存储"></a>简单分离存储</h5><ol>
+<li>大小类中的块大小相等，例如{17-32}中的块大小都为32</li>
+<li>分配的时候查询相应大小的大小类是否为空（不会寻找更大的块将其分割），若为空则申请固定大小的新空间，将其均等的分为所需大小形成新的空闲链表（每个片都是大小相等的片）</li>
+<li>释放块将其放到其大小的空闲链表的前部即可</li>
+</ol>
+<p>优点：</p>
+<ol>
+<li>分配和释放块都是常数时间</li>
+<li>每个片中的块大小相等，从块的地址即可读出大小，且不需要分割合并，所以不需要记录是否是空闲块，所以已分配块不需要头部尾部</li>
+<li>空闲块中仅需要储存下一空闲块的地址，因此最小块大小为一个字</li>
+</ol>
+<p>缺点</p>
+<ol>
+<li>不会分割，造成大量内部碎片</li>
+<li>不会合并，造成大量外部碎片</li>
+</ol>
+<h5 id="分离适配"><a href="#分离适配" class="headerlink" title="分离适配"></a>分离适配</h5><p>简单的一个</p>
+<ol>
+<li>首先以某种方式划分大小类，每个空闲链表中空闲块的大小都是对应大小类的成员</li>
+<li>分配块首先确定大小类，进行首次适配，如果搜索到了就进行分割，然后将余下块放入对应空闲链表，否则在下一个更大的空闲链表进行首次适配，若全都找不到就申请新的堆内存，将剩余部分存放到适当的空闲链表</li>
+<li>释放块要执行合并，然后放入对应空闲链表（将合并的块先从链表中删除，如果是显式空闲链表则为常数时间）</li>
+</ol>
+<p>GNUmalloc包就是这种方法</p>
+<h5 id="伙伴系统"><a href="#伙伴系统" class="headerlink" title="伙伴系统"></a>伙伴系统</h5><ol>
+<li>分离适配的特例，每个大小类都是2的幂 </li>
+<li>开始的时候只有一个2^m大小的空闲块，首先堆分配的内存大小向上取整得到为2^k，然后对2^m递归的二分割，剩下的另一半（伙伴）放入对应空闲链表，直到找到2^k</li>
+<li>释放空间的时候要求合并，因为伙伴总是相邻的，要递归合并直到遇到已分配的块</li>
+</ol>
+<h3 id="9-10-垃圾分配"><a href="#9-10-垃圾分配" class="headerlink" title="9.10 垃圾分配"></a>9.10 垃圾分配</h3><p>即在堆块对程序无用的时候自动对其释放，程序只负责分配（隐式分配器）</p>
+<p>我们仅讨论Mark&amp;Sweep算法，可建立在malloc包上为c或cpp提供服务</p>
+<h4 id="9-101-垃圾分配器的基础知识"><a href="#9-101-垃圾分配器的基础知识" class="headerlink" title="9.101 垃圾分配器的基础知识"></a>9.101 垃圾分配器的基础知识</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145397.png" srcset="/img/loading.gif" lazyload alt="image-20221111132001625"></p>
+<p>根节点为存放于堆之外的对象，堆节点指代堆中已分配的块，将其分为可达和垃圾</p>
+<p>java创建和使用指针严格所以，垃圾收集器可维护严格的可达图，可以收集所有垃圾，c和c++通常不能维护精确的可达图，也叫保守垃圾回收器（可达一定被标记，不可达不一定不被标记）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145398.png" srcset="/img/loading.gif" lazyload alt="image-20221111132714532"></p>
+<p>malloc内存分配失败，调用垃圾分配器释放垃圾，再次调用mailloc，再次失败则向内核申请堆空间</p>
+<h4 id="9-102-Mark-amp-Sweep垃圾收集器"><a href="#9-102-Mark-amp-Sweep垃圾收集器" class="headerlink" title="9.102 Mark&amp;Sweep垃圾收集器"></a>9.102 Mark&amp;Sweep垃圾收集器</h4><p>垃圾收集分为标记和清除两个阶段</p>
+<p>标记会对每个根节点执行mark函数，未被标记的即为垃圾（标记通常会被放在块头部的空闲的低位）</p>
+<p>清楚阶段对所有块进行遍历，空闲块跳过，标记分配块删除标记，未标记分配块free</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145399.png" srcset="/img/loading.gif" lazyload alt="image-20221111190129134"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145400.png" srcset="/img/loading.gif" lazyload alt="image-20221111190140837"></p>
+<h4 id="9-103-c程序保守的Mark-amp-Sweep"><a href="#9-103-c程序保守的Mark-amp-Sweep" class="headerlink" title="9.103 c程序保守的Mark&amp;Sweep"></a>9.103 c程序保守的Mark&amp;Sweep</h4><p>c语言实现isPtr存在两个问题</p>
+<ol>
+<li>c语言不能确定当前内存储存的数据类型，所以不能判断当前参数是不是指针</li>
+<li>如果p确实是一个指针，怎样判断它指向的确实是已分配块中的地址</li>
+</ol>
+<p>对于第二个问题我们将已分配块组织成一个平衡二叉树，左子树节点的地址小于跟节点小于右子树，我们可以通过二分查找找到一个最大的小于参数块的地址，根据块的大小判断该地址是否在块中</p>
+<p>这种做法需要在已分配块中添加左右子树的地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145401.png" srcset="/img/loading.gif" lazyload alt="image-20221111192258184"></p>
+<p>所以说c程序的M&amp;S收集器肯定是保守的，因为c不会用类型信息标记内存位置，可能用int或其他类型伪装成指针，进而标记不该标记的块，造成垃圾残留，造成了外部碎片，但问题不大</p>
+<h3 id="9-11-c程序中常见的与内存有关的错误"><a href="#9-11-c程序中常见的与内存有关的错误" class="headerlink" title="9.11 c程序中常见的与内存有关的错误"></a>9.11 c程序中常见的与内存有关的错误</h3><p>都挺容易的就不写了</p>
+<h3 id="9-12-小结"><a href="#9-12-小结" class="headerlink" title="9.12 小结"></a>9.12 小结</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211112145402.png" srcset="/img/loading.gif" lazyload alt="image-20221111214510494"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/csapp/" class="category-chain-item">csapp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第九章 虚拟内存</div>
+      <div>http://example.com/2022/11/08/csapp/第九章 虚拟内存/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/06/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%B7%A6%E5%81%8F%E5%A0%86/" title="左偏树的性质及其构造">
+                        <span class="hidden-mobile">左偏树的性质及其构造</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
