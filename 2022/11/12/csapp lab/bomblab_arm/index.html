@@ -16,15 +16,51 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="源码 可以看到他让我们新建一个文件储存答案，这样我们解开炸弹之后就不用每次都输入了  我们创建了一个ans.txt储存我们的答案 phase_1然后在gdb中打开bomb后映射出phase_1的反汇编  stp 指令是 str 的变种指令，p 可以理解成 pair 的意思，可以同时操作两个寄存器 这条指令先将站址指针减0x10，再将x29 x30寄存器先后储存到栈中，等价于x86中函数开头调用su">
+<meta property="og:type" content="article">
 <meta property="og:title" content="bomblab_arm">
 <meta property="og:url" content="http://example.com/2022/11/12/csapp%20lab/bomblab_arm/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="源码 可以看到他让我们新建一个文件储存答案，这样我们解开炸弹之后就不用每次都输入了  我们创建了一个ans.txt储存我们的答案 phase_1然后在gdb中打开bomb后映射出phase_1的反汇编  stp 指令是 str 的变种指令，p 可以理解成 pair 的意思，可以同时操作两个寄存器 这条指令先将站址指针减0x10，再将x29 x30寄存器先后储存到栈中，等价于x86中函数开头调用su">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620096.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620275.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620276.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620277.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620278.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620279.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620280.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620281.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620282.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620283.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620284.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620285.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620286.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620287.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620288.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620289.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620290.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620291.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620292.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620293.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620294.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620295.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620296.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620297.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620298.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620299.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620300.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620301.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620302.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620303.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620304.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131506218.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620305.png">
 <meta property="article:published_time" content="2022-11-12T07:08:55.490Z">
-<meta property="article:modified_time" content="2022-11-12T07:10:47.917Z">
+<meta property="article:modified_time" content="2022-11-13T08:21:26.009Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620096.png">
   
   
   
@@ -216,7 +252,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          2k 字
         
       </span>
     
@@ -227,7 +263,7 @@
         
         
         
-          1 分钟
+          17 分钟
         
       </span>
     
@@ -270,7 +306,118 @@
             
               <div class="markdown-body">
                 
-                
+                <h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620096.png" srcset="/img/loading.gif" lazyload alt="image-20221112172122600"></p>
+<p>可以看到他让我们新建一个文件储存答案，这样我们解开炸弹之后就不用每次都输入了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620275.png" srcset="/img/loading.gif" lazyload alt="image-20221112172343975"></p>
+<p>我们创建了一个ans.txt储存我们的答案</p>
+<h3 id="phase-1"><a href="#phase-1" class="headerlink" title="phase_1"></a>phase_1</h3><p>然后在gdb中打开bomb后映射出phase_1的反汇编</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620276.png" srcset="/img/loading.gif" lazyload alt="image-20221112172556362"></p>
+<p>stp 指令是 str 的变种指令，p 可以理解成 pair 的意思，可以同时操作两个寄存器</p>
+<p>这条指令先将站址指针减0x10，再将x29 x30寄存器先后储存到栈中，等价于x86中函数开头调用sub分配栈空间，push将调用者保存寄存器入栈</p>
+<p>然后根据后面的地址可以得到答案</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620277.png" srcset="/img/loading.gif" lazyload alt="image-20221112175150601"></p>
+<p>School of Computer Science is best one in BUPT.(注意句号)</p>
+<h3 id="phase-2"><a href="#phase-2" class="headerlink" title="phase_2"></a>phase_2</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620278.png" srcset="/img/loading.gif" lazyload alt="image-20221112175309224"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620279.png" srcset="/img/loading.gif" lazyload alt="image-20221112181734909"></p>
+<p>将六个整数存在了sp+0x28到sp+0x40的位置</p>
+<p>然后要求有</p>
+<ol>
+<li><p>第一个数不为0则跳转到爆炸函数，所以第一个数为0</p>
+</li>
+<li><p>第二个数等于1则跳过爆炸函数，所以第一个数为1</p>
+</li>
+<li><p>对于第3456个数，第三个数是前两个数之和</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620280.png" srcset="/img/loading.gif" lazyload alt="image-20221112182803803"></p>
+<p>分析：x20储存第五个数的地址（作为循环运行的结束条件），w0储存前两个数之和，w1储存第三个数，若不相等则爆炸</p>
+</li>
+</ol>
+<p>递推可得答案为</p>
+<p>0 1 1 2 3 5 8</p>
+<h3 id="phase-3"><a href="#phase-3" class="headerlink" title="phase_3"></a>phase_3</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620281.png" srcset="/img/loading.gif" lazyload alt="image-20221112182957751"></p>
+<p>查看scanf函数的参数x1<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620282.png" srcset="/img/loading.gif" lazyload alt="image-20221112183249175"></p>
+<p>可见第三个炸弹的输入数据为两个整数，x2（sp+0x1c） 和 x3（sp+0x18）作为另两个参数其地址存放这两个整数</p>
+<p>第一个参数为3的话直接跳转到phase_3+168位置，将0x4c输入到w1，然后直接跳转到phase_3+144，然后将第二个参数输入w0，如果w1和w0相等则跳过炸弹否则爆炸</p>
+<p>所以答案可以为</p>
+<p>3 76</p>
+<p>当然可能为其他的答案</p>
+<h3 id="phase-4"><a href="#phase-4" class="headerlink" title="phase_4"></a>phase_4</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620283.png" srcset="/img/loading.gif" lazyload alt="image-20221112184432211"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620284.png" srcset="/img/loading.gif" lazyload alt="image-20221112191308254"></p>
+<p>输入部分和phase_3的输入部分几乎一样，不同的是，将第一个整数放入了sp+0x18,将第二个整数放入了sp+0x1c</p>
+<p>如果检测到输入的不是两个整数就爆炸</p>
+<p>然后将第二个整数减二与二对比，结果小于二则跳过炸弹，所以第二个整数一定小于4,且大于2（否则会溢出），即为3</p>
+<p>然后将第二个整数和7作为参数调用func4，返回值与第一个整数相等则跳过炸弹</p>
+<p>递归的话我们可以用c语言模拟一下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620285.png" srcset="/img/loading.gif" lazyload alt="image-20221112201638109"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620286.png" srcset="/img/loading.gif" lazyload alt="image-20221112201651624"></p>
+<p>所以我们的答案为</p>
+<p>99 3</p>
+<h3 id="phase-5"><a href="#phase-5" class="headerlink" title="phase_5"></a>phase_5</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620287.png" srcset="/img/loading.gif" lazyload alt="image-20221112202744380"></p>
+<p>将从文件中读取的一行字符串直接作为参数传入string_length</p>
+<p>可以看出答案是一个长度为6的字符串</p>
+<p>起始时</p>
+<ol>
+<li>x2储存指向字符串头部的指针</li>
+<li>x0储存指向字符串尾部的指针</li>
+<li>w3储存偏移量</li>
+</ol>
+<p>注意+48处的指令是arm特有的后索引寻址方式，是寻址后对x2+1，而不是对x2+1寻址</p>
+<p>将字符对应as码的低四位逻辑左移两位后作为基址0x402610的偏移量进行寻址，放入w1，累加入w3</p>
+<p>最后使得w3&#x3D;&#x3D;0x25（37）</p>
+<p>我们可以看到这个地址中存了什么</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620288.png" srcset="/img/loading.gif" lazyload alt="image-20221112210857815"></p>
+<p>因为我们的偏移量左移两位相当于乘4，所以我们依次可取到2、10、6、1、12、16……</p>
+<p>我们要用这些来凑出37</p>
+<p>我们可以挑选6 6 6 6 6 7</p>
+<p>即六个字母的低四位分别为2 2 2 2 2 9</p>
+<p>可以为222229</p>
+<h3 id="phase-6"><a href="#phase-6" class="headerlink" title="phase_6"></a>phase_6</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620289.png" srcset="/img/loading.gif" lazyload alt="image-20221112212326469"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620290.png" srcset="/img/loading.gif" lazyload alt="image-20221112213818045"></p>
+<p>首先+108之前，确保输入的六个数都小于7大于0（否则-1会溢出）且互不相等</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620291.png" srcset="/img/loading.gif" lazyload alt="image-20221112213839254"></p>
+<p>+144 以上让输入数据替换为7-该数据</p>
+<p>在</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620292.png" srcset="/img/loading.gif" lazyload alt="image-20221113002749815"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620293.png" srcset="/img/loading.gif" lazyload alt="image-20221113112614177"></p>
+<p>可见这是以链表结构储存的数据，且是顺序储存（中间还夹了一个二叉树）</p>
+<p>前四个字节为当前节点储存的数据，五到八个字节储存编号，第九个字节到十二个字节储存下一个节点的地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620294.png" srcset="/img/loading.gif" lazyload alt="image-20221113113524045"></p>
+<p>从148到220，将该链表按照输入六个数字的顺序排列到sp+0x38处</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620295.png" srcset="/img/loading.gif" lazyload alt="image-20221113114607139"></p>
+<p>从224到272根据按照输入六个数字，重新链接该链表</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620296.png" srcset="/img/loading.gif" lazyload alt="image-20221113114820236"></p>
+<p>w1储存前一个节点的数据，w0储存后一个节点的数据</p>
+<p>要w1&gt;w0所以应是按照降序重新排列(2 1 5 3 4 6)，又因源数据经过7-重新输入最终答案为</p>
+<p>5 6 2 4 3 1</p>
+<h3 id="secret-phase"><a href="#secret-phase" class="headerlink" title="secret_phase"></a>secret_phase</h3><p>观察源代码发现，每个关卡都会调用phase_fause，但是好像没用，查看其汇编</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620297.png" srcset="/img/loading.gif" lazyload alt="image-20221113150858894"></p>
+<p>w0为6时我们才能进入隐藏关卡</p>
+<p>可以看到68处调用了scanf函数，查看传入参数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620298.png" srcset="/img/loading.gif" lazyload alt="image-20221113151624171"></p>
+<p>两个整数和一个字符串，如果这个scanf输入三个参数就会进入跳入秘密关卡判断，如果第三个参数输入的是DrEvil则进入secret</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620299.png" srcset="/img/loading.gif" lazyload alt="image-20221113154216382"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620300.png" srcset="/img/loading.gif" lazyload alt="image-20221113154150066"></p>
+<p>比对后成功进入seret_phase</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620301.png" srcset="/img/loading.gif" lazyload alt="image-20221113154314995"></p>
+<p>可知进入之后又读入了一行数据，所以不要乱run了</p>
+<p>读入字符串之后，调用strtol函数转化为整数，看来是输入了一个整数</p>
+<p>转化存入bx，0x3e8&gt;&#x3D;bx-1，即输入数据小于等于1001</p>
+<p>然后将输入数据和0x420120作为参数调用fun7，当且仅当返回值为7时不会爆炸</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620302.png" srcset="/img/loading.gif" lazyload alt="image-20221113154900018"></p>
+<p>涉及到递归调用，映射为c代码为</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620303.png" srcset="/img/loading.gif" lazyload alt="image-20221113161244218"></p>
+<p>可以查看这是个什么东西，这是一个二叉树</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620304.png" srcset="/img/loading.gif" lazyload alt="image-20221113155500872"></p>
+<p>观察可知数据类型为一个二叉树，还有单调性哈</p>
+<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211042302717.png"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131506218.png" srcset="/img/loading.gif" lazyload alt="image-20221104194715400"></a></p>
+<p>image-20221104194715400</p>
+<p>综上分析，要使最外层待用返回值为6，第一层调用si&lt;dx，且递归调用函数返回值为3</p>
+<p>要使第二层返回值为3，则有si&gt;dx，且第三层调用返回值为1</p>
+<p>要使得第三层返回值为1，则要有si&gt;dx，且第四层返回值为0</p>
+<p>第四层中si&#x3D;dx才能使得返回值为0</p>
+<p>综上令si&#x3D;0x23满足条件，即1</p>
+<p>drevil 的炸弹被拆除咧</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211131620305.png" srcset="/img/loading.gif" lazyload alt="image-20221113161609063"></p>
+
                 
               </div>
             
@@ -353,12 +500,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2022/11/12/csapp%20lab/arm%E6%A1%86%E6%9E%B6/" title="ARM汇编">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ARM汇编</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/12/csapp%20lab/arm%E6%A1%86%E6%9E%B6/" title="ARM汇编">
-                        <span class="hidden-mobile">ARM汇编</span>
+                      <a href="/2022/11/11/csapp/%E7%AC%AC%E5%8D%81%E7%AB%A0%20%E7%B3%BB%E7%BB%9F%E7%BA%A7IO/" title="第十章 系统级I/O">
+                        <span class="hidden-mobile">第十章 系统级I/O</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
