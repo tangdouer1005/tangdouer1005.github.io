@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="phase_1第一阶段要我们在执行getbuf之后直接执行touch1函数，不用担心破坏掉栈，因为touch1会直接结束进程 首先我们要查看getbuf函数创建了多大的缓冲区  只有四十个字节的缓冲区也就是说，四十个字节之上再往上即为返回地址，我们需要将这个返回地址改为touch1的首地址所以说我们输入字符串的前四十个字符随意，第四十一到四十八字符需要是touch1首地址对应的字符as码形式  首">
+<meta property="og:type" content="article">
+<meta property="og:title" content="attacklab">
+<meta property="og:url" content="http://example.com/2022/11/18/csapp%20lab/attack%20lab/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="phase_1第一阶段要我们在执行getbuf之后直接执行touch1函数，不用担心破坏掉栈，因为touch1会直接结束进程 首先我们要查看getbuf函数创建了多大的缓冲区  只有四十个字节的缓冲区也就是说，四十个字节之上再往上即为返回地址，我们需要将这个返回地址改为touch1的首地址所以说我们输入字符串的前四十个字符随意，第四十一到四十八字符需要是touch1首地址对应的字符as码形式  首">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220972.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220974.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220975.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220976.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220977.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220978.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220979.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220980.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220981.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220982.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220983.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220984.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220985.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211191552860.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220986.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220987.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220988.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220989.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220990.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220991.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220992.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220993.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220994.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220995.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220996.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220997.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220998.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220999.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220991.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220992.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220000.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192035846.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220002.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220003.png">
+<meta property="article:published_time" content="2022-11-18T11:17:15.202Z">
+<meta property="article:modified_time" content="2022-11-19T14:31:57.258Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220972.png">
+  
+  
+  
+  <title>attacklab - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="attacklab"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-18 19:17" pubdate>
+          2022年11月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">attacklab</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="phase-1"><a href="#phase-1" class="headerlink" title="phase_1"></a>phase_1</h3><p>第一阶段要我们在执行getbuf之后直接执行touch1函数，不用担心破坏掉栈，因为touch1会直接结束进程</p>
+<p>首先我们要查看getbuf函数创建了多大的缓冲区</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220972.png" srcset="/img/loading.gif" lazyload alt="image-20221118210219169"></p>
+<p>只有四十个字节的缓冲区也就是说，四十个字节之上再往上即为返回地址，我们需要将这个返回地址改为touch1的首地址所以说我们输入字符串的前四十个字符随意，第四十一到四十八字符需要是touch1首地址对应的字符as码形式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220974.png" srcset="/img/loading.gif" lazyload alt="image-20221118210639403"></p>
+<p>首地址为0x00401875</p>
+<p>因为x86_64默认为大端法储存所以在注入更换地址时的顺序应是47184000的顺序</p>
+<p>我们先将输入字符串的as码储存到一个txt文件中，前四十个字符任意，后四个对应的as码为0x47 0x18 0x40 0x00</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220975.png" srcset="/img/loading.gif" lazyload alt="image-20221118213146684"></p>
+<p>通过hex2raw程序将其转化成字符</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220976.png" srcset="/img/loading.gif" lazyload alt="image-20221118214710415"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220977.png" srcset="/img/loading.gif" lazyload alt="image-20221118214756051"></p>
+<p>将其注入</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220978.png" srcset="/img/loading.gif" lazyload alt="image-20221118214832322"></p>
+<h3 id="phase-2"><a href="#phase-2" class="headerlink" title="phase_2"></a>phase_2</h3><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220979.png" srcset="/img/loading.gif" lazyload alt="image-20221118215324147"></p>
+<p>可以看出我们不仅要将地址更改为touch2的首地址，还要传入一个参数为cookie</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220980.png" srcset="/img/loading.gif" lazyload alt="image-20221118221318280"></p>
+<p>首先需要将这个操作写入缓冲区（将cooki传入rdi，将返回地址设为touch2首地址0x4018a9），然后将text函数返回到缓冲区中对应的这个操作</p>
+<p>实现我们需要将这个操作写成汇编的形式，然后将其反汇编再注入</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220981.png" srcset="/img/loading.gif" lazyload alt="image-20221118222024644"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220982.png" srcset="/img/loading.gif" lazyload alt="image-20221118221948845"></p>
+<p>同时我们还需要得知getbuf栈的地址</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220983.png" srcset="/img/loading.gif" lazyload alt="image-20221118223151088"></p>
+<p>所以我们的字符串输入后栈的数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220984.png" srcset="/img/loading.gif" lazyload alt="image-20221118231105456"></p>
+<p>然后将其转化为字符模式，作为参数传入</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220985.png" srcset="/img/loading.gif" lazyload alt="image-20221118232424679"></p>
+<h3 id="phase-3"><a href="#phase-3" class="headerlink" title="phase_3"></a>phase_3</h3><p>和阶段二差不多，不过这次不是传入一个整数，而是传入一个字符串（为cookie对应的字符串），准确来说是传入一个指向字符串的指针，而这个字符串储存子在一个位置</p>
+<p>而且在调用touch3中调用hexmatch将cookie作为字符串写入内存时可能会覆盖掉我们本在getbuf中的缓冲区中的某一段内存，但幸亏exmatch中调用的random是伪随机，我们可以通过调试确定其值</p>
+<p>另一种方法是我们直接避免将字符串存入getbuf栈中，而是将其存入上一个栈test的栈中，这样就无法被破坏，我们选择后者</p>
+<p>首先确定getbuf的栈指针</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211191552860.png" srcset="/img/loading.gif" lazyload alt="image-20221118223151088"></p>
+<p>然后确定touch3的地址，确保运行完我们植入的代码后跳转到touch3</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220986.png" srcset="/img/loading.gif" lazyload alt="image-20221119155610115"></p>
+<p>写出我们要植入的代码然后编译后反汇编</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220987.png" srcset="/img/loading.gif" lazyload alt="image-20221119155830307"></p>
+<p>根据汇编代码写出我们要植入的代码，并在缓冲区之外前八位写出我们的栈随后写出我们的cookie字符串</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220988.png" srcset="/img/loading.gif" lazyload alt="image-20221119160107283"></p>
+<p>通过hex2raw程序得到我们的字符串形式代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220989.png" srcset="/img/loading.gif" lazyload alt="image-20221119161538936"></p>
+<h3 id="phase-4"><a href="#phase-4" class="headerlink" title="phase_4"></a>phase_4</h3><p><code>rtarget</code> 中使用了两个技术来防止这种攻击：</p>
+<ul>
+<li><p>每次栈的位置是随机的，于是我们没有办法确定需要跳转的地址</p>
+</li>
+<li><p>即使我们能够找到规律注入代码，但是栈是不可执行的，一旦执行，则会遇到段错误</p>
+</li>
+</ul>
+<p>阶段四要我们重复阶段二的攻击，即执行完test函数跳转至touch2将cookie传入touch2，同时增加了限制，不能执行栈中代码，且栈地址随机</p>
+<p>我们需要利用gadget组合成我们所想要的代码，即</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220990.png" srcset="/img/loading.gif" lazyload alt="image-20221119164507199"></p>
+<p>首先我们要将我们的cookie放入rdi中，我们需要pop指令将栈中的数据放入寄存器，且pop指令后跟随ret，即5x</p>
+<p>经过搜索我们可以在getval411处找到我们想要的gadget地址是0x401a8f，是pop入rax</p>
+<p>gadget 1 pop指令 到rax</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220991.png" srcset="/img/loading.gif" lazyload alt="image-20221119172446797"></p>
+<p>下一步是找到将raxmov入rdi的gadget</p>
+<p>在函数setval_240中可以找到地址为0x401a84</p>
+<p>gadget 2 mov指令 rax到rdi</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220992.png" srcset="/img/loading.gif" lazyload alt="image-20221119172549964"></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">0x004018a9</span> ( touch2<br><span class="hljs-number">0x00401a84</span> ( gadget <span class="hljs-number">2</span> <span class="hljs-keyword">mov</span>指令<br><span class="hljs-number">0x783fc69b</span> ( cookie<br><span class="hljs-number">0x00401a8f</span> ( gadget <span class="hljs-number">1</span> <span class="hljs-keyword">pop</span>指令<br>buf (缓冲区<br></code></pre></td></tr></table></figure>
+
+<p>所以我们最后的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220993.png" srcset="/img/loading.gif" lazyload alt="image-20221119174115267"></p>
+<p>但是运行起来报了SF的错误</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220994.png" srcset="/img/loading.gif" lazyload alt="image-20221119174047165"></p>
+<p>b检查并没有报错，想起来这是一个64位的机器，且pop也是对64位的寄存器进行的操作，我们需要将其调整成64位的地址和数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220995.png" srcset="/img/loading.gif" lazyload alt="image-20221119174656761"></p>
+<h3 id="phase-5"><a href="#phase-5" class="headerlink" title="phase_5"></a>phase_5</h3><p>阶段五需要在附加条件下复现阶段三的攻击，即随机栈和栈中代码不可执行</p>
+<ol>
+<li>首先我们需要将cookie字符串写入栈缓冲区之外，字符串末位好像不错</li>
+<li>然后要将这个地址传给rdi，然后进入touch3即可</li>
+</ol>
+<p>movl的高32位零拓展的性质使得我们在使用的时候不必在意对和的影响</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">37</span> <span class="hljs-number">38</span> <span class="hljs-number">33</span> <span class="hljs-number">66</span> <span class="hljs-number">63</span> <span class="hljs-number">36</span> <span class="hljs-number">39</span> <span class="hljs-number">62</span> <span class="hljs-number">00</span> //cookie<br><span class="hljs-number">0x004019c2</span> //touch3<br><span class="hljs-number">0x00401a8</span>:<span class="hljs-number">4</span> ( gadget <span class="hljs-number">2</span> <span class="hljs-keyword">mov</span>指令 <span class="hljs-built_in">rax</span>到<span class="hljs-built_in">rdi</span><br><span class="hljs-number">0x00401aa1</span> ( gadget <span class="hljs-number">7</span> leaq指令 <span class="hljs-built_in">rax</span>=<span class="hljs-built_in">rsi</span>+<span class="hljs-built_in">rdi</span><br><br><span class="hljs-number">0x00401b4b</span> ( gadget <span class="hljs-number">6</span> movl指令 <span class="hljs-built_in">edx</span>到<span class="hljs-built_in">esi</span><br><span class="hljs-number">0x00401acf</span> ( gadget <span class="hljs-number">5</span> movl指令 <span class="hljs-built_in">ecx</span>到<span class="hljs-built_in">edx</span><br><span class="hljs-number">0x00401b11</span> ( gadget <span class="hljs-number">4</span> movl指令 <span class="hljs-built_in">eax</span>到<span class="hljs-built_in">ecx</span><br>offset//此处的offset应该是相对于取到<span class="hljs-built_in">rsp</span>处的偏移量，应为<span class="hljs-number">0x48</span><br><span class="hljs-number">0x00401a8f</span> ( gadget <span class="hljs-number">3</span> <span class="hljs-keyword">pop</span>指令 到<span class="hljs-built_in">rax</span><br><span class="hljs-number">0x00401a84</span> ( gadget <span class="hljs-number">2</span> <span class="hljs-keyword">mov</span>指令 <span class="hljs-built_in">rax</span>到<span class="hljs-built_in">rdi</span><br><span class="hljs-number">0x00401b20</span> ( gadget <span class="hljs-number">1</span> <span class="hljs-keyword">mov</span>指令 当前<span class="hljs-built_in">rsp</span>到<span class="hljs-built_in">rax</span><br>buf (缓冲区<br></code></pre></td></tr></table></figure>
+
+
+
+<p>gadget 7 leaq指令 rax&#x3D;rsi+rdi</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220996.png" srcset="/img/loading.gif" lazyload alt="image-20221119210311009"></p>
+<p>gadget 6 gadget 6 movl指令 edx到esi</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220997.png" srcset="/img/loading.gif" lazyload alt="image-20221119210923631"></p>
+<p>gadget 5 movl指令 ecx到edx    &#x2F;&#x2F;08c0会影响dx</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220998.png" srcset="/img/loading.gif" lazyload alt="image-20221119210653850"></p>
+<p>gadget 4 movl指令 eax到ecx</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220999.png" srcset="/img/loading.gif" lazyload alt="image-20221119205451593"></p>
+<p>gadget 3 pop指令 到rax</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220991.png" srcset="/img/loading.gif" lazyload alt="image-20221119172446797"></p>
+<p>gadget 2 mov指令 rax到rdi</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220992.png" srcset="/img/loading.gif" lazyload alt="image-20221119172549964"></p>
+<p>gadget 1 mov指令 当前rsp到rax</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220000.png" srcset="/img/loading.gif" lazyload alt="image-20221119204008556"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192035846.png" srcset="/img/loading.gif" lazyload alt="image-20221119155610115"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220002.png" srcset="/img/loading.gif" lazyload alt="image-20221119221956292"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211192220003.png" srcset="/img/loading.gif" lazyload alt="image-20221119222011230"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/csapp-lab/" class="category-chain-item">csapp lab</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>attacklab</div>
+      <div>http://example.com/2022/11/18/csapp lab/attack lab/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/17/csapp/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" title="第十一章 网络编程">
+                        <span class="hidden-mobile">第十一章 网络编程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

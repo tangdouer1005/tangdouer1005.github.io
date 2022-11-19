@@ -223,6 +223,60 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/11/18/csapp%20lab/attack%20lab/" target="_self">
+          attacklab
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/18/csapp%20lab/attack%20lab/" target="_self">
+        <div>
+          phase_1第一阶段要我们在执行getbuf之后直接执行touch1函数，不用担心破坏掉栈，因为touch1会直接结束进程 首先我们要查看getbuf函数创建了多大的缓冲区  只有四十个字节的缓冲区也就是说，四十个字节之上再往上即为返回地址，我们需要将这个返回地址改为touch1的首地址所以说我们输入字符串的前四十个字符随意，第四十一到四十八字符需要是touch1首地址对应的字符as码形式  首
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-18 19:17" pubdate>
+              2022-11-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/csapp-lab/" class="category-chain-item">csapp lab</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/11/17/csapp/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" target="_self">
           第十一章 网络编程
         </a>
@@ -231,7 +285,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/11/17/csapp/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" target="_self">
         <div>
-          11.1 客户端-服务器编程模型一个应用是由一个服务器进程和多个客户端进程组成，服务器管理操控资源为客户端提供服务  11.2 网络对主机而言，网络就是一种IO设备  11.3 全球IP因特网有时间看 11.4 套接字接口是一组函数和Unix IO结合创建网络应用  11.41 嵌套字地址结构
+          11.1 客户端-服务器编程模型一个应用是由一个服务器进程和多个客户端进程组成，服务器管理操控资源为客户端提供服务  11.2 网络对主机而言，网络就是一种IO设备  物理上而言，网络是按照地理远近组成的层次系统 局域网最低层次是局域网（以太网为主） 集线器不加甄别的收到来自一个端口的数据并发送到其他所有端口 主机发送frame帧到这个以太网的其他主机，包括头部（标识帧的来源目以及大小）  利用网
         </div>
       </a>
 
@@ -688,60 +742,6 @@
       <span class="category-chain">
         
   <a href="/categories/%E8%AF%BE%E5%86%85/" class="category-chain-item">课内</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/21/linux/%E2%80%9Clinux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E2%80%9D/" target="_self">
-          linux系统下的基本操作
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/21/linux/%E2%80%9Clinux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E2%80%9D/" target="_self">
-        <div>
-          linux 基本命令 vi编辑器Visual interface的简称 可通过vi打开或者新建并打开文件 进入一个已经存在的文件可能会发出以下警告  非正常关闭vi编辑器时会生成一个.swp文件。当你打开一个文件，vi就会生成这么一个.(filename)swp文件以备不测（多个程序同时编辑文件，非常规退出），如果你正常退出，那么这个这个swp文件将会自动删除。  vi有三种操作模式：命令行模式，
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-21 22:06" pubdate>
-              2022-10-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
   
   
 
