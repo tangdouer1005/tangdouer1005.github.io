@@ -16,37 +16,23 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="linux 基本命令 vi编辑器Visual interface的简称 可通过vi打开或者新建并打开文件 进入一个已经存在的文件可能会发出以下警告  非正常关闭vi编辑器时会生成一个.swp文件。当你打开一个文件，vi就会生成这么一个.(filename)swp文件以备不测（多个程序同时编辑文件，非常规退出），如果你正常退出，那么这个这个swp文件将会自动删除。  vi有三种操作模式：命令行模式，">
+    <meta name="description" content="对于以二进制模式打开的流，其类继承于fstream虽然也可以使用&lt;&lt;&gt;&gt;，但没有任何意义，二进制文件有专属的操作函数，read和write函数  而且注意缓存">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux系统下的基本操作">
-<meta property="og:url" content="http://example.com/2022/10/21/linux/%E2%80%9Clinux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E2%80%9D/index.html">
+<meta property="og:title" content="c++文件流读写二进制操作">
+<meta property="og:url" content="http://example.com/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/c++%E6%96%87%E4%BB%B6%E6%B5%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="linux 基本命令 vi编辑器Visual interface的简称 可通过vi打开或者新建并打开文件 进入一个已经存在的文件可能会发出以下警告  非正常关闭vi编辑器时会生成一个.swp文件。当你打开一个文件，vi就会生成这么一个.(filename)swp文件以备不测（多个程序同时编辑文件，非常规退出），如果你正常退出，那么这个这个swp文件将会自动删除。  vi有三种操作模式：命令行模式，">
+<meta property="og:description" content="对于以二进制模式打开的流，其类继承于fstream虽然也可以使用&lt;&lt;&gt;&gt;，但没有任何意义，二进制文件有专属的操作函数，read和write函数  而且注意缓存">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/2cadV7i4yYKFuUJ.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/FmLaBf9gcouyGDt.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/Ba6G93v1ewrc2JE.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/nHZyoAwY8uePNr7.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/nBuiDAGwrsxXN2p.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/yXAsBNj4MDcOUx6.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/nVb1Cg6qpY7hRXo.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/DELIVNebMpJvwKX.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/NiDTVFPRfeEOqn5.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/Tj8Gag29Qr1y6Rw.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/JPsXNiYgMponOVT.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/XgOLatyGoPx719D.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/mosTBUfSJpGW1g2.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/VF5YG9iumBplKE4.png">
-<meta property="og:image" content="https://s2.loli.net/2022/10/21/TxZjiFANzLIgOb9.png">
-<meta property="article:published_time" content="2022-10-21T14:06:06.000Z">
-<meta property="article:modified_time" content="2022-10-28T03:30:25.536Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211211301763.png">
+<meta property="article:published_time" content="2022-10-21T02:41:51.000Z">
+<meta property="article:modified_time" content="2022-11-21T05:01:30.448Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/10/21/2cadV7i4yYKFuUJ.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211211301763.png">
   
   
   
-  <title>linux系统下的基本操作 - Hexo</title>
+  <title>c++文件流读写二进制操作 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="linux系统下的基本操作"></span>
+            <span id="subtitle" data-typed-text="c++文件流读写二进制操作"></span>
           
         </div>
 
@@ -222,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-21 22:06" pubdate>
-          2022年10月21日 晚上
+        <time datetime="2022-10-21 10:41" pubdate>
+          2022年10月21日 上午
         </time>
       </span>
     
@@ -234,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          281 字
+          89 字
         
       </span>
     
@@ -245,7 +231,7 @@
         
         
         
-          3 分钟
+          1 分钟
         
       </span>
     
@@ -283,29 +269,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">linux系统下的基本操作</h1>
+            <h1 style="display: none">c++文件流读写二进制操作</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="linux-基本命令"><a href="#linux-基本命令" class="headerlink" title="linux 基本命令"></a>linux 基本命令</h3><p><img src="https://s2.loli.net/2022/10/21/2cadV7i4yYKFuUJ.png" srcset="/img/loading.gif" lazyload alt="image-20221021220939335"></p>
-<h3 id="vi编辑器"><a href="#vi编辑器" class="headerlink" title="vi编辑器"></a>vi编辑器</h3><p>Visual interface的简称</p>
-<p>可通过vi打开或者新建并打开文件</p>
-<p>进入一个已经存在的文件可能会发出以下警告</p>
-<p><img src="https://s2.loli.net/2022/10/21/FmLaBf9gcouyGDt.png" srcset="/img/loading.gif" lazyload alt="image-20221021224056329"></p>
-<p>非正常关闭vi编辑器时会生成一个.swp文件。当你打开一个文件，vi就会生成这么一个.(filename)swp文件以备不测（多个程序同时编辑文件，非常规退出），如果你正常退出，那么这个这个swp文件将会自动删除。</p>
-<p><img src="https://s2.loli.net/2022/10/21/Ba6G93v1ewrc2JE.png" srcset="/img/loading.gif" lazyload alt="image-20221021224452097"></p>
-<p>vi有三种操作模式：命令行模式，插入模式，底行模式（通常算入命令行模式）</p>
-<p>通过一下方式进入插入模式<img src="https://s2.loli.net/2022/10/21/nHZyoAwY8uePNr7.png" srcset="/img/loading.gif" lazyload alt="image-20221021221547762"></p>
-<p>esc进入命令行模式</p>
-<p>命令行模式下退出vi<img src="https://s2.loli.net/2022/10/21/nBuiDAGwrsxXN2p.png" srcset="/img/loading.gif" lazyload alt="image-20221021221442704"></p>
-<p>vi的功能键（命令行模式）</p>
-<p><img src="https://s2.loli.net/2022/10/21/yXAsBNj4MDcOUx6.png" srcset="/img/loading.gif" lazyload alt="image-20221021221749580">s<br><img src="https://s2.loli.net/2022/10/21/nVb1Cg6qpY7hRXo.png" srcset="/img/loading.gif" lazyload alt="image-20221021221806162"><br><img src="https://s2.loli.net/2022/10/21/DELIVNebMpJvwKX.png" srcset="/img/loading.gif" lazyload alt="image-20221021221824790"></p>
-<p>底行模式的命令</p>
-<p><img src="https://s2.loli.net/2022/10/21/NiDTVFPRfeEOqn5.png" srcset="/img/loading.gif" lazyload alt="image-20221021221914987"><br><img src="https://s2.loli.net/2022/10/21/Tj8Gag29Qr1y6Rw.png" srcset="/img/loading.gif" lazyload alt="image-20221021221931019"></p>
-<h3 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h3><p><img src="https://s2.loli.net/2022/10/21/JPsXNiYgMponOVT.png" srcset="/img/loading.gif" lazyload alt="image-20221021222210064"></p>
-<h3 id="GDB"><a href="#GDB" class="headerlink" title="GDB"></a>GDB</h3><p><img src="https://s2.loli.net/2022/10/21/XgOLatyGoPx719D.png" srcset="/img/loading.gif" lazyload alt="image-20221021230231442"></p>
-<h3 id="objdump反汇编器"><a href="#objdump反汇编器" class="headerlink" title="objdump反汇编器"></a>objdump反汇编器</h3><p><img src="https://s2.loli.net/2022/10/21/mosTBUfSJpGW1g2.png" srcset="/img/loading.gif" lazyload alt="image-20221021230519267"><img src="https://s2.loli.net/2022/10/21/VF5YG9iumBplKE4.png" srcset="/img/loading.gif" lazyload alt="image-20221021230538240"> <img src="https://s2.loli.net/2022/10/21/TxZjiFANzLIgOb9.png" srcset="/img/loading.gif" lazyload alt="image-20221021230559158"></p>
+                <p>对于以二进制模式打开的流，其类继承于fstream虽然也可以使用&lt;&lt;&gt;&gt;，但没有任何意义，二进制文件有专属的操作函数，read和write函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202211211301763.png" srcset="/img/loading.gif" lazyload alt="image-20221121130004590"></p>
+<p>而且注意缓存</p>
 
                 
               </div>
@@ -324,7 +295,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  <a href="/categories/tangdouer%E5%B9%B3%E6%97%B6%E7%A7%AF%E7%B4%AF%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86/" class="category-chain-item">tangdouer平时积累的小知识</a>
   
   
 
@@ -344,8 +315,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>linux系统下的基本操作</div>
-      <div>http://example.com/2022/10/21/linux/“linux系统下的基本操作”/</div>
+      <div>c++文件流读写二进制操作</div>
+      <div>http://example.com/2022/10/21/小知识/c++文件流二进制操作/</div>
     </div>
     <div class="license-meta">
       
@@ -389,9 +360,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/28/%E8%AF%BE%E5%86%85%E5%A4%8D%E4%B9%A0/%E7%A6%BB%E6%95%A3blog/" title="离散期中复习">
+                      <a href="/2022/10/21/linux/%E2%80%9Clinux%E7%B3%BB%E7%BB%9F%E4%B8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E2%80%9D/" title="linux系统下的基本操作">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">离散期中复习</span>
+                        <span class="hidden-mobile">linux系统下的基本操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -399,8 +370,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/c++%E6%96%87%E4%BB%B6%E6%B5%81%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%93%8D%E4%BD%9C/" title="c++文件流读写二进制操作">
-                        <span class="hidden-mobile">c++文件流读写二进制操作</span>
+                      <a href="/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/" title="博客使用">
+                        <span class="hidden-mobile">博客使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
