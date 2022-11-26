@@ -35,7 +35,6 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213791.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213792.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213793.png">
-<meta property="og:image" content="http://example.com/pic/image-20220904144733406.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213794.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213796.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213797.png">
@@ -83,8 +82,6 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213838.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213839.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213840.png">
-<meta property="og:image" content="http://example.com/pic/image-20220906184947526.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213841.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213842.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213843.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213844.png">
@@ -92,7 +89,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213846.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213847.png">
 <meta property="article:published_time" content="2022-10-10T14:15:24.615Z">
-<meta property="article:modified_time" content="2022-10-11T04:07:36.572Z">
+<meta property="article:modified_time" content="2022-11-25T07:58:39.136Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213782.png">
@@ -287,7 +284,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          4.5k 字
         
       </span>
     
@@ -298,7 +295,7 @@
         
         
         
-          33 分钟
+          38 分钟
         
       </span>
     
@@ -353,8 +350,8 @@
 <p>​	六个条件传输指令，条件码满足约束条件，在寄存器间传输数据</p>
 <h4 id="4-13指令编码"><a href="#4-13指令编码" class="headerlink" title="4.13指令编码"></a>4.13指令编码</h4><p>​	每条指令需要1~10个字节不等<br>​	每条指令首字节表明指令的类型，高四位称为代码部分，第四位称为功能部分，功能值在相关指令公用相同代码值时使用，rrmovq和条件数据传输指令公用<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213784.png" srcset="/img/loading.gif" lazyload alt="image-20220902111046199"></p>
 <p>寄存器文件就是cpu中以寄存器ID为地址的随机访问存储器<img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213785.png" srcset="/img/loading.gif" lazyload alt="image-20220902111431914"></p>
-<p>若指令只需一个寄存器，则将寄存器指示符字节第四位设为0XF</p>
-<p>整数采用小端法编码，字节以相反的顺序出现</p>
+<p>若指令只需一个寄存器，则将寄存器指示符字节第四位设为<strong>0XF</strong></p>
+<p>整数采用<strong>小端法编码</strong>，字节以相反的顺序出现</p>
 <p>指令的首个字节有唯一代码和功能重合，根据首字节可以推断出其后所附加字节长度和含义</p>
 <h4 id="4-14-Y86-64异常"><a href="#4-14-Y86-64异常" class="headerlink" title="4.14 Y86-64异常"></a>4.14 Y86-64异常</h4><p>start状态码<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213786.png" srcset="/img/loading.gif" lazyload alt="image-20220902133657250"></p>
 <p>ADR为试图访问超出限制范围的地址</p>
@@ -375,7 +372,7 @@
 <p>机器级编程和硬件编程中存储器的差别<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213792.png" srcset="/img/loading.gif" lazyload alt="image-20220904093616836"></p>
 <p>当时钟信号处于高电平时，时钟寄存器更新，否则保持输出<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213793.png" srcset="/img/loading.gif" lazyload alt="image-20220904093904255"></p>
 <p>寄存器文件有两个读端口和一个写端口，每个端口都有地址输入</p>
-<p>向寄存器文件写数据受时钟信号控制，其类似于硬件寄存器，而读数据不受控制<br><img src="/pic/image-20220904144733406.png" srcset="/img/loading.gif" lazyload alt="image-20220904144733406"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213794.png" srcset="/img/loading.gif" lazyload alt="image-20220904095538932"></p>
+<p>向寄存器文件写数据受时钟信号控制，其类似于硬件寄存器，而读数据不受控制<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213794.png" srcset="/img/loading.gif" lazyload alt="image-20220904095538932"></p>
 <p>地址超出合法范围输出error信号，其他类似数据寄存器</p>
 <h3 id="4-3Y86的实现顺序"><a href="#4-3Y86的实现顺序" class="headerlink" title="4.3Y86的实现顺序"></a>4.3Y86的实现顺序</h3><p>SEQ处理器一个时钟周期完成一条指令，时钟频率过低</p>
 <h4 id="4-31将处理组织成阶段"><a href="#4-31将处理组织成阶段" class="headerlink" title="4.31将处理组织成阶段"></a>4.31将处理组织成阶段</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213796.png" srcset="/img/loading.gif" lazyload alt="image-20220904101416428"><br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213797.png" srcset="/img/loading.gif" lazyload alt="image-20220904101434311"></p>
@@ -418,29 +415,34 @@
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213815.png" srcset="/img/loading.gif" lazyload alt="image-20220905140727680"></p>
 <p><img src="/pic/image-20220905140739791.png" srcset="/img/loading.gif" lazyload alt="image-20220905140739791"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213816.png" srcset="/img/loading.gif" lazyload alt="image-20220905140802551"></p>
 <h3 id="4-4-流水线的通用原理"><a href="#4-4-流水线的通用原理" class="headerlink" title="4.4 流水线的通用原理"></a>4.4 流水线的通用原理</h3><h4 id="4-41-计算流水线"><a href="#4-41-计算流水线" class="headerlink" title="4.41 计算流水线"></a>4.41 计算流水线</h4><p>流水线的重要特性——吞吐量，单位时间内读取指令的条数，GIPS</p>
-<p>流水线，增加了一些硬件进而增加了一些延迟，响应的提高了系统的吞吐量</p>
+<p>流水线，增加了一些硬件（主要是流水线寄存器）进而增加了一些延迟，响应的提高了系统的吞吐量</p>
 <h4 id="4-42-流水线操作的详细说明"><a href="#4-42-流水线操作的详细说明" class="headerlink" title="4.42 流水线操作的详细说明"></a>4.42 流水线操作的详细说明</h4><p>流水线计算的时序和操作<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213817.png" srcset="/img/loading.gif" lazyload alt="image-20220905161757411"></p>
 <p>时钟信号控制指令在流水线之间的阶段转移</p>
 <p>每个阶段时钟信号上升前，值到达寄存器，上升后读入</p>
 <h4 id="4-43-流水线的局限性"><a href="#4-43-流水线的局限性" class="headerlink" title="4.43 流水线的局限性"></a>4.43 流水线的局限性</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213818.png" srcset="/img/loading.gif" lazyload alt="image-20220905164014253"></p>
 <p>1、不一致的划分</p>
+<p>运行时钟的时间由最慢的阶段限制</p>
+<p>倾向于划分成有相同延迟的阶段，但某些阶段如alu使用和读内存不可划分</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213819.png" srcset="/img/loading.gif" lazyload alt="image-20220905164026928"></p>
 <p>2、流水线过深，收益反而下降</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213820.png" srcset="/img/loading.gif" lazyload alt="image-20220905165233034"></p>
-<p>流水线寄存器的延迟占比较大</p>
+<p>流水线寄存器的延迟占比较大，虽然还可以提高吞吐量，但硬件开销增大，性价比降低</p>
 <h4 id="4-44-带反馈的流水线系统"><a href="#4-44-带反馈的流水线系统" class="headerlink" title="4.44 带反馈的流水线系统"></a>4.44 带反馈的流水线系统</h4><p>指令间的数据相关和控制相关由反馈路径解决</p>
+<p>但直接加入反馈路径显然是错误的，我们需要新的方式</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213821.png" srcset="/img/loading.gif" lazyload alt="image-20220905170820993"></p>
-<h3 id="4-5-Y86-64的流水线实现"><a href="#4-5-Y86-64的流水线实现" class="headerlink" title="4.5 Y86-64的流水线实现"></a>4.5 Y86-64的流水线实现</h3><h4 id="4-51SEQ-重新安排计算阶段"><a href="#4-51SEQ-重新安排计算阶段" class="headerlink" title="4.51SEQ+重新安排计算阶段"></a>4.51SEQ+重新安排计算阶段</h4><p>将PC更新阶段设置在一个时钟周期的的开始，创建状态寄存器保存上一个指令执行官过程中发出的信号，周期开始时，运算更新PC</p>
-<p>SEQ+中没有PC储存的寄存器，每个周期通过动态运算得到当前PC</p>
+<h3 id="4-5-Y86-64的流水线实现"><a href="#4-5-Y86-64的流水线实现" class="headerlink" title="4.5 Y86-64的流水线实现"></a>4.5 Y86-64的流水线实现</h3><h4 id="4-51SEQ-重新安排计算阶段"><a href="#4-51SEQ-重新安排计算阶段" class="headerlink" title="4.51SEQ+重新安排计算阶段"></a>4.51SEQ+重新安排计算阶段</h4><p>将PC更新阶段设置在一个时钟周期的的开始，<strong>创建状态寄存器</strong>保存上一个指令执行官过程中发出的信号，周期开始时，<strong>运算更新PC</strong></p>
+<p>SEQ+中<strong>没有PC储存的寄存器</strong>，每个周期通过动态运算得到当前PC</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213822.png" srcset="/img/loading.gif" lazyload alt="image-20220905213326157"></p>
-<h4 id="4-52-插入流水线寄存器"><a href="#4-52-插入流水线寄存器" class="headerlink" title="4.52 插入流水线寄存器"></a>4.52 插入流水线寄存器</h4><p> 插入流水线寄存器并对信号重新排序，得到PIPE-处理器</p>
+<h4 id="4-52-插入流水线寄存器"><a href="#4-52-插入流水线寄存器" class="headerlink" title="4.52 插入流水线寄存器"></a>4.52 插入流水线寄存器</h4><p> 在SEQ+<strong>插入流水线寄存器</strong>并<strong>对信号重新排序</strong>，得到PIPE-处理器</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213823.png" srcset="/img/loading.gif" lazyload alt="image-20220905213750696"></p>
-<h4 id="4-53-对信号进行重新排列和标号"><a href="#4-53-对信号进行重新排列和标号" class="headerlink" title="4.53 对信号进行重新排列和标号"></a>4.53 对信号进行重新排列和标号</h4><p>SEQ+译码阶段产生的dstE和dstM信号（写回阶段目的地）直接输入寄存器文件，PIPE-的信号 穿过执行和访存阶段，直到写回阶段才送到寄存器文件，确保写入端口的数据和地址来自同一条指令。</p>
-<p>selectA可以减少流水线寄存器的大小</p>
+<h4 id="4-53-对信号进行重新排列和标号"><a href="#4-53-对信号进行重新排列和标号" class="headerlink" title="4.53 对信号进行重新排列和标号"></a>4.53 对信号进行重新排列和标号</h4><p>不同于SEQ一个指令只会产生一个信号，流水线形式的处理器将一个指令分为多个阶段同一个信号会产生多次，例如stat，对其加前缀以区分，最后写回的信号W_stat才是最终的信号</p>
+<p>SEQ+译码阶段产生的dstE和dstM信号（写回阶段目的地）直接输入寄存器文件，PIPE-的信号 穿过执行和访存阶段，直到写回阶段才送到寄存器文件，确保写入端口的数据和地址来自同一条指令。</p>
+<p>selectA可以减少流水线寄存器的大小，因为valP和valA在之后的阶段任何指令都不会同时使用（valP只有call的访存阶段（保存返回地址），跳转指令条件判断失败的执行阶段，PC预测错误会作为M_valA读入seletpc）</p>
 <h4 id="4-54预测下一个PC"><a href="#4-54预测下一个PC" class="headerlink" title="4.54预测下一个PC"></a>4.54预测下一个PC</h4><p>流水线模式，在取址后马上要确定下一条指令的位置，控制转移指令</p>
-<p>除条件分支指令和ret外其他指令可精确预测通过valCvalP</p>
-<p>条件分支采用分支预测，ret直接暂停直到ret指令通过写回阶段，高性能处理器中含有一个硬件栈存放调用函数的返回地址</p>
-<p>selectPC选择C、P或ret访存值</p>
+<p>除条件分支指令和ret外其他指令可精确预测通过valC valP</p>
+<p>我们条件分支采用<strong>总是选择分支预测策略</strong></p>
+<p>ret直接暂停直到ret指令通过写回阶段，高性能处理器中含有一个硬件栈存放调用函数的返回地址</p>
+<p>selectPC选择predictpc或M_valA（条件分支预测失败，实则为valP）或W_valM（ret通过访存栈中返回地址）</p>
 <h4 id="4-55流水线冒险"><a href="#4-55流水线冒险" class="headerlink" title="4.55流水线冒险"></a>4.55流水线冒险</h4><p>指令间存在相关时可能会导致问题，包括数据相关和控制相关产生数据冒险和控制冒险</p>
 <p>一条指令的操作数被他前三条指令改变的话，就会出现数据冲突，译码和写回差三个周期</p>
 <p>1、用暂停避免冒险</p>
@@ -457,26 +459,32 @@
 <p>同时译码时发现读取的寄存器有未完成的写操作，然后其他指令执行阶段的结构会写入该寄存器也会执行转发操作</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213828.png" srcset="/img/loading.gif" lazyload alt="image-20220906111116699"></p>
 <p>上描述的三个转发源实质都是来自于ALU，访存阶段产生的valM也可以实现转发，所以一共有五个转发源</p>
+<p>根据转发源的优先级，对比每个阶段的dstE（执行阶段得到valE要写回的寄存器ID）与dstM（访存阶段得到valE要写回的寄存器ID）确定转发源</p>
+<p>增加FWD硬件逻辑</p>
 <p>3、加载&#x2F;使用数据冒险</p>
 <p>从内存中读取数据的指令之后紧接着使用的数据冒险无法进行转发操作（加载使用）</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213829.png" srcset="/img/loading.gif" lazyload alt="image-20220906112300994"></p>
 <p>这种用暂停处理加载使用冒险的方式叫做加载互锁，和转发连用可以解决所有数据冒险</p>
 <p>4、避免控制冒险</p>
 <p>控制冒险只发生在跳转指令和ret</p>
-<p>ret指令访存阶段之前无法得到下条指令的地址，只能bubble三个周期</p>
+<p>ret指令访存阶段之前无法得到下条指令的地址，只能bubble三个周期（我们的实现，还有其他复杂的方法）</p>
 <p>跳转指令预测错误之后</p>
 <p>因为指令的执行阶段才会改变程序员可见状态，所以发现指令预测错误后将错误指令插入bubble然后取出正确指令即可完成指令排除</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213830.png" srcset="/img/loading.gif" lazyload alt="image-20220906140042072"></p>
 <h4 id="4-56-异常处理"><a href="#4-56-异常处理" class="headerlink" title="4.56 异常处理"></a>4.56 异常处理</h4><p>异常指令之后的所有指令不能影响系统状态</p>
 <p>异常类型：<br>1、halt指令<br>2、非法指令和功能码组合<br>3、访问非法地址</p>
+<p>小细节</p>
 <p>1、同时出现多个异常时，流水线深处的异常优先级高</p>
-<p>2、分支预测中出现异常，预测错误后取消了异常</p>
-<p>3、一条指令导致异常后，气候指令的某个阶段导致改变系统状态</p>
-<p>流水线中加入异常处理逻辑，流水线寄存器中包括状态码跟随其他信息在流水线中传递，直到写回状态，在此流水线逻辑发现异常，分支判断错误中的指令无法到达写回阶段。</p>
+<p>2、分支预测中出现异常，预测错误后取消了异常<br>    流水线中加入异常处理逻辑，流水线寄存器中包括状态码跟随其他信息在流水线中传递，直到写回状态，在此流水线逻辑发现异常，<strong>分支判断错误中的指令无法到达写回阶段</strong>。</p>
+<p>3、一条指令导致异常后，同时进行的指令的某个阶段改变错误的系统状态<br>    处于访存和写回的指令出现异常后，流水线控制逻辑进制更新程序员可见状态禁止更新</p>
 <p>处于访存和写回的指令出现异常后，流水线控制逻辑进制更新程序员可见状态禁止更新</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213831.png" srcset="/img/loading.gif" lazyload alt="image-20220906145157083"></p>
-<h4 id="4-57-PIPE各阶段的实现"><a href="#4-57-PIPE各阶段的实现" class="headerlink" title="4.57 PIPE各阶段的实现"></a>4.57 PIPE各阶段的实现</h4><h5 id="1、PC选择和取指阶段"><a href="#1、PC选择和取指阶段" class="headerlink" title="1、PC选择和取指阶段"></a>1、PC选择和取指阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213832.png" srcset="/img/loading.gif" lazyload alt="image-20220906150347434"></p>
+<h4 id="4-57-PIPE各阶段的实现"><a href="#4-57-PIPE各阶段的实现" class="headerlink" title="4.57 PIPE各阶段的实现"></a>4.57 PIPE各阶段的实现</h4><p>相较于SEQ，PIPE中大写的前缀表示<strong>源值</strong>来自该阶段流水线寄存器中的值，小写前缀表示<strong>结果值</strong>来源于该阶段的产生结果</p>
+<p>我们应该考虑的是相较于SEQ阶段改进的设计</p>
+<h5 id="1、PC选择和取指阶段"><a href="#1、PC选择和取指阶段" class="headerlink" title="1、PC选择和取指阶段"></a>1、PC选择和取指阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213832.png" srcset="/img/loading.gif" lazyload alt="image-20220906150347434"></p>
+<p>pc选择考虑条件跳转指令完成条件判断失败，ret指令完成取址，否则为pc预测值                       </p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213833.png" srcset="/img/loading.gif" lazyload alt="image-20220906150808700"></p>
+<p>pc预测考虑函数调用跳转和条件跳转</p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213834.png" srcset="/img/loading.gif" lazyload alt="image-20220906150821228"></p>
 <h5 id="2、译码和写回阶段"><a href="#2、译码和写回阶段" class="headerlink" title="2、译码和写回阶段"></a>2、译码和写回阶段</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213835.png" srcset="/img/loading.gif" lazyload alt="image-20220906151030521"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213836.png" srcset="/img/loading.gif" lazyload alt="image-20220906151234277"></p>
@@ -491,7 +499,6 @@
 <p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213840.png" srcset="/img/loading.gif" lazyload alt="image-20220906165417383"></p>
 <p>分支预测错误时，在分支指令的执行阶段后插入bubble然后读取正确指令</p>
 <p>流水线中出现异常时stat跟随流水线传递，到达写回阶段程序停止，但期间无法更改程序员可见状态</p>
-<p><img src="/pic/image-20220906184947526.png" srcset="/img/loading.gif" lazyload alt="image-20220906184947526"><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213841.png" srcset="/img/loading.gif" lazyload alt="image-20220906185000123"></p>
 <h5 id="2、发现特殊控制条件"><a href="#2、发现特殊控制条件" class="headerlink" title="2、发现特殊控制条件"></a>2、发现特殊控制条件</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213842.png" srcset="/img/loading.gif" lazyload alt="image-20220906185937089"></p>
 <h5 id="3、流水线控制机制"><a href="#3、流水线控制机制" class="headerlink" title="3、流水线控制机制"></a>3、流水线控制机制</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210102213843.png" srcset="/img/loading.gif" lazyload alt="image-20220906191026009"></p>
 <p>每个流水线寄存器都有两个控制输入——暂停和气泡，<br>两个信号都为0时寄存器正常更新；<br>暂停为1，气泡为0时寄存器保持原有状态，指令阻塞；<br>暂停为0、气泡为1时寄存器设置成固定的复位配置，等同于nop指令<br>都为1视为错误</p>
