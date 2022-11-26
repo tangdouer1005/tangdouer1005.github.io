@@ -270,11 +270,11 @@
   
   
   <entry>
-    <title>博客使用</title>
-    <link href="/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"/>
-    <url>/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</url>
+    <title>补码整数除2^k</title>
+    <link href="/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/"/>
+    <url>/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/</url>
     
-    <content type="html"><![CDATA[<p>hexo和yaml语言语言有关比如，比如其会通过标题中的category:  some，将此文章分类</p><h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front_matter"></a>Front_matter</h3><p>文件上方以——分割的区域，用以表明文件在博客中的展示方式（分类、标题等）</p><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111057675.png" alt="image-20221011105737692"></p><h3 id="标签和分类"><a href="#标签和分类" class="headerlink" title="标签和分类"></a>标签和分类</h3><p>标签没有顺序和层次的概念，分类可设置子父类</p><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111104718.png" alt="image-20221011110442599"></p><p>注意！！！！冒号后面一定要加空格！！！且一定是半角符！！！！</p><h3 id="将含本地图片的md文档迁移至blog"><a href="#将含本地图片的md文档迁移至blog" class="headerlink" title="将含本地图片的md文档迁移至blog"></a>将含本地图片的md文档迁移至blog</h3><p>配置好picgo图床后插件商城中下载pic-migrater，设置中选择文件进行迁移，即可将md中的本地文件上传至设定好的图床，可直接推至博客</p>]]></content>
+    <content type="html"><![CDATA[<p>a若不做改变直接对补码进行算数右移（x&gt;&gt;k），则会造成正数负数都向下舍入，但我们想要的是向零舍入，解决方案是设置偏置值</p><p>(x+(1&lt;&lt;k)-1)&gt;&gt;k</p><p>(1&lt;&lt;k)-1即为所加偏移量，对于需要偏移的数据来说，偏移量会对结果加一，不需要偏移的数据偏移量只会影响被移掉的部位</p><p>所以说计算机在进行整数除2^k，需要先判断该整数为正数还是负数，若为负数则偏移后进行算数右移</p>]]></content>
     
     
     <categories>
@@ -289,11 +289,11 @@
   
   
   <entry>
-    <title>补码整数除2^k</title>
-    <link href="/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/"/>
-    <url>/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E8%A1%A5%E7%A0%81%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/</url>
+    <title>博客使用</title>
+    <link href="/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/"/>
+    <url>/2022/10/21/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<p>a若不做改变直接对补码进行算数右移（x&gt;&gt;k），则会造成正数负数都向下舍入，但我们想要的是向零舍入，解决方案是设置偏置值</p><p>(x+(1&lt;&lt;k)-1)&gt;&gt;k</p><p>(1&lt;&lt;k)-1即为所加偏移量，对于需要偏移的数据来说，偏移量会对结果加一，不需要偏移的数据偏移量只会影响被移掉的部位</p><p>所以说计算机在进行整数除2^k，需要先判断该整数为正数还是负数，若为负数则偏移后进行算数右移</p>]]></content>
+    <content type="html"><![CDATA[<p>hexo和yaml语言语言有关比如，比如其会通过标题中的category:  some，将此文章分类</p><h3 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front_matter"></a>Front_matter</h3><p>文件上方以——分割的区域，用以表明文件在博客中的展示方式（分类、标题等）</p><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111057675.png" alt="image-20221011105737692"></p><h3 id="标签和分类"><a href="#标签和分类" class="headerlink" title="标签和分类"></a>标签和分类</h3><p>标签没有顺序和层次的概念，分类可设置子父类</p><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202210111104718.png" alt="image-20221011110442599"></p><p>注意！！！！冒号后面一定要加空格！！！且一定是半角符！！！！</p><h3 id="将含本地图片的md文档迁移至blog"><a href="#将含本地图片的md文档迁移至blog" class="headerlink" title="将含本地图片的md文档迁移至blog"></a>将含本地图片的md文档迁移至blog</h3><p>配置好picgo图床后插件商城中下载pic-migrater，设置中选择文件进行迁移，即可将md中的本地文件上传至设定好的图床，可直接推至博客</p>]]></content>
     
     
     <categories>
