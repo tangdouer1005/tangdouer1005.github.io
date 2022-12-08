@@ -223,6 +223,60 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" target="_self">
+          5.最长回文子串
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/13/leetcode/5-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/" target="_self">
+        <div>
+          a 本题使用动态规划，我自己的想法是f【i】【j】的含义是从i开始的到j的子串是否为回文串，但是写起来发现i从0开始迭代时，需要用到i+1开始的子串，如果i从字符串尾部开始迭代同样会 用到之后才能确定的状态，故无从下手 看了题解，题解给出的解决方式将将要确定的子串的长度作为循环参数，因为长度为N的子串只会用到长度为N-2的子串的状态，这样就能保证动态规划的正确执行 1234567891011121
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-13 21:27" pubdate>
+              2022-10-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/lc/" class="category-chain-item">lc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/10/13/leetcode/3.%E6%9C%80%E9%95%BF%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%90%E4%B8%B2/" target="_self">
           3.最长无重复子串
         </a>
@@ -700,67 +754,6 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2022-10-11 13:14" pubdate>
-              2022-10-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E7%AE%97%E6%B3%95/%E6%A0%91%E4%B8%8E%E5%9B%BE/" class="category-chain-item">树与图</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/11/%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF/" target="_self">
-          最短路
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/11/%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF/" target="_self">
-        <div>
-          最短路单源最短路，从一个点的最短路 多源汇最短路，汇就是终点  朴素Dijkstra 第一步 初始化距离，dist【1】&#x3D;0，其他所有点都是正无穷 第二步 将已知最小距离的点放入S ​			循环将不在最小距离的点放入S（可以用堆优化（稀疏图一般用邻接表实现）），用此点更新其他点的距离 bellman ford ​	 123456789101112131415161718192021222
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-11 13:13" pubdate>
               2022-10-11
             </time>
           </div>
