@@ -1,0 +1,939 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第八 高级计数技术8.1 用递推关系构造模型讲了5个例题 具体在p443，只贴最后两个   8.2 求解线性递推关系线性常系数齐次 特点  解决方法 两种关键方法 第一种：  首先假设an&#x3D;r^n为递推关系的解，带入转化为递推关系的特征方程，求出特征解 特征解的线性组合也是其解 我们先研究二阶的，二阶的好求，给个例子，分为两根和重根    一般情况（大于二阶）   线性常系数非齐次 重点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="离散期末预习">
+<meta property="og:url" content="http://example.com/2022/12/13/%E8%AF%BE%E5%86%85%E5%A4%8D%E4%B9%A0/%E7%A6%BB%E6%95%A3%E6%9C%9F%E6%9C%AB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第八 高级计数技术8.1 用递推关系构造模型讲了5个例题 具体在p443，只贴最后两个   8.2 求解线性递推关系线性常系数齐次 特点  解决方法 两种关键方法 第一种：  首先假设an&#x3D;r^n为递推关系的解，带入转化为递推关系的特征方程，求出特征解 特征解的线性组合也是其解 我们先研究二阶的，二阶的好求，给个例子，分为两根和重根    一般情况（大于二阶）   线性常系数非齐次 重点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143704405.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143718187.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144356952.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144541186.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213145402280.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150131262.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150854236.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150710293.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151015284.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151151488.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151940559.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155420058.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155512575.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155626417.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160125615.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160845971.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161223458.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161339197.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213163224888.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165304336.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165416414.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165952450.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213170707079.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184130594.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184622799.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184757705.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185040786.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185500913.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185510286.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185609521.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185619060.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185539086.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190005116.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185945512.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190525794.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190916691.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213191004273.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194222576.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194416406.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213195711277.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213201247752.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213204016031.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172041221.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172323748.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172402081.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214173807453.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174254193.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174730471.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175831578.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175847783.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193059636.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193656789.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193814031.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193926931.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193936847.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194102244.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194645639.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194738347.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214200936346.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201257573.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201414543.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201739752.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202356406.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202344257.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204928420.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204937209.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210024706.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210419370.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210551463.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210651100.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211116436.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211127701.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214214223269.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215335180.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215404892.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220641941.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220630523.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214221018622.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215133823273.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215134434691.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145433934.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145507576.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145517222.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153652918.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153753871.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153926376.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154055893.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154123123.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154137921.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154149412.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154439089.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154741739.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154810026.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154940040.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161044886.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161127077.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165149799.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165229900.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170514304.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170717339.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170845175.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170855175.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171124920.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171337635.png">
+<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171432684.png">
+<meta property="article:published_time" content="2022-12-13T05:43:59.452Z">
+<meta property="article:modified_time" content="2022-12-15T10:11:41.967Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143704405.png">
+  
+  
+  
+  <title>离散期末预习 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="离散期末预习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-13 13:43" pubdate>
+          2022年12月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">离散期末预习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="第八-高级计数技术"><a href="#第八-高级计数技术" class="headerlink" title="第八 高级计数技术"></a>第八 高级计数技术</h3><h4 id="8-1-用递推关系构造模型"><a href="#8-1-用递推关系构造模型" class="headerlink" title="8.1 用递推关系构造模型"></a>8.1 用递推关系构造模型</h4><p>讲了5个例题</p>
+<p>具体在p443，只贴最后两个</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143704405.png" srcset="/img/loading.gif" lazyload alt="image-20221213143704405"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143718187.png" srcset="/img/loading.gif" lazyload alt="image-20221213143718187"></p>
+<h4 id="8-2-求解线性递推关系"><a href="#8-2-求解线性递推关系" class="headerlink" title="8.2 求解线性递推关系"></a>8.2 求解线性递推关系</h4><h5 id="线性常系数齐次"><a href="#线性常系数齐次" class="headerlink" title="线性常系数齐次"></a>线性常系数齐次</h5><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144356952.png" srcset="/img/loading.gif" lazyload alt="image-20221213144356952"></p>
+<p>特点</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144541186.png" srcset="/img/loading.gif" lazyload alt="image-20221213144541186"></p>
+<p>解决方法</p>
+<p>两种关键方法</p>
+<p>第一种：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213145402280.png" srcset="/img/loading.gif" lazyload alt="image-20221213145402280"></p>
+<p>首先假设an&#x3D;r^n为递推关系的解，带入转化为递推关系的特征方程，求出特征解</p>
+<p>特征解的线性组合也是其解</p>
+<p>我们先研究二阶的，二阶的好求，给个例子，分为两根和重根</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150131262.png" srcset="/img/loading.gif" lazyload alt="image-20221213150131262"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150854236.png" srcset="/img/loading.gif" lazyload alt="image-20221213150854236"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150710293.png" srcset="/img/loading.gif" lazyload alt="image-20221213150710293"></p>
+<p>一般情况（大于二阶）</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151015284.png" srcset="/img/loading.gif" lazyload alt="image-20221213151015284"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151151488.png" srcset="/img/loading.gif" lazyload alt="image-20221213151151488"></p>
+<h5 id="线性常系数非齐次"><a href="#线性常系数非齐次" class="headerlink" title="线性常系数非齐次"></a>线性常系数非齐次</h5><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151940559.png" srcset="/img/loading.gif" lazyload alt="image-20221213151940559"></p>
+<p>重点就是求出一个特解</p>
+<h4 id="8-3-分支和递推关系"><a href="#8-3-分支和递推关系" class="headerlink" title="8.3 分支和递推关系"></a>8.3 分支和递推关系</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155420058.png" srcset="/img/loading.gif" lazyload alt="image-20221213155420058"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155512575.png" srcset="/img/loading.gif" lazyload alt="image-20221213155512575"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155626417.png" srcset="/img/loading.gif" lazyload alt="image-20221213155626417"></p>
+<h4 id="8-4-生成函数"><a href="#8-4-生成函数" class="headerlink" title="8.4 生成函数"></a>8.4 生成函数</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160125615.png" srcset="/img/loading.gif" lazyload alt="image-20221213160125615"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160845971.png" srcset="/img/loading.gif" lazyload alt="image-20221213160845971"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161223458.png" srcset="/img/loading.gif" lazyload alt="image-20221213161223458"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161339197.png" srcset="/img/loading.gif" lazyload alt="image-20221213161339197"></p>
+<p>生成函数和计数问题</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213163224888.png" srcset="/img/loading.gif" lazyload alt="image-20221213163224888"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165304336.png" srcset="/img/loading.gif" lazyload alt="image-20221213165304336"></p>
+<p>这道例题是讲证明C(n,k)的值，每个元素贡献（1+x）是指，可选或不选的意思</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165416414.png" srcset="/img/loading.gif" lazyload alt="image-20221213165416414"></p>
+<p>这个元素可以选123456…..无数次，所以贡献了这些次</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165952450.png" srcset="/img/loading.gif" lazyload alt="image-20221213165952450"></p>
+<p>使用升成函数求解递推问题</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213170707079.png" srcset="/img/loading.gif" lazyload alt="image-20221213170707079"></p>
+<p>关键点就在于，将生成函数展开后将之前的项转化为当前项</p>
+<p>an，然后得出g（x）查表得到an</p>
+<h3 id="第十章-图"><a href="#第十章-图" class="headerlink" title="第十章 图"></a>第十章 图</h3><h4 id="10-1-图和图模型"><a href="#10-1-图和图模型" class="headerlink" title="10.1 图和图模型"></a>10.1 图和图模型</h4><p>定义</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184130594.png" srcset="/img/loading.gif" lazyload alt="image-20221213184130594"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184622799.png" srcset="/img/loading.gif" lazyload alt="image-20221213184622799"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184757705.png" srcset="/img/loading.gif" lazyload alt="image-20221213184757705"></p>
+<h4 id="10-2-图术语和几种特殊的图"><a href="#10-2-图术语和几种特殊的图" class="headerlink" title="10.2 图术语和几种特殊的图"></a>10.2 图术语和几种特殊的图</h4><p>基本术语</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185040786.png" srcset="/img/loading.gif" lazyload alt="image-20221213185040786"></p>
+<p>度为0的顶点称为孤立的，为1的顶点称为悬挂的</p>
+<p>关于度的定理</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185500913.png" srcset="/img/loading.gif" lazyload alt="image-20221213185500913"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185510286.png" srcset="/img/loading.gif" lazyload alt="image-20221213185510286"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185609521.png" srcset="/img/loading.gif" lazyload alt="image-20221213185609521"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185619060.png" srcset="/img/loading.gif" lazyload alt="image-20221213185619060"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185539086.png" srcset="/img/loading.gif" lazyload alt="image-20221213185539086"></p>
+<p>几种特殊的图：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190005116.png" srcset="/img/loading.gif" lazyload alt="image-20221213190005116"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185945512.png" srcset="/img/loading.gif" lazyload alt="image-20221213185945512"></p>
+<p>二分图：<br><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190525794.png" srcset="/img/loading.gif" lazyload alt="image-20221213190525794"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190916691.png" srcset="/img/loading.gif" lazyload alt="image-20221213190916691"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213191004273.png" srcset="/img/loading.gif" lazyload alt="image-20221213191004273"></p>
+<p>二分图的匹配：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194222576.png" srcset="/img/loading.gif" lazyload alt="image-20221213194222576"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194416406.png" srcset="/img/loading.gif" lazyload alt="image-20221213194416406"></p>
+<p>新图构造旧图:</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213195711277.png" srcset="/img/loading.gif" lazyload alt="image-20221213195711277"></p>
+<p>导出子图</p>
+<p>边的收缩：</p>
+<p>删除端点为uv的边e，将uv合并为新的顶点w</p>
+<p>从图中删除顶点：删除顶点的同时将其作为顶点的边同时也删除</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213201247752.png" srcset="/img/loading.gif" lazyload alt="image-20221213201247752"></p>
+<h4 id="10-3-图的表示和图的同构"><a href="#10-3-图的表示和图的同构" class="headerlink" title="10.3 图的表示和图的同构"></a>10.3 图的表示和图的同构</h4><p>两个图有完全相同的形式，即两个图的顶点之间存在着一一对应，这个对应保持着边的对应关系，称为同构</p>
+<p>图的表示：</p>
+<p>邻接表</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213204016031.png" srcset="/img/loading.gif" lazyload alt="image-20221213204016031"></p>
+<p>邻接矩阵</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172041221.png" srcset="/img/loading.gif" lazyload alt="image-20221214172041221"></p>
+<p>一个图有n！个邻接矩阵取决于选择顶点的顺序</p>
+<p>关联矩阵</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172323748.png" srcset="/img/loading.gif" lazyload alt="image-20221214172323748"></p>
+<p>图的同构</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172402081.png" srcset="/img/loading.gif" lazyload alt="image-20221214172402081"></p>
+<p>判断两个图是否同构</p>
+<p>找出图在同构中的<strong>图形不变量</strong>：顶点数，边数，对应顶点的度数，不过这些不变量相同时也不能判断是否同构</p>
+<p>判断同构可以写出特定的邻接矩阵，相同则同构</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214173807453.png" srcset="/img/loading.gif" lazyload alt="image-20221214173807453"></p>
+<h4 id="10-4-图的连通性"><a href="#10-4-图的连通性" class="headerlink" title="10.4 图的连通性"></a>10.4 图的连通性</h4><p>通路：边的序列</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174254193.png" srcset="/img/loading.gif" lazyload alt="image-20221214174254193"></p>
+<p>简单通路不包括重复边</p>
+<p>有向图中的定义</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174730471.png" srcset="/img/loading.gif" lazyload alt="image-20221214174730471"></p>
+<p>没有必要区分多重边时就用顶点表示通路</p>
+<p>无向图的连通性：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175831578.png" srcset="/img/loading.gif" lazyload alt="image-20221214175831578"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175847783.png" srcset="/img/loading.gif" lazyload alt="image-20221214175847783"></p>
+<p>连通分支（连通分量）：</p>
+<p>其实就是极大连通子图，不是另一个连通子图的真子集</p>
+<p>如果删除图中的一个点就产生了不连通的图，叫这个点为割点，如果是一个边则为割边或桥</p>
+<p>不含割点的图称为不可分割图</p>
+<p>如果一个图删去顶点的子集的顶点时，图变得不连通，则这个子集为此图的点割集</p>
+<p>完全图删除定点后仍然是完全图，所以没有点割集</p>
+<p>连通度</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193059636.png" srcset="/img/loading.gif" lazyload alt="image-20221214193059636"></p>
+<p>边连通度</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193656789.png" srcset="/img/loading.gif" lazyload alt="image-20221214193656789"></p>
+<p>点连通度和边连通度相关的的不等式</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193814031.png" srcset="/img/loading.gif" lazyload alt="image-20221214193814031"></p>
+<p>有向图中的强连通和弱连通</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193926931.png" srcset="/img/loading.gif" lazyload alt="image-20221214193926931"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193936847.png" srcset="/img/loading.gif" lazyload alt="image-20221214193936847"></p>
+<p>强连通分量</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194102244.png" srcset="/img/loading.gif" lazyload alt="image-20221214194102244"></p>
+<p>通路和同构</p>
+<p>除了点数，边数，每个点的度，图中是否存在k长度的简单通路也是一个不变量可以用以判断不是同构</p>
+<p>也可以辅助找到同构的映射</p>
+<p>计算两个顶点之间的通路数:</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194645639.png" srcset="/img/loading.gif" lazyload alt="image-20221214194645639"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194738347.png" srcset="/img/loading.gif" lazyload alt="image-20221214194738347"></p>
+<h4 id="10-5-欧拉通路和哈密顿通路"><a href="#10-5-欧拉通路和哈密顿通路" class="headerlink" title="10.5 欧拉通路和哈密顿通路"></a>10.5 欧拉通路和哈密顿通路</h4><p>从一个点出发经过图中的每一个<strong>边</strong>回到源顶点，欧拉回路问题</p>
+<p>从一个点出发经过图中的每一个<strong>点</strong>回到源顶点，哈密顿回路问题</p>
+<p>欧拉通路和回路问题</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214200936346.png" srcset="/img/loading.gif" lazyload alt="image-20221214200936346"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201257573.png" srcset="/img/loading.gif" lazyload alt="image-20221214201257573"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201414543.png" srcset="/img/loading.gif" lazyload alt="image-20221214201414543"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201739752.png" srcset="/img/loading.gif" lazyload alt="image-20221214201739752"></p>
+<p>哈密顿通路与哈密顿回路</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202356406.png" srcset="/img/loading.gif" lazyload alt="image-20221214202356406"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202344257.png" srcset="/img/loading.gif" lazyload alt="image-20221214202344257"></p>
+<h4 id="10-6-最短通路问题"><a href="#10-6-最短通路问题" class="headerlink" title="10.6 最短通路问题"></a>10.6 最短通路问题</h4><p>迪杰斯特拉算法</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204928420.png" srcset="/img/loading.gif" lazyload alt="image-20221214204928420"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204937209.png" srcset="/img/loading.gif" lazyload alt="image-20221214204937209"></p>
+<h4 id="10-7-平面图"><a href="#10-7-平面图" class="headerlink" title="10.7 平面图"></a>10.7 平面图</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210024706.png" srcset="/img/loading.gif" lazyload alt="image-20221214210024706"></p>
+<p>欧拉定理</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210419370.png" srcset="/img/loading.gif" lazyload alt="image-20221214210419370"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210551463.png" srcset="/img/loading.gif" lazyload alt="image-20221214210551463"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210651100.png" srcset="/img/loading.gif" lazyload alt="image-20221214210651100"></p>
+<p>库拉图斯定理</p>
+<p>同胚和初等细分</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211116436.png" srcset="/img/loading.gif" lazyload alt="image-20221214211116436"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211127701.png" srcset="/img/loading.gif" lazyload alt="image-20221214211127701"></p>
+<h4 id="10-8-图着色"><a href="#10-8-图着色" class="headerlink" title="10.8 图着色"></a>10.8 图着色</h4><p>用边表示相邻，叫做地图的对偶图</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214214223269.png" srcset="/img/loading.gif" lazyload alt="image-20221214214223269"></p>
+<p>注意是平面图</p>
+<p>完全图的着色数为顶点数</p>
+<p>色多项式</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215335180.png" srcset="/img/loading.gif" lazyload alt="image-20221214215335180"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215404892.png" srcset="/img/loading.gif" lazyload alt="image-20221214215404892"></p>
+<p>商图</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220641941.png" srcset="/img/loading.gif" lazyload alt="image-20221214220641941"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220630523.png" srcset="/img/loading.gif" lazyload alt="image-20221214220630523"></p>
+<p>删除边的色多项式减去合并边的多项式</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214221018622.png" srcset="/img/loading.gif" lazyload alt="image-20221214221018622"></p>
+<h4 id="10-9-运输网络"><a href="#10-9-运输网络" class="headerlink" title="10.9 运输网络"></a>10.9 运输网络</h4><p>运输网络的定义：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215133823273.png" srcset="/img/loading.gif" lazyload alt="image-20221215133823273"></p>
+<p>流：</p>
+<p>要求流入每个点的流等于流出某个点的流，流的守恒</p>
+<p>流出源的流等于流入汇的流，流量</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215134434691.png" srcset="/img/loading.gif" lazyload alt="image-20221215134434691"></p>
+<p>最大流算法</p>
+<p>超容量：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145433934.png" srcset="/img/loading.gif" lazyload alt="image-20221215145433934"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145507576.png" srcset="/img/loading.gif" lazyload alt="image-20221215145507576"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145517222.png" srcset="/img/loading.gif" lazyload alt="image-20221215145517222"></p>
+<p>实际就是通过广度优先搜索寻找增广链，直到没有增广链，最后根据当前每条边的超容量确定最大流</p>
+<h3 id="第十一章-树"><a href="#第十一章-树" class="headerlink" title="第十一章 树"></a>第十一章 树</h3><h4 id="11-1-树的概述"><a href="#11-1-树的概述" class="headerlink" title="11.1 树的概述"></a>11.1 树的概述</h4><p>树是不含简单回路的连通图</p>
+<p>不含简单回路的非连通图是森林</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153652918.png" srcset="/img/loading.gif" lazyload alt="image-20221215153652918"></p>
+<p>有根树</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153753871.png" srcset="/img/loading.gif" lazyload alt="image-20221215153753871"></p>
+<p>孩子，兄弟，树叶</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153926376.png" srcset="/img/loading.gif" lazyload alt="image-20221215153926376"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154055893.png" srcset="/img/loading.gif" lazyload alt="image-20221215154055893"></p>
+<p>节点计算</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154123123.png" srcset="/img/loading.gif" lazyload alt="image-20221215154123123"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154137921.png" srcset="/img/loading.gif" lazyload alt="image-20221215154137921"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154149412.png" srcset="/img/loading.gif" lazyload alt="image-20221215154149412"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154439089.png" srcset="/img/loading.gif" lazyload alt="image-20221215154439089"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154741739.png" srcset="/img/loading.gif" lazyload alt="image-20221215154741739"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154810026.png" srcset="/img/loading.gif" lazyload alt="image-20221215154810026"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154940040.png" srcset="/img/loading.gif" lazyload alt="image-20221215154940040"></p>
+<h4 id="11-2-树的应用"><a href="#11-2-树的应用" class="headerlink" title="11.2 树的应用"></a>11.2 树的应用</h4><p>二叉搜索树</p>
+<p>每个顶点储存一个关键字，大于左子树中的关键字，小于右子树中的关键字</p>
+<p>决策树</p>
+<p>每个内点为进行一次操作，叶为决策结论</p>
+<p>基于比较的排序算法复杂度：</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161044886.png" srcset="/img/loading.gif" lazyload alt="image-20221215161044886"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161127077.png" srcset="/img/loading.gif" lazyload alt="image-20221215161127077"></p>
+<p>前缀码</p>
+<p>一个字母比特表示永远不是另一个字母表示的的前缀</p>
+<p>前缀码可以用二叉树表示</p>
+<p>哈夫曼树是根据字母出现频率来得到最短编码的编码方式</p>
+<p>博弈树</p>
+<p>每个节点表示游戏的一个局面，其子节点表示可以通过一步操作达到，由同一个局面达到的对称操作可以合并简化，但是不同局面达到的相同局面保留</p>
+<p>关于策略</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165149799.png" srcset="/img/loading.gif" lazyload alt="image-20221215165149799"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165229900.png" srcset="/img/loading.gif" lazyload alt="image-20221215165229900"></p>
+<h4 id="11-3-树的遍历"><a href="#11-3-树的遍历" class="headerlink" title="11.3 树的遍历"></a>11.3 树的遍历</h4><p>通用地址系统</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170514304.png" srcset="/img/loading.gif" lazyload alt="image-20221215170514304"></p>
+<p>有序根树的遍历算法</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170717339.png" srcset="/img/loading.gif" lazyload alt="image-20221215170717339"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170845175.png" srcset="/img/loading.gif" lazyload alt="image-20221215170845175"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170855175.png" srcset="/img/loading.gif" lazyload alt="image-20221215170855175"></p>
+<p>中前后缀表达式</p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171124920.png" srcset="/img/loading.gif" lazyload alt="image-20221215171124920"></p>
+<p>前后缀表达式无二义性，不需要括号</p>
+<h4 id="11-4-生成树"><a href="#11-4-生成树" class="headerlink" title="11.4 生成树"></a>11.4 生成树</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171337635.png" srcset="/img/loading.gif" lazyload alt="image-20221215171337635"></p>
+<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171432684.png" srcset="/img/loading.gif" lazyload alt="image-20221215171432684"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BE%E5%86%85/" class="category-chain-item">课内</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>离散期末预习</div>
+      <div>http://example.com/2022/12/13/课内复习/离散期末/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/05/csapp%20lab/iolab/" title="iolab">
+                        <span class="hidden-mobile">iolab</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -223,6 +223,60 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/11/06/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%B7%A6%E5%81%8F%E5%A0%86/" target="_self">
+          左偏树的性质及其构造
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/06/%E5%B0%8F%E7%9F%A5%E8%AF%86/%E5%B7%A6%E5%81%8F%E5%A0%86/" target="_self">
+        <div>
+          堆是完全二叉树，所以通常用数组描述，但普通的堆难以完成merge，左高树可以完成 首先有 HBLT外部节点即为叶节点，其余节点为内存节点，增加了外部节点的二叉树称为扩充二叉树 定义高度优先左高树  性质：   操作 插入即为原树和只有一个节点的最小HBLT合并 删除即为左右子树合并后接入原树 所以合并为核心算法 合并  WBLT重量优先左高树 定义树的重量为内部节点的数量，左子树的重量恒大于右子树
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-06 15:57" pubdate>
+              2022-11-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/tangdouer%E5%B9%B3%E6%97%B6%E7%A7%AF%E7%B4%AF%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86/" class="category-chain-item">tangdouer平时积累的小知识</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/11/05/csapp/%E7%AC%AC%E5%85%AB%E7%AB%A0%20%E5%BC%82%E5%B8%B8%E6%B5%81%E6%8E%A7%E5%88%B6/" target="_self">
           第八章 异常控制流
         </a>
@@ -672,60 +726,6 @@
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2022-10-14 11:55" pubdate>
-              2022-10-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/lc/" class="category-chain-item">lc</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/14/leetcode/11-%E7%A7%B0%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" target="_self">
-          11.称最多水的容器
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/14/leetcode/11-%E7%A7%B0%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" target="_self">
-        <div>
-          那暴力做法就是两个循环遍历各个边界了，优化了一下，先将其排序然后，判断（S&gt;len*当前的边）就break，但复杂度还是o(n2)，空间复杂度还很高 正确做法就是双指针了，两个指针从两边逼近，每次迭代较小的那个向中间移动，直至相遇 正确性：两个指针所指位置作为容器边界，移动之后容器长度-1，所以对于较小的数，作为容器边界最大的容量就是当前这次了，以后再用到这个数不可能大于此次容量，故可将其
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-14 00:11" pubdate>
               2022-10-14
             </time>
           </div>
