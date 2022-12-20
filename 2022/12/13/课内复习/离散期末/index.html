@@ -23,116 +23,116 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="第八 高级计数技术8.1 用递推关系构造模型讲了5个例题 具体在p443，只贴最后两个   8.2 求解线性递推关系线性常系数齐次 特点  解决方法 两种关键方法 第一种：  首先假设an&#x3D;r^n为递推关系的解，带入转化为递推关系的特征方程，求出特征解 特征解的线性组合也是其解 我们先研究二阶的，二阶的好求，给个例子，分为两根和重根    一般情况（大于二阶）   线性常系数非齐次 重点">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143704405.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143718187.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144356952.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144541186.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213145402280.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150131262.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150854236.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150710293.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151015284.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151151488.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151940559.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155420058.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155512575.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155626417.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160125615.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160845971.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161223458.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161339197.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213163224888.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165304336.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165416414.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165952450.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213170707079.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184130594.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184622799.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184757705.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185040786.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185500913.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185510286.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185609521.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185619060.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185539086.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190005116.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185945512.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190525794.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190916691.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213191004273.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194222576.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194416406.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213195711277.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213201247752.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213204016031.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172041221.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172323748.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172402081.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214173807453.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174254193.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174730471.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175831578.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175847783.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193059636.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193656789.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193814031.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193926931.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193936847.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194102244.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194645639.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194738347.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214200936346.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201257573.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201414543.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201739752.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202356406.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202344257.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204928420.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204937209.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210024706.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210419370.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210551463.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210651100.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211116436.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211127701.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214214223269.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215335180.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215404892.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220641941.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220630523.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214221018622.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215133823273.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215134434691.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145433934.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145507576.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145517222.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153652918.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153753871.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153926376.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154055893.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154123123.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154137921.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154149412.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154439089.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154741739.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154810026.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154940040.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161044886.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161127077.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165149799.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165229900.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170514304.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170717339.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170845175.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170855175.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171124920.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171337635.png">
-<meta property="og:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171432684.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330345.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330347.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330348.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330349.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330350.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330351.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330352.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330353.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330354.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330355.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330356.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330357.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330358.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330359.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330360.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330361.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330363.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330364.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330365.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330366.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330367.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330368.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330369.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330370.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330371.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330372.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330373.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330374.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330375.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330376.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330377.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330378.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330379.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330380.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330381.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330382.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330383.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330384.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330385.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330386.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330387.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330388.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330389.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330390.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330391.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330392.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330393.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330394.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330395.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330396.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330397.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330398.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330399.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330400.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330401.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330402.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330403.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330404.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330405.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330406.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330407.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330408.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330409.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330410.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330411.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330412.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330413.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330414.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330415.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330416.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330417.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330418.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330419.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330420.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330421.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330422.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330424.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330425.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330426.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330427.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330428.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330429.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330430.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330431.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330432.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330433.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330434.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330435.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330436.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330437.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330438.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330439.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330440.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330441.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330442.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330443.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330444.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330445.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330446.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330447.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330448.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330449.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330450.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330451.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330452.png">
 <meta property="article:published_time" content="2022-12-13T05:43:59.452Z">
-<meta property="article:modified_time" content="2022-12-15T10:11:41.967Z">
+<meta property="article:modified_time" content="2022-12-20T15:33:45.775Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="c:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143704405.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330345.png">
   
   
   
@@ -380,97 +380,97 @@
                 
                 <h3 id="第八-高级计数技术"><a href="#第八-高级计数技术" class="headerlink" title="第八 高级计数技术"></a>第八 高级计数技术</h3><h4 id="8-1-用递推关系构造模型"><a href="#8-1-用递推关系构造模型" class="headerlink" title="8.1 用递推关系构造模型"></a>8.1 用递推关系构造模型</h4><p>讲了5个例题</p>
 <p>具体在p443，只贴最后两个</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143704405.png" srcset="/img/loading.gif" lazyload alt="image-20221213143704405"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213143718187.png" srcset="/img/loading.gif" lazyload alt="image-20221213143718187"></p>
-<h4 id="8-2-求解线性递推关系"><a href="#8-2-求解线性递推关系" class="headerlink" title="8.2 求解线性递推关系"></a>8.2 求解线性递推关系</h4><h5 id="线性常系数齐次"><a href="#线性常系数齐次" class="headerlink" title="线性常系数齐次"></a>线性常系数齐次</h5><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144356952.png" srcset="/img/loading.gif" lazyload alt="image-20221213144356952"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330345.png" srcset="/img/loading.gif" lazyload alt="image-20221213143704405"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330347.png" srcset="/img/loading.gif" lazyload alt="image-20221213143718187"></p>
+<h4 id="8-2-求解线性递推关系"><a href="#8-2-求解线性递推关系" class="headerlink" title="8.2 求解线性递推关系"></a>8.2 求解线性递推关系</h4><h5 id="线性常系数齐次"><a href="#线性常系数齐次" class="headerlink" title="线性常系数齐次"></a>线性常系数齐次</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330348.png" srcset="/img/loading.gif" lazyload alt="image-20221213144356952"></p>
 <p>特点</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213144541186.png" srcset="/img/loading.gif" lazyload alt="image-20221213144541186"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330349.png" srcset="/img/loading.gif" lazyload alt="image-20221213144541186"></p>
 <p>解决方法</p>
 <p>两种关键方法</p>
 <p>第一种：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213145402280.png" srcset="/img/loading.gif" lazyload alt="image-20221213145402280"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330350.png" srcset="/img/loading.gif" lazyload alt="image-20221213145402280"></p>
 <p>首先假设an&#x3D;r^n为递推关系的解，带入转化为递推关系的特征方程，求出特征解</p>
 <p>特征解的线性组合也是其解</p>
 <p>我们先研究二阶的，二阶的好求，给个例子，分为两根和重根</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150131262.png" srcset="/img/loading.gif" lazyload alt="image-20221213150131262"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150854236.png" srcset="/img/loading.gif" lazyload alt="image-20221213150854236"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213150710293.png" srcset="/img/loading.gif" lazyload alt="image-20221213150710293"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330351.png" srcset="/img/loading.gif" lazyload alt="image-20221213150131262"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330352.png" srcset="/img/loading.gif" lazyload alt="image-20221213150854236"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330353.png" srcset="/img/loading.gif" lazyload alt="image-20221213150710293"></p>
 <p>一般情况（大于二阶）</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151015284.png" srcset="/img/loading.gif" lazyload alt="image-20221213151015284"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151151488.png" srcset="/img/loading.gif" lazyload alt="image-20221213151151488"></p>
-<h5 id="线性常系数非齐次"><a href="#线性常系数非齐次" class="headerlink" title="线性常系数非齐次"></a>线性常系数非齐次</h5><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213151940559.png" srcset="/img/loading.gif" lazyload alt="image-20221213151940559"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330354.png" srcset="/img/loading.gif" lazyload alt="image-20221213151015284"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330355.png" srcset="/img/loading.gif" lazyload alt="image-20221213151151488"></p>
+<h5 id="线性常系数非齐次"><a href="#线性常系数非齐次" class="headerlink" title="线性常系数非齐次"></a>线性常系数非齐次</h5><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330356.png" srcset="/img/loading.gif" lazyload alt="image-20221213151940559"></p>
 <p>重点就是求出一个特解</p>
-<h4 id="8-3-分支和递推关系"><a href="#8-3-分支和递推关系" class="headerlink" title="8.3 分支和递推关系"></a>8.3 分支和递推关系</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155420058.png" srcset="/img/loading.gif" lazyload alt="image-20221213155420058"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155512575.png" srcset="/img/loading.gif" lazyload alt="image-20221213155512575"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213155626417.png" srcset="/img/loading.gif" lazyload alt="image-20221213155626417"></p>
-<h4 id="8-4-生成函数"><a href="#8-4-生成函数" class="headerlink" title="8.4 生成函数"></a>8.4 生成函数</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160125615.png" srcset="/img/loading.gif" lazyload alt="image-20221213160125615"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213160845971.png" srcset="/img/loading.gif" lazyload alt="image-20221213160845971"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161223458.png" srcset="/img/loading.gif" lazyload alt="image-20221213161223458"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213161339197.png" srcset="/img/loading.gif" lazyload alt="image-20221213161339197"></p>
+<h4 id="8-3-分支和递推关系"><a href="#8-3-分支和递推关系" class="headerlink" title="8.3 分支和递推关系"></a>8.3 分支和递推关系</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330357.png" srcset="/img/loading.gif" lazyload alt="image-20221213155420058"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330358.png" srcset="/img/loading.gif" lazyload alt="image-20221213155512575"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330359.png" srcset="/img/loading.gif" lazyload alt="image-20221213155626417"></p>
+<h4 id="8-4-生成函数"><a href="#8-4-生成函数" class="headerlink" title="8.4 生成函数"></a>8.4 生成函数</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330360.png" srcset="/img/loading.gif" lazyload alt="image-20221213160125615"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330361.png" srcset="/img/loading.gif" lazyload alt="image-20221213160845971"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330363.png" srcset="/img/loading.gif" lazyload alt="image-20221213161223458"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330364.png" srcset="/img/loading.gif" lazyload alt="image-20221213161339197"></p>
 <p>生成函数和计数问题</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213163224888.png" srcset="/img/loading.gif" lazyload alt="image-20221213163224888"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165304336.png" srcset="/img/loading.gif" lazyload alt="image-20221213165304336"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330365.png" srcset="/img/loading.gif" lazyload alt="image-20221213163224888"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330366.png" srcset="/img/loading.gif" lazyload alt="image-20221213165304336"></p>
 <p>这道例题是讲证明C(n,k)的值，每个元素贡献（1+x）是指，可选或不选的意思</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165416414.png" srcset="/img/loading.gif" lazyload alt="image-20221213165416414"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330367.png" srcset="/img/loading.gif" lazyload alt="image-20221213165416414"></p>
 <p>这个元素可以选123456…..无数次，所以贡献了这些次</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213165952450.png" srcset="/img/loading.gif" lazyload alt="image-20221213165952450"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330368.png" srcset="/img/loading.gif" lazyload alt="image-20221213165952450"></p>
 <p>使用升成函数求解递推问题</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213170707079.png" srcset="/img/loading.gif" lazyload alt="image-20221213170707079"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330369.png" srcset="/img/loading.gif" lazyload alt="image-20221213170707079"></p>
 <p>关键点就在于，将生成函数展开后将之前的项转化为当前项</p>
 <p>an，然后得出g（x）查表得到an</p>
 <h3 id="第十章-图"><a href="#第十章-图" class="headerlink" title="第十章 图"></a>第十章 图</h3><h4 id="10-1-图和图模型"><a href="#10-1-图和图模型" class="headerlink" title="10.1 图和图模型"></a>10.1 图和图模型</h4><p>定义</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184130594.png" srcset="/img/loading.gif" lazyload alt="image-20221213184130594"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184622799.png" srcset="/img/loading.gif" lazyload alt="image-20221213184622799"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213184757705.png" srcset="/img/loading.gif" lazyload alt="image-20221213184757705"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330370.png" srcset="/img/loading.gif" lazyload alt="image-20221213184130594"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330371.png" srcset="/img/loading.gif" lazyload alt="image-20221213184622799"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330372.png" srcset="/img/loading.gif" lazyload alt="image-20221213184757705"></p>
 <h4 id="10-2-图术语和几种特殊的图"><a href="#10-2-图术语和几种特殊的图" class="headerlink" title="10.2 图术语和几种特殊的图"></a>10.2 图术语和几种特殊的图</h4><p>基本术语</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185040786.png" srcset="/img/loading.gif" lazyload alt="image-20221213185040786"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330373.png" srcset="/img/loading.gif" lazyload alt="image-20221213185040786"></p>
 <p>度为0的顶点称为孤立的，为1的顶点称为悬挂的</p>
 <p>关于度的定理</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185500913.png" srcset="/img/loading.gif" lazyload alt="image-20221213185500913"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185510286.png" srcset="/img/loading.gif" lazyload alt="image-20221213185510286"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185609521.png" srcset="/img/loading.gif" lazyload alt="image-20221213185609521"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185619060.png" srcset="/img/loading.gif" lazyload alt="image-20221213185619060"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185539086.png" srcset="/img/loading.gif" lazyload alt="image-20221213185539086"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330374.png" srcset="/img/loading.gif" lazyload alt="image-20221213185500913"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330375.png" srcset="/img/loading.gif" lazyload alt="image-20221213185510286"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330376.png" srcset="/img/loading.gif" lazyload alt="image-20221213185609521"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330377.png" srcset="/img/loading.gif" lazyload alt="image-20221213185619060"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330378.png" srcset="/img/loading.gif" lazyload alt="image-20221213185539086"></p>
 <p>几种特殊的图：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190005116.png" srcset="/img/loading.gif" lazyload alt="image-20221213190005116"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213185945512.png" srcset="/img/loading.gif" lazyload alt="image-20221213185945512"></p>
-<p>二分图：<br><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190525794.png" srcset="/img/loading.gif" lazyload alt="image-20221213190525794"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213190916691.png" srcset="/img/loading.gif" lazyload alt="image-20221213190916691"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213191004273.png" srcset="/img/loading.gif" lazyload alt="image-20221213191004273"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330379.png" srcset="/img/loading.gif" lazyload alt="image-20221213190005116"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330380.png" srcset="/img/loading.gif" lazyload alt="image-20221213185945512"></p>
+<p>二分图：<br><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330381.png" srcset="/img/loading.gif" lazyload alt="image-20221213190525794"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330382.png" srcset="/img/loading.gif" lazyload alt="image-20221213190916691"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330383.png" srcset="/img/loading.gif" lazyload alt="image-20221213191004273"></p>
 <p>二分图的匹配：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194222576.png" srcset="/img/loading.gif" lazyload alt="image-20221213194222576"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213194416406.png" srcset="/img/loading.gif" lazyload alt="image-20221213194416406"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330384.png" srcset="/img/loading.gif" lazyload alt="image-20221213194222576"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330385.png" srcset="/img/loading.gif" lazyload alt="image-20221213194416406"></p>
 <p>新图构造旧图:</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213195711277.png" srcset="/img/loading.gif" lazyload alt="image-20221213195711277"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330386.png" srcset="/img/loading.gif" lazyload alt="image-20221213195711277"></p>
 <p>导出子图</p>
 <p>边的收缩：</p>
 <p>删除端点为uv的边e，将uv合并为新的顶点w</p>
 <p>从图中删除顶点：删除顶点的同时将其作为顶点的边同时也删除</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213201247752.png" srcset="/img/loading.gif" lazyload alt="image-20221213201247752"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330387.png" srcset="/img/loading.gif" lazyload alt="image-20221213201247752"></p>
 <h4 id="10-3-图的表示和图的同构"><a href="#10-3-图的表示和图的同构" class="headerlink" title="10.3 图的表示和图的同构"></a>10.3 图的表示和图的同构</h4><p>两个图有完全相同的形式，即两个图的顶点之间存在着一一对应，这个对应保持着边的对应关系，称为同构</p>
 <p>图的表示：</p>
 <p>邻接表</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221213204016031.png" srcset="/img/loading.gif" lazyload alt="image-20221213204016031"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330388.png" srcset="/img/loading.gif" lazyload alt="image-20221213204016031"></p>
 <p>邻接矩阵</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172041221.png" srcset="/img/loading.gif" lazyload alt="image-20221214172041221"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330389.png" srcset="/img/loading.gif" lazyload alt="image-20221214172041221"></p>
 <p>一个图有n！个邻接矩阵取决于选择顶点的顺序</p>
 <p>关联矩阵</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172323748.png" srcset="/img/loading.gif" lazyload alt="image-20221214172323748"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330390.png" srcset="/img/loading.gif" lazyload alt="image-20221214172323748"></p>
 <p>图的同构</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214172402081.png" srcset="/img/loading.gif" lazyload alt="image-20221214172402081"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330391.png" srcset="/img/loading.gif" lazyload alt="image-20221214172402081"></p>
 <p>判断两个图是否同构</p>
 <p>找出图在同构中的<strong>图形不变量</strong>：顶点数，边数，对应顶点的度数，不过这些不变量相同时也不能判断是否同构</p>
 <p>判断同构可以写出特定的邻接矩阵，相同则同构</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214173807453.png" srcset="/img/loading.gif" lazyload alt="image-20221214173807453"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330392.png" srcset="/img/loading.gif" lazyload alt="image-20221214173807453"></p>
 <h4 id="10-4-图的连通性"><a href="#10-4-图的连通性" class="headerlink" title="10.4 图的连通性"></a>10.4 图的连通性</h4><p>通路：边的序列</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174254193.png" srcset="/img/loading.gif" lazyload alt="image-20221214174254193"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330393.png" srcset="/img/loading.gif" lazyload alt="image-20221214174254193"></p>
 <p>简单通路不包括重复边</p>
 <p>有向图中的定义</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214174730471.png" srcset="/img/loading.gif" lazyload alt="image-20221214174730471"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330394.png" srcset="/img/loading.gif" lazyload alt="image-20221214174730471"></p>
 <p>没有必要区分多重边时就用顶点表示通路</p>
 <p>无向图的连通性：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175831578.png" srcset="/img/loading.gif" lazyload alt="image-20221214175831578"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214175847783.png" srcset="/img/loading.gif" lazyload alt="image-20221214175847783"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330395.png" srcset="/img/loading.gif" lazyload alt="image-20221214175831578"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330396.png" srcset="/img/loading.gif" lazyload alt="image-20221214175847783"></p>
 <p>连通分支（连通分量）：</p>
 <p>其实就是极大连通子图，不是另一个连通子图的真子集</p>
 <p>如果删除图中的一个点就产生了不连通的图，叫这个点为割点，如果是一个边则为割边或桥</p>
@@ -478,91 +478,91 @@
 <p>如果一个图删去顶点的子集的顶点时，图变得不连通，则这个子集为此图的点割集</p>
 <p>完全图删除定点后仍然是完全图，所以没有点割集</p>
 <p>连通度</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193059636.png" srcset="/img/loading.gif" lazyload alt="image-20221214193059636"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330397.png" srcset="/img/loading.gif" lazyload alt="image-20221214193059636"></p>
 <p>边连通度</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193656789.png" srcset="/img/loading.gif" lazyload alt="image-20221214193656789"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330398.png" srcset="/img/loading.gif" lazyload alt="image-20221214193656789"></p>
 <p>点连通度和边连通度相关的的不等式</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193814031.png" srcset="/img/loading.gif" lazyload alt="image-20221214193814031"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330399.png" srcset="/img/loading.gif" lazyload alt="image-20221214193814031"></p>
 <p>有向图中的强连通和弱连通</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193926931.png" srcset="/img/loading.gif" lazyload alt="image-20221214193926931"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214193936847.png" srcset="/img/loading.gif" lazyload alt="image-20221214193936847"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330400.png" srcset="/img/loading.gif" lazyload alt="image-20221214193926931"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330401.png" srcset="/img/loading.gif" lazyload alt="image-20221214193936847"></p>
 <p>强连通分量</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194102244.png" srcset="/img/loading.gif" lazyload alt="image-20221214194102244"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330402.png" srcset="/img/loading.gif" lazyload alt="image-20221214194102244"></p>
 <p>通路和同构</p>
 <p>除了点数，边数，每个点的度，图中是否存在k长度的简单通路也是一个不变量可以用以判断不是同构</p>
 <p>也可以辅助找到同构的映射</p>
 <p>计算两个顶点之间的通路数:</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194645639.png" srcset="/img/loading.gif" lazyload alt="image-20221214194645639"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214194738347.png" srcset="/img/loading.gif" lazyload alt="image-20221214194738347"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330403.png" srcset="/img/loading.gif" lazyload alt="image-20221214194645639"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330404.png" srcset="/img/loading.gif" lazyload alt="image-20221214194738347"></p>
 <h4 id="10-5-欧拉通路和哈密顿通路"><a href="#10-5-欧拉通路和哈密顿通路" class="headerlink" title="10.5 欧拉通路和哈密顿通路"></a>10.5 欧拉通路和哈密顿通路</h4><p>从一个点出发经过图中的每一个<strong>边</strong>回到源顶点，欧拉回路问题</p>
 <p>从一个点出发经过图中的每一个<strong>点</strong>回到源顶点，哈密顿回路问题</p>
 <p>欧拉通路和回路问题</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214200936346.png" srcset="/img/loading.gif" lazyload alt="image-20221214200936346"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201257573.png" srcset="/img/loading.gif" lazyload alt="image-20221214201257573"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201414543.png" srcset="/img/loading.gif" lazyload alt="image-20221214201414543"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214201739752.png" srcset="/img/loading.gif" lazyload alt="image-20221214201739752"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330405.png" srcset="/img/loading.gif" lazyload alt="image-20221214200936346"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330406.png" srcset="/img/loading.gif" lazyload alt="image-20221214201257573"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330407.png" srcset="/img/loading.gif" lazyload alt="image-20221214201414543"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330408.png" srcset="/img/loading.gif" lazyload alt="image-20221214201739752"></p>
 <p>哈密顿通路与哈密顿回路</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202356406.png" srcset="/img/loading.gif" lazyload alt="image-20221214202356406"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214202344257.png" srcset="/img/loading.gif" lazyload alt="image-20221214202344257"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330409.png" srcset="/img/loading.gif" lazyload alt="image-20221214202356406"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330410.png" srcset="/img/loading.gif" lazyload alt="image-20221214202344257"></p>
 <h4 id="10-6-最短通路问题"><a href="#10-6-最短通路问题" class="headerlink" title="10.6 最短通路问题"></a>10.6 最短通路问题</h4><p>迪杰斯特拉算法</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204928420.png" srcset="/img/loading.gif" lazyload alt="image-20221214204928420"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214204937209.png" srcset="/img/loading.gif" lazyload alt="image-20221214204937209"></p>
-<h4 id="10-7-平面图"><a href="#10-7-平面图" class="headerlink" title="10.7 平面图"></a>10.7 平面图</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210024706.png" srcset="/img/loading.gif" lazyload alt="image-20221214210024706"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330411.png" srcset="/img/loading.gif" lazyload alt="image-20221214204928420"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330412.png" srcset="/img/loading.gif" lazyload alt="image-20221214204937209"></p>
+<h4 id="10-7-平面图"><a href="#10-7-平面图" class="headerlink" title="10.7 平面图"></a>10.7 平面图</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330413.png" srcset="/img/loading.gif" lazyload alt="image-20221214210024706"></p>
 <p>欧拉定理</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210419370.png" srcset="/img/loading.gif" lazyload alt="image-20221214210419370"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210551463.png" srcset="/img/loading.gif" lazyload alt="image-20221214210551463"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214210651100.png" srcset="/img/loading.gif" lazyload alt="image-20221214210651100"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330414.png" srcset="/img/loading.gif" lazyload alt="image-20221214210419370"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330415.png" srcset="/img/loading.gif" lazyload alt="image-20221214210551463"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330416.png" srcset="/img/loading.gif" lazyload alt="image-20221214210651100"></p>
 <p>库拉图斯定理</p>
 <p>同胚和初等细分</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211116436.png" srcset="/img/loading.gif" lazyload alt="image-20221214211116436"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214211127701.png" srcset="/img/loading.gif" lazyload alt="image-20221214211127701"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330417.png" srcset="/img/loading.gif" lazyload alt="image-20221214211116436"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330418.png" srcset="/img/loading.gif" lazyload alt="image-20221214211127701"></p>
 <h4 id="10-8-图着色"><a href="#10-8-图着色" class="headerlink" title="10.8 图着色"></a>10.8 图着色</h4><p>用边表示相邻，叫做地图的对偶图</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214214223269.png" srcset="/img/loading.gif" lazyload alt="image-20221214214223269"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330419.png" srcset="/img/loading.gif" lazyload alt="image-20221214214223269"></p>
 <p>注意是平面图</p>
 <p>完全图的着色数为顶点数</p>
 <p>色多项式</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215335180.png" srcset="/img/loading.gif" lazyload alt="image-20221214215335180"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214215404892.png" srcset="/img/loading.gif" lazyload alt="image-20221214215404892"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330420.png" srcset="/img/loading.gif" lazyload alt="image-20221214215335180"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330421.png" srcset="/img/loading.gif" lazyload alt="image-20221214215404892"></p>
 <p>商图</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220641941.png" srcset="/img/loading.gif" lazyload alt="image-20221214220641941"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214220630523.png" srcset="/img/loading.gif" lazyload alt="image-20221214220630523"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330422.png" srcset="/img/loading.gif" lazyload alt="image-20221214220641941"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330424.png" srcset="/img/loading.gif" lazyload alt="image-20221214220630523"></p>
 <p>删除边的色多项式减去合并边的多项式</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221214221018622.png" srcset="/img/loading.gif" lazyload alt="image-20221214221018622"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330425.png" srcset="/img/loading.gif" lazyload alt="image-20221214221018622"></p>
 <h4 id="10-9-运输网络"><a href="#10-9-运输网络" class="headerlink" title="10.9 运输网络"></a>10.9 运输网络</h4><p>运输网络的定义：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215133823273.png" srcset="/img/loading.gif" lazyload alt="image-20221215133823273"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330426.png" srcset="/img/loading.gif" lazyload alt="image-20221215133823273"></p>
 <p>流：</p>
 <p>要求流入每个点的流等于流出某个点的流，流的守恒</p>
 <p>流出源的流等于流入汇的流，流量</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215134434691.png" srcset="/img/loading.gif" lazyload alt="image-20221215134434691"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330427.png" srcset="/img/loading.gif" lazyload alt="image-20221215134434691"></p>
 <p>最大流算法</p>
 <p>超容量：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145433934.png" srcset="/img/loading.gif" lazyload alt="image-20221215145433934"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145507576.png" srcset="/img/loading.gif" lazyload alt="image-20221215145507576"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215145517222.png" srcset="/img/loading.gif" lazyload alt="image-20221215145517222"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330428.png" srcset="/img/loading.gif" lazyload alt="image-20221215145433934"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330429.png" srcset="/img/loading.gif" lazyload alt="image-20221215145507576"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330430.png" srcset="/img/loading.gif" lazyload alt="image-20221215145517222"></p>
 <p>实际就是通过广度优先搜索寻找增广链，直到没有增广链，最后根据当前每条边的超容量确定最大流</p>
 <h3 id="第十一章-树"><a href="#第十一章-树" class="headerlink" title="第十一章 树"></a>第十一章 树</h3><h4 id="11-1-树的概述"><a href="#11-1-树的概述" class="headerlink" title="11.1 树的概述"></a>11.1 树的概述</h4><p>树是不含简单回路的连通图</p>
 <p>不含简单回路的非连通图是森林</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153652918.png" srcset="/img/loading.gif" lazyload alt="image-20221215153652918"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330431.png" srcset="/img/loading.gif" lazyload alt="image-20221215153652918"></p>
 <p>有根树</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153753871.png" srcset="/img/loading.gif" lazyload alt="image-20221215153753871"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330432.png" srcset="/img/loading.gif" lazyload alt="image-20221215153753871"></p>
 <p>孩子，兄弟，树叶</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215153926376.png" srcset="/img/loading.gif" lazyload alt="image-20221215153926376"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154055893.png" srcset="/img/loading.gif" lazyload alt="image-20221215154055893"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330433.png" srcset="/img/loading.gif" lazyload alt="image-20221215153926376"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330434.png" srcset="/img/loading.gif" lazyload alt="image-20221215154055893"></p>
 <p>节点计算</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154123123.png" srcset="/img/loading.gif" lazyload alt="image-20221215154123123"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154137921.png" srcset="/img/loading.gif" lazyload alt="image-20221215154137921"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154149412.png" srcset="/img/loading.gif" lazyload alt="image-20221215154149412"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154439089.png" srcset="/img/loading.gif" lazyload alt="image-20221215154439089"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154741739.png" srcset="/img/loading.gif" lazyload alt="image-20221215154741739"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154810026.png" srcset="/img/loading.gif" lazyload alt="image-20221215154810026"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215154940040.png" srcset="/img/loading.gif" lazyload alt="image-20221215154940040"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330435.png" srcset="/img/loading.gif" lazyload alt="image-20221215154123123"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330436.png" srcset="/img/loading.gif" lazyload alt="image-20221215154137921"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330437.png" srcset="/img/loading.gif" lazyload alt="image-20221215154149412"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330438.png" srcset="/img/loading.gif" lazyload alt="image-20221215154439089"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330439.png" srcset="/img/loading.gif" lazyload alt="image-20221215154741739"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330440.png" srcset="/img/loading.gif" lazyload alt="image-20221215154810026"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330441.png" srcset="/img/loading.gif" lazyload alt="image-20221215154940040"></p>
 <h4 id="11-2-树的应用"><a href="#11-2-树的应用" class="headerlink" title="11.2 树的应用"></a>11.2 树的应用</h4><p>二叉搜索树</p>
 <p>每个顶点储存一个关键字，大于左子树中的关键字，小于右子树中的关键字</p>
 <p>决策树</p>
 <p>每个内点为进行一次操作，叶为决策结论</p>
 <p>基于比较的排序算法复杂度：</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161044886.png" srcset="/img/loading.gif" lazyload alt="image-20221215161044886"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215161127077.png" srcset="/img/loading.gif" lazyload alt="image-20221215161127077"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330442.png" srcset="/img/loading.gif" lazyload alt="image-20221215161044886"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330443.png" srcset="/img/loading.gif" lazyload alt="image-20221215161127077"></p>
 <p>前缀码</p>
 <p>一个字母比特表示永远不是另一个字母表示的的前缀</p>
 <p>前缀码可以用二叉树表示</p>
@@ -570,19 +570,19 @@
 <p>博弈树</p>
 <p>每个节点表示游戏的一个局面，其子节点表示可以通过一步操作达到，由同一个局面达到的对称操作可以合并简化，但是不同局面达到的相同局面保留</p>
 <p>关于策略</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165149799.png" srcset="/img/loading.gif" lazyload alt="image-20221215165149799"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215165229900.png" srcset="/img/loading.gif" lazyload alt="image-20221215165229900"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330444.png" srcset="/img/loading.gif" lazyload alt="image-20221215165149799"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330445.png" srcset="/img/loading.gif" lazyload alt="image-20221215165229900"></p>
 <h4 id="11-3-树的遍历"><a href="#11-3-树的遍历" class="headerlink" title="11.3 树的遍历"></a>11.3 树的遍历</h4><p>通用地址系统</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170514304.png" srcset="/img/loading.gif" lazyload alt="image-20221215170514304"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330446.png" srcset="/img/loading.gif" lazyload alt="image-20221215170514304"></p>
 <p>有序根树的遍历算法</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170717339.png" srcset="/img/loading.gif" lazyload alt="image-20221215170717339"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170845175.png" srcset="/img/loading.gif" lazyload alt="image-20221215170845175"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215170855175.png" srcset="/img/loading.gif" lazyload alt="image-20221215170855175"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330447.png" srcset="/img/loading.gif" lazyload alt="image-20221215170717339"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330448.png" srcset="/img/loading.gif" lazyload alt="image-20221215170845175"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330449.png" srcset="/img/loading.gif" lazyload alt="image-20221215170855175"></p>
 <p>中前后缀表达式</p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171124920.png" srcset="/img/loading.gif" lazyload alt="image-20221215171124920"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330450.png" srcset="/img/loading.gif" lazyload alt="image-20221215171124920"></p>
 <p>前后缀表达式无二义性，不需要括号</p>
-<h4 id="11-4-生成树"><a href="#11-4-生成树" class="headerlink" title="11.4 生成树"></a>11.4 生成树</h4><p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171337635.png" srcset="/img/loading.gif" lazyload alt="image-20221215171337635"></p>
-<p><img src="C:\Users\86159\AppData\Roaming\Typora\typora-user-images\image-20221215171432684.png" srcset="/img/loading.gif" lazyload alt="image-20221215171432684"></p>
+<h4 id="11-4-生成树"><a href="#11-4-生成树" class="headerlink" title="11.4 生成树"></a>11.4 生成树</h4><p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330451.png" srcset="/img/loading.gif" lazyload alt="image-20221215171337635"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/tangdouer1005/tangdourercdn/first/202212202330452.png" srcset="/img/loading.gif" lazyload alt="image-20221215171432684"></p>
 
                 
               </div>
